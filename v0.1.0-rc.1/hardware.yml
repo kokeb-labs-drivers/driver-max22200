@@ -1,0 +1,205 @@
+---
+# The chip's hardware in one file: package, pins, the driver hook of each pin, the blocks inside, and the reference
+# circuit. `kokeb-docs figures` draws the pinout, the block diagram and the circuit from it, `kokeb-docs gen` writes
+# the pin and parts tables on docs/hardware.md, `kokeb-docs hardware --check` validates it and
+# `kokeb-docs hardware --kicad-netlist OUT --circuit typical` exports the circuit for a schematic or PCB tool.
+# Schema: docs/chip-diagrams.md in kokeb-labs/ci-tools.
+#
+# Every fact cites the MAX22200/MAX22200A data sheet (19-100531 Rev. 1), listed in docs/datasheets.yml; both parts
+# have the same pins.
+schema: 1
+chip: MAX22200
+
+refs:
+  blocks: {doc: ds, section: "Simplified Block Diagram", page: 2}
+  supply: {doc: ds, section: "Electrical Characteristics (Supply Voltage)", page: 7}
+  logic: {doc: ds, section: "Electrical Characteristics (LDO, Charge Pump, Logic Inputs-Outputs)", page: 8}
+  spi_timing: {doc: ds, section: "Electrical Characteristics (SPI); Figure 1", page: 10}
+  pinout: {doc: ds, section: "Pin Configuration", page: 12}
+  pins: {doc: ds, section: "Pin Description", page: 12}
+  pins2: {doc: ds, section: "Pin Description (continued)", page: 13}
+  enable: {doc: ds, section: "Enable Logic Input", page: 14}
+  ifs: {doc: ds, section: "Full-Scale Current Setting (IFS)", page: 18}
+  protect: {doc: ds, section: "Protection Circuits", page: 21}
+  spi: {doc: ds, section: "SPI Detailed Description", page: 23}
+  app: {doc: ds, section: "Typical Application Circuits; Application Diagram", page: 44}
+
+package:
+  type: TQFN-32
+  pins: 32
+  exposed_pad: true
+  # As the Pin Configuration draws it (top view): pins 1 to 8 along the bottom, 9 to 16 up the right side.
+  sides:
+    left: [25, 26, 27, 28, 29, 30, 31, 32]
+    bottom: [1, 2, 3, 4, 5, 6, 7, 8]
+    right: [9, 10, 11, 12, 13, 14, 15, 16]
+    top: [17, 18, 19, 20, 21, 22, 23, 24]
+  ref: pinout
+
+hooks:
+  - {id: transfer, call: "Transfer()", kind: spi, source: inc/max22200_spi_interface.hpp, symbol: Transfer}
+  - {id: cmd, call: "GpioSet(CtrlPin::Cmd)", kind: gpio-out, source: inc/max22200_spi_interface.hpp, symbol: Cmd}
+  - {id: enable, call: "GpioSet(CtrlPin::Enable)", kind: gpio-out, source: inc/max22200_spi_interface.hpp,
+     symbol: Enable}
+  - {id: fault, call: "GpioRead(CtrlPin::Fault)", kind: gpio-in, source: inc/max22200_spi_interface.hpp,
+     symbol: Fault}
+
+pins:
+  - {number: 1, name: FAULT, type: open-drain, domain: logic,
+     function: "Fault output, low while an unmasked fault is present; needs a pull-up", hook: fault,
+     unused: Leave open, ref: pins}
+  - {number: 2, name: CMD, type: digital-in, domain: logic,
+     function: "High to write the Command Register, low for every other register; pull-down", hook: cmd, ref: pins}
+  - {number: 3, name: CSB, type: bus, domain: logic, function: "SPI chip select, active low; pull-up current",
+     hook: transfer, ref: pins}
+  - {number: 4, name: GND, type: ground, domain: GND, function: Signal ground, ref: pins}
+  - {number: 5, name: SCK, type: bus, domain: logic, function: "SPI clock, up to 10 MHz; pull-down", hook: transfer,
+     ref: spi_timing}
+  - {number: 6, name: SDI, type: bus, domain: logic, function: "SPI data in (MOSI); pull-down", hook: transfer,
+     ref: pins}
+  - {number: 7, name: SDO, type: bus, domain: logic, function: "SPI data out (MISO), open drain; needs a pull-up",
+     hook: transfer, ref: pins}
+  - {number: 8, name: TRIGA, type: digital-in, domain: logic,
+     function: "Trigger input of channels 0, 2, 4 and 6; pull-down", unused: Connect to GND, ref: pins}
+  - {number: 9, name: VM, type: power, domain: VM, function: "Supply, 4.5 V to 36 V", ref: supply}
+  - {number: 10, name: OUT4, type: power-out, domain: VM, function: "Half-bridge output, channel 4", unused: Leave open,
+     ref: pins2}
+  - {number: 11, name: OUT5, type: power-out, domain: VM, function: "Half-bridge output, channel 5", unused: Leave open,
+     ref: pins2}
+  - {number: 12, name: VM, type: power, domain: VM, function: "Supply; 0.1 µF ceramic at pins 12 and 13", ref: pins}
+  - {number: 13, name: VM, type: power, domain: VM, function: "Supply; 0.1 µF ceramic at pins 12 and 13", ref: pins}
+  - {number: 14, name: OUT6, type: power-out, domain: VM, function: "Half-bridge output, channel 6", unused: Leave open,
+     ref: pins2}
+  - {number: 15, name: OUT7, type: power-out, domain: VM, function: "Half-bridge output, channel 7", unused: Leave open,
+     ref: pins2}
+  - {number: 16, name: VM, type: power, domain: VM, function: Supply, ref: pins}
+  - {number: 17, name: TRIGB, type: digital-in, domain: logic,
+     function: "Trigger input of channels 1, 3, 5 and 7; pull-down", unused: Connect to GND, ref: pins}
+  - {number: 18, name: IREF, type: analog, domain: V18,
+     function: "15 kΩ to 100 kΩ to GND sets the full-scale current of every CDR channel", ref: pins2}
+  - {number: 19, name: GND, type: ground, domain: GND, function: Signal ground, ref: pins}
+  - {number: 20, name: V18, type: power, domain: V18, function: "1.8 V LDO output; 2.2 µF ceramic to GND, no load",
+     ref: pins2}
+  - {number: 21, name: ENABLE, type: digital-in, domain: logic,
+     function: "High: on; low: sleep. 1.5 MΩ pull-down; tolerates VM", hook: enable, ref: enable}
+  - {number: 22, name: CFN, type: analog, domain: VM, function: "Charge pump, 22 nF VM-rated ceramic to CFP",
+     ref: pins2}
+  - {number: 23, name: CFP, type: analog, domain: VM, function: "Charge pump, 22 nF VM-rated ceramic to CFN",
+     ref: pins2}
+  - {number: 24, name: VCP, type: analog, domain: VM, function: "Charge-pump output, 1 µF (5 V or more) to VM",
+     ref: pins2}
+  - {number: 25, name: VM, type: power, domain: VM, function: Supply, ref: pins}
+  - {number: 26, name: OUT3, type: power-out, domain: VM, function: "Half-bridge output, channel 3", unused: Leave open,
+     ref: pins2}
+  - {number: 27, name: OUT2, type: power-out, domain: VM, function: "Half-bridge output, channel 2", unused: Leave open,
+     ref: pins2}
+  - {number: 28, name: VM, type: power, domain: VM, function: "Supply; 0.1 µF ceramic at pins 28 and 29", ref: pins}
+  - {number: 29, name: VM, type: power, domain: VM, function: "Supply; 0.1 µF ceramic at pins 28 and 29", ref: pins}
+  - {number: 30, name: OUT1, type: power-out, domain: VM, function: "Half-bridge output, channel 1", unused: Leave open,
+     ref: pins2}
+  - {number: 31, name: OUT0, type: power-out, domain: VM, function: "Half-bridge output, channel 0", unused: Leave open,
+     ref: pins2}
+  - {number: 32, name: VM, type: power, domain: VM, function: Supply, ref: pins}
+  - {number: EP, name: PGND, type: ground, domain: GND,
+     function: "Exposed pad: power ground and heat path; solder to the ground plane", ref: pins2}
+
+block_diagram:
+  ref: blocks
+  blocks:
+    - {id: ldo, label: LDO, detail: "1.8 V, enable", at: [0, 0], tone: slate, pins: [ENABLE, V18, GND],
+       ref: logic}
+    - {id: cp, label: Charge pump, detail: "VCP = VM + 2.7 V", at: [0, 1], tone: slate, pins: [VCP, CFP, CFN],
+       ref: logic}
+    - {id: spi, label: SPI interface, detail: "mode 0, CMD selects", at: [0, 2], tone: blue,
+       pins: [CSB, SCK, SDI, SDO, CMD], ref: spi}
+    - {id: prot, label: Protection, detail: "UVLO, OVT", at: [1, 5], side: left, tone: amber, pins: [FAULT],
+       ref: protect}
+    - {id: iref, label: Current reference, detail: "RREF sets IFS", at: [0, 4], pins: [IREF], ref: ifs}
+    - {id: logic, label: VDR/CDR control logic, detail: "fault management", at: [1, 3], tone: teal,
+       pins: [TRIGA, TRIGB], side: left}
+    - {id: osc, label: Oscillator, detail: "chopping clock", at: [2, 4], tone: slate}
+    - {id: bridges, label: Half bridges, at: [2, 3],
+       detail: "OUT0 to OUT7: gate driver, OCP, current sense, DAC, open-load detect", tone: violet, side: right,
+       pins: [OUT0, OUT1, OUT2, OUT3, OUT4, OUT5, OUT6, OUT7, VM, PGND]}
+  links:
+    - {from: spi, to: logic, label: registers, both: true}
+    - {from: logic, to: bridges, label: "drive, sense", both: true}
+    - {from: logic, to: prot, label: faults}
+    - {from: osc, to: logic, label: clock}
+    - {from: iref, to: logic, label: IFS}
+
+circuits:
+  - id: typical
+    title: Application diagram
+    description: >-
+      The data sheet's application diagram on a 24 V supply: L0 on OUT0 driven high side to GND, L1 on OUT1 low side
+      from the supply, the latched (bistable) valve between OUT2 and OUT3 as a full bridge, L3 on OUT4 and OUT5 in
+      parallel, low side, and a brushed DC motor between OUT6 and OUT7. The MCU drives SPI, CMD and ENABLE, reads
+      FAULT, and may pulse TRIGA; TRIGB is grounded, so channels 4 to 7 switch over SPI.
+    ref: app
+    parts:
+      - {id: U1, kind: chip}
+      - id: U2
+        kind: mcu
+        label: MCU
+        pins:
+          - {name: SCK, label: SPI SCK}
+          - {name: MOSI, label: SPI MOSI}
+          - {name: MISO, label: SPI MISO}
+          - {name: CS, label: SPI CS}
+          - {name: CMD, label: GPIO}
+          - {name: EN, label: GPIO}
+          - {name: FLT, label: GPIO (IRQ)}
+          - {name: TRIG, label: GPIO}
+          - VDD
+          - GND
+      - {id: C1, kind: capacitor, value: 0.1 µF, ref: pins}
+      - {id: C2, kind: capacitor, value: 0.1 µF, ref: pins}
+      - {id: C3, kind: polarized-capacitor, value: 10 µF, ref: pins}
+      - {id: C4, kind: capacitor, value: 2.2 µF, ref: pins2}
+      - {id: C5, kind: capacitor, value: 22 nF, ref: pins2}
+      - {id: C6, kind: capacitor, value: 1 µF, ref: pins2}
+      - {id: R1, kind: resistor, value: 15 kΩ, ref: ifs,
+         unverified: "an example inside the 15 kΩ to 100 kΩ range; 15 kΩ gives IFS = 1 A"}
+      - {id: R2, kind: resistor, value: 10 kΩ, ref: app,
+         unverified: "the application diagram shows the FAULT pull-up without a value"}
+      - {id: R3, kind: resistor, value: 10 kΩ, ref: app,
+         unverified: "the application diagram shows the SDO pull-up without a value"}
+      - {id: L0, kind: solenoid, ref: app}
+      - {id: L1, kind: solenoid, ref: app}
+      - {id: L3, kind: solenoid, ref: app}
+      - id: J1
+        kind: connector
+        label: DC motor
+        ref: app
+        pins: [{name: "1", label: M+}, {name: "2", label: M-}]
+      - id: J2
+        kind: connector
+        label: Latched valve
+        ref: app
+        pins: [{name: "1", label: A}, {name: "2", label: B}]
+    nets:
+      - {name: "+24V", kind: supply, nodes: [U1.VM, C1.1, C2.1, C3.+, C6.2, L1.1, L3.1]}
+      - {name: GND, kind: ground, nodes: [U1.GND, U1.PGND, U1.TRIGB, U2.GND, C1.2, C2.2, C3.-, C4.2, R1.2, L0.2]}
+      - {name: "+3V3", kind: supply, nodes: [U2.VDD, R2.1, R3.1],
+         unverified: "the data sheet does not say where the pull-ups go; the MCU's logic supply is assumed"}
+      - {name: V18, kind: supply, nodes: [U1.V18, C4.1]}
+      - {name: CP, nodes: [U1.CFP, C5.1]}
+      - {name: CN, nodes: [U1.CFN, C5.2]}
+      - {name: VCP, nodes: [U1.VCP, C6.1]}
+      - {name: IREF, nodes: [U1.IREF, R1.1]}
+      - {name: SCK, nodes: [U1.SCK, U2.SCK]}
+      - {name: SDI, nodes: [U1.SDI, U2.MOSI]}
+      - {name: SDO, nodes: [U1.SDO, U2.MISO, R3.2]}
+      - {name: CSB, nodes: [U1.CSB, U2.CS]}
+      - {name: CMD, nodes: [U1.CMD, U2.CMD]}
+      - {name: ENABLE, nodes: [U1.ENABLE, U2.EN]}
+      - {name: FAULT, nodes: [U1.FAULT, U2.FLT, R2.2]}
+      - {name: TRIGA, nodes: [U1.TRIGA, U2.TRIG]}
+      - {name: OUT0, nodes: [U1.OUT0, L0.1]}
+      - {name: OUT1, nodes: [U1.OUT1, L1.2]}
+      - {name: OUT2, nodes: [U1.OUT2, J2.2]}
+      - {name: OUT3, nodes: [U1.OUT3, J2.1]}
+      - {name: OUT45, nodes: [U1.OUT4, U1.OUT5, L3.2]}
+      - {name: OUT6, nodes: [U1.OUT6, J1.1]}
+      - {name: OUT7, nodes: [U1.OUT7, J1.2]}

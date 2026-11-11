@@ -1,0 +1,1968 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
+      
+      
+      
+        <link rel="canonical" href="https://kokeb-labs-drivers.github.io/driver-max22200/latest/api-guide/">
+      
+      
+        <link rel="prev" href="../limitations/">
+      
+      
+        <link rel="next" href="../drive-modes/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/kokeb/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>API guide - MAX22200 Driver</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M0%208a8%208%200%201%201%2016%200A8%208%200%200%201%200%208m8-6.5a6.5%206.5%200%201%200%200%2013%206.5%206.5%200%200%200%200-13M6.5%207.75A.75.75%200%200%201%207.25%207h1a.75.75%200%200%201%20.75.75v2.75h.25a.75.75%200%200%201%200%201.5h-2a.75.75%200%200%201%200-1.5h.25v-2h-.25a.75.75%200%200%201-.75-.75M8%206a1%201%200%201%201%200-2%201%201%200%200%201%200%202%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201.5c-2.363%200-4%201.69-4%203.75%200%20.984.424%201.625.984%202.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621%201.49a.75.75%200%200%201-1.484.211c-.04-.282-.163-.547-.37-.847a9%209%200%200%200-.542-.68q-.126-.149-.268-.32C3.201%207.75%202.5%206.766%202.5%205.25%202.5%202.31%204.863%200%208%200s5.5%202.31%205.5%205.25c0%201.516-.701%202.5-1.328%203.259q-.142.172-.268.319c-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751%200%200%201-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848q.113-.133.213-.253c.561-.679.985-1.32.985-2.304%200-2.06-1.637-3.75-4-3.75M5.75%2012h4.5a.75.75%200%200%201%200%201.5h-4.5a.75.75%200%200%201%200-1.5M6%2015.25a.75.75%200%200%201%20.75-.75h2.5a.75.75%200%200%201%200%201.5h-2.5a.75.75%200%200%201-.75-.75%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M6.457%201.047c.659-1.234%202.427-1.234%203.086%200l6.082%2011.378A1.75%201.75%200%200%201%2014.082%2015H1.918a1.75%201.75%200%200%201-1.543-2.575Zm1.763.707a.25.25%200%200%200-.44%200L1.698%2013.132a.25.25%200%200%200%20.22.368h12.164a.25.25%200%200%200%20.22-.368Zm.53%203.996v2.5a.75.75%200%200%201-1.5%200v-2.5a.75.75%200%200%201%201.5%200M9%2011a1%201%200%201%201-2%200%201%201%200%200%201%202%200%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M9.504.43a1.516%201.516%200%200%201%202.437%201.713L10.415%205.5h2.123c1.57%200%202.346%201.909%201.22%203.004l-7.34%207.142a1.25%201.25%200%200%201-.871.354h-.302a1.25%201.25%200%200%201-1.157-1.723L5.633%2010.5H3.462c-1.57%200-2.346-1.909-1.22-3.004zm1.047%201.074L3.286%208.571A.25.25%200%200%200%203.462%209H6.75a.75.75%200%200%201%20.694%201.034l-1.713%204.188%206.982-6.793A.25.25%200%200%200%2012.538%207H9.25a.75.75%200%200%201-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005%200-.009.004%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5%205.782V2.5h-.25a.75.75%200%200%201%200-1.5h6.5a.75.75%200%200%201%200%201.5H11v3.282l3.666%205.76C15.619%2013.04%2014.543%2015%2012.767%2015H3.233c-1.776%200-2.852-1.96-1.899-3.458Zm-2.4%206.565a.75.75%200%200%200%20.633%201.153h9.534a.75.75%200%200%200%20.633-1.153L12.225%2010.5h-8.45ZM9.5%202.5h-3V6c0%20.143-.04.283-.117.403L4.73%209h6.54L9.617%206.403A.75.75%200%200%201%209.5%206Z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M1.75%202.5h10.5a.75.75%200%200%201%200%201.5H1.75a.75.75%200%200%201%200-1.5m4%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5m0%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5M2.5%207.75v6a.75.75%200%200%201-1.5%200v-6a.75.75%200%200%201%201.5%200%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+  <link rel="stylesheet" href="../assets/kokeb/kokeb.css">
+
+    
+      
+    
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/kokeb/fonts.css">
+  <noscript><link rel="stylesheet" href="../assets/kokeb/fonts.css"></noscript>
+
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  
+  
+  <meta name="theme-color" content="#0e1726" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b2140" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kokeb Labs">
+  <meta property="og:title" content="API guide - MAX22200 Driver">
+  <meta property="og:description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
+  <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-max22200/latest/api-guide/">
+  <meta name="twitter:card" content="summary">
+  <script>
+(function () {
+  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
+  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
+      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
+  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
+  var stub = {
+    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
+    render: function (id, text) {
+      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
+      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
+      if (el) el.setAttribute("data-kb-mermaid", "");
+      return near(el).then(load).then(function (m) { return m.render(id, text); });
+    }
+  };
+  function load() {
+    return loading || (loading = new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = SRC;
+      s.integrity = SRI;
+      s.crossOrigin = "anonymous";
+      s.onload = function () {
+        real = window.mermaid;
+        window.mermaid = stub;
+        real.initialize(config);
+        resolve(real);
+      };
+      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
+      document.head.appendChild(s);
+    }));
+  }
+  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
+  function watch() {
+    if (io) io.disconnect();
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
+      });
+    }, { rootMargin: ahead ? "100% 0px" : "0px" });
+    waiting.forEach(function (w) { io.observe(w.el); });
+  }
+  function release(which) {
+    waiting = waiting.filter(function (w) {
+      if (!which(w)) return true;
+      io.unobserve(w.el);
+      w.go();
+      return false;
+    });
+  }
+  function near(el) {
+    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
+    return new Promise(function (resolve) {
+      waiting.push({ el: el, go: resolve });
+      if (io) io.observe(el); else watch();
+    });
+  }
+  function engaged() {
+    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
+    ahead = true;
+    if (io) watch();
+  }
+  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
+  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
+  window.mermaid = stub;
+})();
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You are reading the documentation of an older version.
+  <a href="https://kokeb-labs-drivers.github.io/driver-max22200/"><strong>Go to the latest version.</strong></a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MAX22200 Driver" class="md-header__button md-logo" aria-label="MAX22200 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          
+          <a class="kb-org" href="https://kokeb-labs.github.io/" title="All Kokeb Labs documentation">Kokeb Labs</a>
+          <span class="kb-org__sep" aria-hidden="true">/</span>
+          <span class="md-ellipsis">
+            MAX22200 Driver
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Follow the system theme"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Follow the system theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kokeb-labs-drivers/driver-max22200" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-max22200
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../quickstart/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MAX22200 Driver" class="md-nav__button md-logo" aria-label="MAX22200 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    MAX22200 Driver
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-max22200
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../quickstart/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../architecture/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-shape-of-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The shape of the API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#switch-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Switch channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-a-channels-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change a channel's settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-and-clear-faults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read and clear faults
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Read and clear faults">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-latch-of-clear-on-read-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The latch of clear-on-read flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raw-register-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw register access
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handle errors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handle errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-every-call-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What every call checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-write-whose-reply-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A write whose reply failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shut-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shut down
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drive-modes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drive modes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../porting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Porting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-reference/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-shape-of-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The shape of the API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#switch-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Switch channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-a-channels-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change a channel's settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-and-clear-faults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read and clear faults
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Read and clear faults">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-latch-of-clear-on-read-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The latch of clear-on-read flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raw-register-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw register access
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handle errors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handle errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-every-call-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What every call checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-write-whose-reply-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A write whose reply failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shut-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shut down
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kokeb-labs-drivers/driver-max22200/edit/main/docs/api-guide.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="api-guide">API guide<a class="headerlink" href="#api-guide" title="Permanent link">&para;</a></h1>
+<p>Every task the driver supports, with the calls that do it. The member list is in the
+<a href="../api-reference/">API reference</a>; what each call promises is on the <a href="../contract/">Contract</a> page.</p>
+<!-- generated: datasheet-refs -->
+<details class="abstract">
+<summary>Datasheet sections this page relies on</summary>
+<p>From Analog Devices 19-100531 1:</p>
+<ul>
+<li>ENABLE and the 0.5 ms to SPI ready: Enable Logic Input, p. 14</li>
+<li>The HIT and HOLD sequence, and the TRIG and SPI triggers: Functional Description - Two Levels Drive Sequence for Solenoid Valves; Figures 2 and 3, p. 14</li>
+<li>High side, parallel pairs and full bridges: Supported Driver Configurations; Tables 6, 7 and 8, p. 20</li>
+<li>Overcurrent and open-load protection: Protection Circuits; Overcurrent Protection (OCP); Open-Load Detection (OL), p. 21</li>
+<li>Plunger-movement detection, thermal shutdown, UVLO and the HIT check: Detection of Plunger Movement (DPM); Thermal Shutdown (TSD); Undervoltage Lockout (UVLO); HIT Current Not Reached Flag (HHF), p. 22</li>
+<li>The programming procedure: Programming Procedure; Figure 6, p. 23</li>
+<li>STATUS: Status Register Description (STATUS); Table 10; Register Details, STATUS (0x00), p. 26</li>
+<li>FAULT and its two clear-on-read behaviours: Fault Register Description (FAULT); Table 12; Clearing the FAULT Register; Figure 8, p. 28</li>
+</ul>
+<p>All of them, with the driver API for each: <a href="../datasheet/">Datasheet map</a>.</p>
+</details>
+<!-- /generated -->
+
+<h2 id="the-shape-of-the-api">The shape of the API<a class="headerlink" href="#the-shape-of-the-api" title="Permanent link">&para;</a></h2>
+<ul>
+<li>One object per chip: <code>max22200::MAX22200&lt;YourPort&gt; chip(port, config);</code>. The constructor stores the
+  configuration and does no I/O.</li>
+<li><code>EnsureInitialized()</code> is the only call that starts the chip. Every other call that touches the chip returns
+  <code>Error::NotInitialized</code> until it has succeeded.</li>
+<li>Every fallible call returns <code>Result&lt;T&gt;</code>: check <code>ok()</code> (or the <code>bool</code> conversion) before reading <code>value</code>; on
+  failure <code>value</code> is <code>T{}</code> and <code>error</code> says why.</li>
+<li>A call sends only what the datasheet needs. Calls that can read back take a trailing <code>Verify verify =
+  Verify::None</code>; <code>Verify::ReadBack</code> reads the register back and compares it, and its cost is stated per call.</li>
+<li>The driver keeps a copy of every register it wrote. <code>GetConfig()</code> and <code>GetChannelsOn()</code> cost nothing.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>Transfers</th>
+<th>With <code>Verify::ReadBack</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetChannelsOn()</code>, <code>SetChannel()</code>, <code>SetBridge()</code></td>
+<td>1 right after an ONCH write with nothing in between, else 2</td>
+<td>3 or 4</td>
+</tr>
+<tr>
+<td><code>SetHoldCode()</code></td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td><code>ConfigureChannel()</code>, <code>SetPairMode()</code>, <code>SetFaultMask()</code>, <code>SetDpm()</code></td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td><code>ReadStatus()</code>, <code>ReadFaults()</code>, <code>ClearFaults()</code>, <code>ReadChannelConfig()</code>, <code>ReadChannelsOn()</code></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>EnsureInitialized()</code></td>
+<td>42 (+2 per extra wake-up poll)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ApplyConfig()</code></td>
+<td>2 per register that changes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Deinitialize()</code></td>
+<td>2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A transfer is one CSB-low period: the command byte, or the 1 or 4 data bytes after it.</p>
+<h2 id="start">Start<a class="headerlink" href="#start" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">max22200</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="nf">BringUp</span><span class="p">(</span><span class="n">Chip</span><span class="o">&amp;</span><span class="w"> </span><span class="n">chip</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="c1">// The one entry point: starts the chip on the first call, then returns Ok with no I/O. After a</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="c1">// failure the next call starts again from the beginning.</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">EnsureInitialized</span><span class="p">();</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"MAX22200 init: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">ToString</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">));</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>EnsureInitialized()</code> drives CMD high (its idle level) and ENABLE high, waits tEN (0.5 ms), then runs the programming
+procedure of Figure 6: it reads STATUS (which clears UVM), then wakes the chip ("wake-up completed?"): a bare ACTIVE = 1
+write, tWU (2.5 ms), a STATUS read, repeated every <code>kWakePollUs</code> (10 ms) until ACTIVE reads 1 with UVM clear, for at
+most <code>Config::wake_timeout_us</code> (100 ms by default). Then it writes STATUS (fault masks, FREQM, pair modes, every channel
+off, ACTIVE = 1), CFG_CH0 to CFG_CH7 and CFG_DPM. Then it checks what it wrote: STATUS must hold it and every 32-bit
+write must have echoed its command byte (Figure 10). Next it reads FAULT with every SDI bit high, which clears every
+flag on both parts: the chip may keep FAULT across an ENABLE cycle (the datasheet does not say ENABLE low clears it), so
+flags from before the start would hold the FAULT pin and look new. They are reported by <code>GetStartupFaults()</code>. Last,
+every configuration register read back must equal what was written (CFG_DPM: bits 14:0; bits 31:15 are reserved, some
+read only with no reset value). COMER is read only and the datasheet does not say what clears it, and a wake write the
+chip rejected can set it: if it is set when the wake ends, ENABLE goes low for tDIS and high for tEN and STATUS is read
+again, <code>kStartAttempts</code> times at most (if it stays set, the attempt relies on the read-back and the session reads every
+switch-off back); a COMER that appears later repeats the procedure, after ENABLE low for tDIS and high again for tEN, up
+to <code>kStartAttempts</code> times; if every attempt fails, cycle VM. At the wake timeout it returns <code>Undervoltage</code> (UVM still
+set) or <code>Timeout</code> (UVM clear, ACTIVE still 0), uninitialised, every channel off, ENABLE left high so a retry continues
+the wake. On any other failure it drives ENABLE low again. It takes 48 transfers when the chip wakes at the first poll,
+4 more per extra poll.</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InvalidArgument</code></td>
+<td>The <code>Config</code> fails <code>Validate()</code>; nothing was sent</td>
+</tr>
+<tr>
+<td><code>Bus</code>, <code>Pin</code></td>
+<td>The port failed a transfer or a pin write</td>
+</tr>
+<tr>
+<td><code>NoDevice</code></td>
+<td>SDO read 0xFF throughout: nothing drives it</td>
+</tr>
+<tr>
+<td><code>DeviceIdMismatch</code></td>
+<td>STATUS read back differs, or a write did not echo its command: SDI, CMD or CSB broken</td>
+</tr>
+<tr>
+<td><code>WriteMismatch</code></td>
+<td>A configuration register did not take its write</td>
+</tr>
+<tr>
+<td><code>Undervoltage</code></td>
+<td>UVM still set at <code>Config::wake_timeout_us</code>: VM below UVLO, slow, or UVM stuck (cycle VM)</td>
+</tr>
+<tr>
+<td><code>Timeout</code></td>
+<td>ACTIVE never read 1 within <code>Config::wake_timeout_us</code>, UVM clear: cycle VM</td>
+</tr>
+<tr>
+<td><code>CommunicationError</code></td>
+<td>A new COMER in every attempt: the chip miscounts the clocks</td>
+</tr>
+</tbody>
+</table>
+<h2 id="switch-channels">Switch channels<a class="headerlink" href="#switch-channels" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">max22200</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="nf">ApplyValveMask</span><span class="p">(</span><span class="n">Chip</span><span class="o">&amp;</span><span class="w"> </span><span class="n">chip</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">want</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">safety_critical</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="c1">// Every channel at once: one 8-bit write. ReadBack adds one 8-bit read and a compare; use it</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="c1">// where a lost frame matters more than the two transfers.</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">verify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">safety_critical</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">Verify</span><span class="o">::</span><span class="n">ReadBack</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">Verify</span><span class="o">::</span><span class="n">None</span><span class="p">;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">SetChannelsOn</span><span class="p">(</span><span class="n">want</span><span class="p">,</span><span class="w"> </span><span class="n">verify</span><span class="p">).</span><span class="n">error</span><span class="p">;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">max22200</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="nf">OpenOne</span><span class="p">(</span><span class="n">Chip</span><span class="o">&amp;</span><span class="w"> </span><span class="n">chip</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">channel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="c1">// From the driver's copy of ONCH: no STATUS read first (it would clear OVT and UVM).</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">SetChannel</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">).</span><span class="n">error</span><span class="p">;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>SetChannelsOn(mask)</code> writes ONCH, STATUS[31:24], in one 8-bit write (Programming Procedure, step 5a).
+<code>SetChannel(channel, on)</code> computes the new mask from the driver's copy and sends the same single write: no STATUS
+read first. <code>GetChannelsOn()</code> returns the copy. A channel with <code>trigger_pin</code> follows its TRIG pin instead.</p>
+<p>The Command Register stays in force until it is rewritten (p25), so a switch right after a switch sends only its data
+byte: <strong>1 transfer</strong>. The first switch after anything else sends the command again (2 transfers): after any other
+register access, a failed transfer or pin write, an ENABLE change (<code>Deinitialize()</code>, a restart), a COMER in a fault
+byte, or a <code>Verify::ReadBack</code> (its read changes the command). The data byte's SDO carries STATUS[7:0] (Figure 12),
+kept in <code>GetLastStatusByte()</code>: watching the fault flags costs nothing. If that byte is 0xFF (no answer: a chip that
+lost the command in a reset clocks nothing out), the write goes out again with its command, so the command byte shows
+whether the chip was reset. A miscounted write shows as COMER from the next byte on: the call that sees COMER go from
+0 to 1 returns <code>CommunicationError</code> (see <a href="#what-every-call-checks">What every call checks</a>); only <code>Verify::ReadBack</code>
+proves that a given switch landed.</p>
+<p>With <code>Verify::ReadBack</code> the driver reads ONCH back (8 bits) and compares it: <code>WriteMismatch</code> when the chip did not take
+it (the copy then takes the value read, and the channels that differ are not trusted for the <code>ChannelsActive</code> check),
+<code>CommunicationError</code> when the read's fault byte shows COMER (the write had the wrong clock count). The copy changes only
+when the write went out; after <code>Bus</code> the channels the write would have changed count as on for the <code>ChannelsActive</code>
+check until a write succeeds. <code>ReadChannelsOn()</code> reads ONCH from the chip without changing the copy. A switch-on in a
+pair whose mode a failed write left unknown returns <code>Uncertain</code> and sends nothing (see <a href="#a-write-whose-reply-failed">A write whose reply
+failed</a>). A switch-off is never refused: in such a pair it switches both channels off, the
+partner too, because ONCHx = ONCHy = 0 is off in every mode (Tables 6 and 7) and one bit alone could turn a full-bridge
+Brake into Forward or Reverse. <code>SetBridge(pair, BridgeState::HiZ)</code> does the same. A <code>SetChannelsOn()</code> mask that changes
+such a pair switches it off; if it asked for a switch-on there, the rest of the mask, every switch-off in it, still goes
+out, then the call returns <code>Uncertain</code>. The pair goes off rather than keep the copy's bits: after a miscount the copy
+may show a channel on that the chip has off. A channel that may still be on (a failed write may have switched it on, or
+no clean fault byte has vouched for its switch-off yet) is always switched off when the mask asks it off, even when the
+copy already says off. In a full-bridge pair <code>SetChannel(ch, false)</code> sets HiZ (both bits 0, Table 7): the partner goes
+off too.</p>
+<p>In a parallel pair both ONCH bits move together; in a full-bridge pair use <code>SetBridge(pair, state)</code> (Table 7):</p>
+<table>
+<thead>
+<tr>
+<th><code>BridgeState</code></th>
+<th>OUTx</th>
+<th>OUTy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HiZ</code></td>
+<td>Hi-Z</td>
+<td>Hi-Z</td>
+</tr>
+<tr>
+<td><code>Forward</code></td>
+<td>VM</td>
+<td>regulated with CFG_CHy</td>
+</tr>
+<tr>
+<td><code>Reverse</code></td>
+<td>regulated with CFG_CHx</td>
+<td>VM</td>
+</tr>
+<tr>
+<td><code>Brake</code></td>
+<td>ground</td>
+<td>ground</td>
+</tr>
+</tbody>
+</table>
+<h2 id="change-a-channels-settings">Change a channel's settings<a class="headerlink" href="#change-a-channels-settings" title="Permanent link">&para;</a></h2>
+<p><code>ConfigureChannel(channel, config)</code> writes the whole CFG_CHn (32 bits). Everything but the drive mode and the side
+can change while the channel runs (step 5c): the currents, the HIT time, the chopping frequency, SRC, the
+diagnostics. A change of drive mode or side while any channel is on returns <code>ChannelsActive</code> and sends nothing.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">max22200</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="nf">LowerHold</span><span class="p">(</span><span class="n">Chip</span><span class="o">&amp;</span><span class="w"> </span><span class="n">chip</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">channel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="c1">// On the fly, while the channel holds: one 8-bit write of HFS and HOLD.</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">CurrentCode</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">GetConfig</span><span class="p">().</span><span class="n">rref_ohm</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">                                          </span><span class="n">chip</span><span class="p">.</span><span class="n">GetConfig</span><span class="p">().</span><span class="n">channels</span><span class="p">[</span><span class="n">channel</span><span class="p">].</span><span class="n">half_scale</span><span class="p">);</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">code</span><span class="p">.</span><span class="n">error</span><span class="p">;</span><span class="w"> </span><span class="c1">// below the resolution or above 126/128 x IFS</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">SetHoldCode</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">.</span><span class="n">value</span><span class="p">).</span><span class="n">error</span><span class="p">;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>SetHoldCode(channel, code)</code> writes only CFG_CHn[31:24], HFS and HOLD, in one 8-bit write (step 5b), for a HOLD
+current controlled on the fly; HFS is kept. The code is checked against the channel's drive mode (<code>ValidCode()</code>).</p>
+<p><code>SetPairMode()</code>, <code>SetFaultMask()</code> and <code>SetDpm()</code> write STATUS or CFG_DPM; a pair mode changes only with both channels
+of the pair off. <code>ApplyConfig()</code> writes every register of a new <code>Config</code> that differs from the current one.</p>
+<h2 id="read-and-clear-faults">Read and clear faults<a class="headerlink" href="#read-and-clear-faults" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ServiceFaults</span><span class="p">(</span><span class="n">Chip</span><span class="o">&amp;</span><span class="w"> </span><span class="n">chip</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">ReadStatus</span><span class="p">();</span><span class="w"> </span><span class="c1">// clears OVT and UVM</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">error</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">Error</span><span class="o">::</span><span class="n">DeviceReset</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">chip</span><span class="p">.</span><span class="n">EnsureInitialized</span><span class="p">();</span><span class="w"> </span><span class="c1">// power-on reset: configure the chip again</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">overcurrent</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">open_load</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">hit_not_reached</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">plunger</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">ClearFaults</span><span class="p">();</span><span class="w"> </span><span class="c1">// returns the flags it cleared</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">overcurrent</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0U</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="c1">// OCP switched those channels off: switch them off, then on again when it is safe.</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">GetChannelsOn</span><span class="p">();</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">keep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">on</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">overcurrent</span><span class="p">));</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">chip</span><span class="p">.</span><span class="n">SetChannelsOn</span><span class="p">(</span><span class="n">keep</span><span class="p">);</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>ReadStatus()</code> returns ONCH, the seven flags and ACTIVE. The read clears OVT and UVM on the chip (Register Details:
+"Read Clears All"); the four channel flags (OCP, OLF, HHF, DPM) say only that some channel has one: the FAULT
+register says which.
+If ACTIVE reads 0 on a running driver, a power-on reset cleared every register: the driver marks itself
+uninitialised and returns <code>DeviceReset</code>; call <code>EnsureInitialized()</code> to configure the chip again. Every other call
+does the same from its command byte (see <a href="#what-every-call-checks">What every call checks</a>).</p>
+<p><code>Config::variant</code> is <code>Variant::Max22200</code> by default, which is correct on both parts. Declare <code>Variant::Max22200A</code>
+only when the bill of materials says that part is fitted: a selective clear sent to a MAX22200 clears every flag.</p>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>Declared MAX22200A</th>
+<th>Declared MAX22200 (the default)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ReadFaults()</code></td>
+<td>Reads FAULT, clears nothing</td>
+<td>Reads FAULT; a MAX22200 clears every flag (unavoidable), a MAX22200A none</td>
+</tr>
+<tr>
+<td><code>ClearFaults()</code></td>
+<td>Reads FAULT, clears every flag</td>
+<td>The same</td>
+</tr>
+<tr>
+<td><code>ClearFaults(which)</code></td>
+<td>Clears only the flags in <code>which</code> (Figure 8)</td>
+<td><code>Unsupported</code>, nothing sent</td>
+</tr>
+</tbody>
+</table>
+<p>Both return the flags as they were before the clear. An OCP channel was switched off by the chip; after the flag is
+cleared it resumes only once it is switched off in ONCH and on again ("Overcurrent Protection (OCP)"). OLF also
+clears when the channel switches on, HHF when it starts a new cycle.</p>
+<p><code>ReadFaultPin()</code> reads the FAULT pin through the optional <code>GpioRead()</code> hook, with no SPI: use it in the deferred part
+of a FAULT interrupt, then <code>ReadFaults()</code> for the details. <code>GetLastStatusByte()</code> returns STATUS[7:0] as the chip
+clocked it out during the last command byte, for free.</p>
+<h3 id="the-latch-of-clear-on-read-flags">The latch of clear-on-read flags<a class="headerlink" href="#the-latch-of-clear-on-read-flags" title="Permanent link">&para;</a></h3>
+<p>A STATUS read clears OVT and UVM, and a FAULT read on the MAX22200 clears every flag, whoever makes the read: your
+<code>ReadStatus()</code>, but also the read-back of <code>SetPairMode()</code> or <code>SetFaultMask()</code> with <code>Verify::ReadBack</code>, a raw
+<code>ReadRegister()</code> or the start-up's own reads. So that no internal read hides a flag, the driver ORs what each read
+took from the chip into one latch (handbook KB-CPP-119):</p>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>I/O</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetLatchedFaults()</code></td>
+<td>none</td>
+<td><code>LatchedFaults</code>: OVT and UVM seen by any 32-bit STATUS read, the summary flags of every fault byte, the FAULT flags any FAULT read cleared, and <code>lost</code> when a read that clears flags did not deliver them, since the last clear</td>
+</tr>
+<tr>
+<td><code>ClearLatchedFaults()</code></td>
+<td>none</td>
+<td>Empties the latch; the chip is not touched</td>
+</tr>
+<tr>
+<td><code>GetStartupFaults()</code></td>
+<td>none</td>
+<td>The FAULT flags the last start-up found and cleared</td>
+</tr>
+</tbody>
+</table>
+<p>Only <code>ClearLatchedFaults()</code> empties the latch; a restart does not, so the UVM of a <code>DeviceReset</code> survives the
+<code>EnsureInitialized()</code> that follows. The start-up's STATUS reads feed it too, except for UVM before the wake has
+completed (Figure 6 reads STATUS to clear the power-on UVM). The chip clears some flags by itself: OLF when the channel
+switches on (p21), HHF when it starts a new cycle (p23). So that such a flag is not lost before a FAULT read sees it,
+the summary flags (OVT, UVM, OCP, OLF, HHF, DPM) of every fault byte any access clocks out, the one-transfer switch
+included, go into the latch as <code>overtemperature</code>, <code>undervoltage</code>, <code>overcurrent</code>, <code>open_load</code>, <code>hit_not_reached</code> and
+<code>plunger</code>, at no extra I/O; the channel is known only if a FAULT read caught it in <code>faults</code>. A reply that a floating SDO
+produces (all ones with a 0xFF fault byte) is not data and is never latched as flags; a STATUS read, or a FAULT read
+that clears, that gets one or fails sets <code>lost</code>: what the chip held is unknown (a genuine FAULT of all ones with a 0xFF
+fault byte reads the same way, and is treated the same). An 8-bit read (ONCH, HOLD) returns neither OVT nor UVM, and the
+datasheet does not say it clears them: the driver assumes it does not. On a part declared <code>Variant::Max22200A</code>,
+<code>ReadFaults()</code> clears nothing and latches nothing; <code>ClearFaults(which)</code> latches the flags in <code>which</code>.</p>
+<h3 id="raw-register-access">Raw register access<a class="headerlink" href="#raw-register-access" title="Permanent link">&para;</a></h3>
+<p><code>ReadRegister(bank)</code> reads one register once: one 32-bit read, 2 transfers, no retry, no decoding and no check
+(handbook KB-CPP-129), for bring-up and diagnostics. Its side effects are the chip's own: reading STATUS clears OVT
+and UVM, reading FAULT clears every flag on the MAX22200; both go to the latch. <code>GetLastStatusByte()</code> holds the
+fault byte of the last access.</p>
+<h2 id="handle-errors">Handle errors<a class="headerlink" href="#handle-errors" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">Describe</span><span class="p">(</span><span class="n">max22200</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">NoDevice</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">DeviceIdMismatch</span><span class="p">:</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"check SDO pull-up, SDI, CSB, CMD, ENABLE and VM"</span><span class="p">;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Pin</span><span class="p">:</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"the port could not drive CMD or ENABLE"</span><span class="p">;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">CommunicationError</span><span class="p">:</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"the chip counted the wrong number of clocks: check SCK and CSB"</span><span class="p">;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">ChannelsActive</span><span class="p">:</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"switch the channels off first"</span><span class="p">;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Uncertain</span><span class="p">:</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"a write's reply failed: write the pair mode again or read it back"</span><span class="p">;</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Ok</span><span class="p">:</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">NotInitialized</span><span class="p">:</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">InvalidArgument</span><span class="p">:</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Bus</span><span class="p">:</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Timeout</span><span class="p">:</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Crc</span><span class="p">:</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Busy</span><span class="p">:</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">DeviceFault</span><span class="p">:</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Unsupported</span><span class="p">:</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">WriteMismatch</span><span class="p">:</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Undervoltage</span><span class="p">:</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">max22200</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">DeviceReset</span><span class="p">:</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">  </span><span class="k">default</span><span class="o">:</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">    </span><span class="k">break</span><span class="p">;</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">ToString</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Returned by</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotInitialized</code></td>
+<td>Every I/O call before the start, after <code>Deinitialize()</code> or <code>DeviceReset</code></td>
+<td>Call <code>EnsureInitialized()</code></td>
+</tr>
+<tr>
+<td><code>InvalidArgument</code></td>
+<td>Any call with an argument out of range; nothing was sent</td>
+<td>Fix the argument</td>
+</tr>
+<tr>
+<td><code>Bus</code></td>
+<td>Any I/O call whose transfer failed</td>
+<td>Retry; the chip may or may not hold the write</td>
+</tr>
+<tr>
+<td><code>Pin</code></td>
+<td>Any I/O call whose CMD or ENABLE write failed; <code>ReadFaultPin()</code></td>
+<td>Check the port's GPIO</td>
+</tr>
+<tr>
+<td><code>NoDevice</code>, <code>DeviceIdMismatch</code></td>
+<td><code>EnsureInitialized()</code></td>
+<td>Check the wiring (<a href="../troubleshooting/">Troubleshooting</a>)</td>
+</tr>
+<tr>
+<td><code>WriteMismatch</code></td>
+<td><code>EnsureInitialized()</code>; setters with <code>Verify::ReadBack</code></td>
+<td>Retry the write; check the TRIG pins for a mode change</td>
+</tr>
+<tr>
+<td><code>CommunicationError</code></td>
+<td><code>EnsureInitialized()</code>; any call on a running driver that sees COMER go from 0 to 1</td>
+<td>Check SCK and CSB; call <code>ApplyConfig()</code> or the setter again: a write may not have landed</td>
+</tr>
+<tr>
+<td><code>Undervoltage</code>, <code>Timeout</code></td>
+<td><code>EnsureInitialized()</code></td>
+<td>Check VM; retry, raise <code>Config::wake_timeout_us</code>, or cycle VM</td>
+</tr>
+<tr>
+<td><code>ChannelsActive</code></td>
+<td><code>ConfigureChannel()</code>, <code>SetPairMode()</code>, <code>ApplyConfig()</code></td>
+<td>Switch the channels off first</td>
+</tr>
+<tr>
+<td><code>DeviceReset</code></td>
+<td>Any I/O call on a running driver</td>
+<td>Call <code>EnsureInitialized()</code>: the chip lost its configuration</td>
+</tr>
+<tr>
+<td><code>Uncertain</code></td>
+<td>A switch-on with <code>SetChannelsOn()</code>, <code>SetChannel()</code> or <code>SetBridge()</code> in a pair whose mode a failed write left unknown (a switch-off always goes out)</td>
+<td>Write the pair mode again, or read it back with <code>Verify::ReadBack</code></td>
+</tr>
+<tr>
+<td><code>Unsupported</code></td>
+<td><code>ReadFaultPin()</code> without <code>GpioRead()</code>; <code>ClearFaults(which)</code> on the MAX22200</td>
+<td>Add the hook; clear all</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-every-call-checks">What every call checks<a class="headerlink" href="#what-every-call-checks" title="Permanent link">&para;</a></h3>
+<p>Every command byte clocks out the fault byte STATUS[7:0] (Figure 7), and so does an 8-bit write's data byte
+(Figure 12). On a running driver each one is checked at no extra I/O:</p>
+<ul>
+<li><strong>A power-on reset.</strong> ACTIVE is only ever written 1 while running, so a fault byte with ACTIVE = 0 (other than
+  0xFF, what a floating SDO reads) means a UVLO reset every register to its default: ACTIVE = 0, every channel off,
+  every CFG_CHn in CDR on the low side ("Undervoltage Lockout (UVLO)", p22; p26, p38-39). The access stops before its
+  data phase, so nothing from the driver's copy goes to the reset chip: no setter re-activates it with the old ONCH
+  over reset channel settings. The driver marks itself uninitialised, every channel off, and returns <code>DeviceReset</code>.
+  A STATUS value with ACTIVE = 0 does the same. An SDO stuck low reads as such a byte: the driver stops, the safe side.</li>
+<li><strong>A miscounted write.</strong> COMER going from 0 to 1 (p34) means a write since the last fault byte with COMER clear was
+  ignored. The call that sees it returns <code>CommunicationError</code>, once (a call that fails for another reason leaves it
+  for the next). The ONCH bits those writes changed count as on for the <code>ChannelsActive</code> check, the channels they
+  configured as of either drive mode, and <code>ApplyConfig()</code> writes their registers again. COMER is read only and may
+  stay set (p36), which would hide every later miscount. So the start-up clears a COMER the wake left by taking
+  ENABLE low for tDIS and high for tEN (the registers survive it, p14; 2 more transfers and the waits, only then),
+  and while COMER is set on a running driver every switch-off is read back: 2 more transfers per switch-off, only in
+  that state. A switch-off is never <code>Ok</code> without proof that it landed. A configuration write (CFG_CHn, HOLD, STATUS,
+  CFG_DPM) whose command byte shows a new COMER stops before its data phase and returns <code>CommunicationError</code>: the
+  channels in doubt may be on, and the chip would ignore a drive-mode change (5c). An ONCH write is never stopped.
+  Doubt a write settles (a switch-off, a STATUS write) stays recorded until a clean fault byte or a read-back proves
+  that write, so a miscount of that very write brings it back. While COMER stays set, <code>ConfigureChannel()</code> reads its
+  write back too (2 more transfers), and the other configuration writes leave what they changed in doubt.
+  <code>IsMiscountDetectionDegraded()</code> (no I/O) says when the driver is in that state.</li>
+<li><strong>All-ones read data.</strong> It carries no fault byte. A reset between a read's command byte and its data leaves the
+  chip without a command and SDO floating, so the driver sends one more command byte (an 8-bit ONCH read, 2
+  transfers, only after all-ones data): its fault byte tells a reset from a value.</li>
+<li><strong>Flags the chip clears by itself</strong> go to the latch (above).</li>
+</ul>
+<h3 id="a-write-whose-reply-failed">A write whose reply failed<a class="headerlink" href="#a-write-whose-reply-failed" title="Permanent link">&para;</a></h3>
+<p>A transfer that fails may still have reached the chip, so after <code>Bus</code> or <code>Pin</code> from a write the chip may hold the old
+value or the new one. The driver keeps the old value in its copy (it is what the next write is computed from) and
+treats each cached field so that no decision rests on a guess:</p>
+<table>
+<thead>
+<tr>
+<th>Cached field</th>
+<th>After a failed write</th>
+<th>Settled by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONCH (<code>GetChannelsOn()</code>)</td>
+<td>The copy keeps the old mask; the bits the write would have changed count as on for <code>ChannelsActive</code></td>
+<td>A successful ONCH or STATUS write</td>
+</tr>
+<tr>
+<td>CMxy (pair modes)</td>
+<td>A changed pair's mode is unknown: a switch-on in that pair returns <code>Uncertain</code> with no I/O, a switch-off clears both of its bits (only "both off" means the same in every mode, Tables 6 and 7), and a pair-mode change waits for the pair to be off</td>
+<td>A STATUS write with the pair off, or a STATUS read-back</td>
+</tr>
+<tr>
+<td>FREQM</td>
+<td>Unknown: <code>ConfigureChannel()</code> accepts only a channel valid at both master clocks</td>
+<td>A STATUS write or read-back</td>
+</tr>
+<tr>
+<td>Fault masks</td>
+<td>No decision depends on them; STATUS is written again by the next <code>ApplyConfig()</code></td>
+<td>A STATUS write</td>
+</tr>
+<tr>
+<td>CFG_CHn (drive mode, side, HFS, HOLD)</td>
+<td>The channel may run either mode: any write to it, the copy's own value included, waits for every channel to be off (only then does the chip take the mode bits, step 5c), HOLD is checked against both modes, and <code>ApplyConfig()</code> writes it again</td>
+<td>A <code>ConfigureChannel()</code> or <code>ApplyConfig()</code> with every channel off</td>
+</tr>
+<tr>
+<td>CFG_DPM</td>
+<td>No decision depends on it; written again by the next <code>ApplyConfig()</code></td>
+<td>A successful <code>SetDpm()</code></td>
+</tr>
+</tbody>
+</table>
+<p>The same handling applies to the writes a new COMER puts in doubt.</p>
+<p><code>Crc</code>, <code>Busy</code> and <code>DeviceFault</code> belong to the shared base set and are never returned: the chip sends no CRC, it is
+never busy to SPI, and its faults are data, never a failed call.</p>
+<h2 id="shut-down">Shut down<a class="headerlink" href="#shut-down" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">PowerDown</span><span class="p">(</span><span class="n">Chip</span><span class="o">&amp;</span><span class="w"> </span><span class="n">chip</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">Deinitialize</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"MAX22200 shutdown failed: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">ToString</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">));</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>Deinitialize()</code> writes STATUS with every channel off and ACTIVE = 0 (outputs Hi-Z), then drives ENABLE low (sleep,
+under 11 µA). The driver is uninitialised afterwards even if a write failed, and ENABLE goes low whatever happened.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../limitations/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Status and limitations">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Status and limitations
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../drive-modes/" class="md-footer__link md-footer__link--next" aria-label="Next: Drive modes">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Drive modes
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright kb-footer">
+  <nav class="kb-footer__links" aria-label="Kokeb Labs">
+    <a href="https://kokeb-labs.github.io/">Kokeb Labs docs</a>
+    <a href="https://github.com/kokeb-labs-drivers">GitHub organisation</a>
+    
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200">Source</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200/issues">Report an issue</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/main/LICENSE">License</a>
+    
+  </nav>
+  
+    <div class="md-copyright__highlight">Copyright (c) 2026 The driver-max22200 authors</div>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/kokeb-labs-drivers" target="_blank" rel="noopener" title="Kokeb Labs on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.prune", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../search/main.js"></script>
+      
+    
+  </body>
+</html>
