@@ -1,0 +1,47 @@
+---
+# A vX.Y.Z (or vX.Y.Z-rc.N) release is published only after CI passed on the tagged commit: this runs when the CI
+# workflow finishes, and releases that run's firmware artifacts for the tag. Steps before tagging:
+# standards/release.md and .claude/skills/release.
+name: Release
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  actions: read   # find the tag build's firmware artifacts (private repositories)
+  contents: write
+
+jobs:
+  release:
+    name: Create release with artifacts
+    # Only a successful CI run for a pushed v* tag releases; branch pushes and pull requests never do.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      startsWith(github.event.workflow_run.head_branch, 'v')
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-release-firmware.yml@v1
+    with:
+      build_workflow: 'ci.yml'
+      artifact_pattern: 'fw-.*'
+      tag_name: ${{ github.event.workflow_run.head_branch }}
+      commit: ${{ github.event.workflow_run.head_sha }}
+      prerelease: ${{ contains(github.event.workflow_run.head_branch, '-') }}
+      fail_on_no_artifacts: true  # the ESP32 example firmware must be in the release
+
+  # Signed build provenance for every file in the release's SHA256SUMS. GitHub attestations need a public
+  # repository, so a private one skips this job. Check a download:
+  #   gh attestation verify <file> -R kokeb-labs-drivers/driver-max22200 \
+  #     --signer-workflow kokeb-labs/ci-tools/.github/workflows/ru-attest-release.yml
+  attest:
+    name: Attest release files
+    needs: release
+    if: github.event.repository.visibility == 'public'
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-attest-release.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    with:
+      tag_name: ${{ github.event.workflow_run.head_branch }}

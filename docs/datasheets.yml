@@ -1,0 +1,188 @@
+---
+# The vendor documents this driver was written against (handbook ADR-0019), and where the driver relies on them.
+# Never commit a PDF: `sha256` identifies the exact file that was used, so a reader can confirm they hold the same
+# revision. `pdf` is a stable direct link when the vendor publishes one (page links are built from it, adding
+# `page_offset` when the printed page numbers differ from the PDF's); otherwise readers download from `url`.
+#
+# The README card, docs/datasheet.md and the "Datasheet" box on each page are generated from this file by
+# tools/docs/generators/datasheet.py (`kokeb-docs gen`).
+documents:
+  - id: ds
+    vendor: Analog Devices
+    title: MAX22200/MAX22200A 36V, 1A Octal Integrated Serial-Controlled Solenoid and Motor Driver
+    kind: Datasheet
+    number: 19-100531
+    revision: "1"
+    date: 2025-03
+    url: https://www.analog.com/en/products/max22200.html
+    pdf: null
+    page_offset: 0
+    sha256: 374c60d9f0aba445ef9689fafa48080d1f612bdb1f1cbc7e7baabe6de5f35818
+
+# One row per thing the driver takes from a document: the datasheet's own section names and printed page
+# numbers, the driver API that implements it, and the docs pages that explain it (file names in docs/).
+topics:
+  - topic: The two parts and how each clears the FAULT register
+    doc: ds
+    section: General Description; Ordering Information
+    page: 1
+    driver: "`Variant`, `Config::variant`"
+    docs: [hardware, configuration]
+  - topic: Supply, logic levels, on-resistance, OCP and open-load thresholds
+    doc: ds
+    section: Absolute Maximum Ratings; Electrical Characteristics
+    page: 7
+    driver: "none: board design (documented limits)"
+    docs: [hardware]
+  - topic: Full-scale current constant KFS and the CDR accuracy
+    doc: ds
+    section: Electrical Characteristics (KFS0, KFS1, ITRERR)
+    page: 9
+    driver: "`kKfs`, `FullScaleUa()`"
+    docs: [drive-modes, hardware]
+  - topic: Enable, wake-up and disable times; SPI timing
+    doc: ds
+    section: Electrical Characteristics (tEN, tWU, tDIS, SPI); Figure 1
+    page: 10
+    driver: "`reg::kEnableUs`, `reg::kWakeUpUs`, `reg::kDisableUs`, `kMaxClockHz`, `kMinCsHighNs`, `kCsSetupNs`, `kCsHoldNs`, `kCmdSetupNs`"
+    docs: [hardware, porting, contract]
+  - topic: Pins, CMD, ENABLE, FAULT and the TRIG inputs
+    doc: ds
+    section: Pin Configuration; Pin Description
+    page: 12
+    driver: "`CtrlPin`, `SpiInterface`, `kSdoOpenDrain`"
+    docs: [hardware, porting, quickstart]
+  - topic: ENABLE and the 0.5 ms to SPI ready
+    doc: ds
+    section: Enable Logic Input
+    page: 14
+    driver: "`EnsureInitialized()`, `Deinitialize()`"
+    docs: [contract, api-guide]
+  - topic: The HIT and HOLD sequence, and the TRIG and SPI triggers
+    doc: ds
+    section: Functional Description - Two Levels Drive Sequence for Solenoid Valves; Figures 2 and 3
+    page: 14
+    driver: "`ChannelConfig`, `SetChannelsOn()`"
+    docs: [drive-modes, api-guide]
+  - topic: Oscillator and per-channel chopping frequency
+    doc: ds
+    section: Chopping Frequency (FREQM, FRQ_CFG_); Table 1
+    page: 16
+    driver: "`MasterClock`, `ChopDivider`, `ChopPeriodNs()`"
+    docs: [drive-modes, configuration]
+  - topic: Slew-rate control and the duty-cycle limits
+    doc: ds
+    section: Slew-Rate Controlled Mode (SRC); Min and Max Duty cycle, Table 2
+    page: 17
+    driver: "`ValidateChannel()`, `DutyLimitsOf()`"
+    docs: [drive-modes]
+  - topic: VDR duty-cycle codes
+    doc: ds
+    section: Voltage Drive Regulation (VDR); Table 3
+    page: 17
+    driver: "`kMaxVdrCode`, `ValidCode()`"
+    docs: [drive-modes, configuration]
+  - topic: CDR current codes, IFS from RREF and the half full-scale bit
+    doc: ds
+    section: Current Drive Regulation (CDR); Table 4; Full-Scale Current Setting; Half Full-Scale Setting
+    page: 18
+    driver: "`CurrentCode()`, `CurrentUa()`, `kMaxCdrCode`, `Config::rref_ohm`"
+    docs: [drive-modes, configuration]
+  - topic: HIT excitation time
+    doc: ds
+    section: HIT Excitation Time (tHIT); Table 5
+    page: 19
+    driver: "`HitTimeCode()`, `HitTimeUs()`, `kHitTimeContinuous`"
+    docs: [drive-modes]
+  - topic: High side, parallel pairs and full bridges
+    doc: ds
+    section: Supported Driver Configurations; Tables 6, 7 and 8
+    page: 20
+    driver: "`Side`, `PairMode`, `BridgeState`, `SetChannel()`, `SetBridge()`, `SetPairMode()`"
+    docs: [drive-modes, api-guide, limitations]
+  - topic: Overcurrent and open-load protection
+    doc: ds
+    section: Protection Circuits; Overcurrent Protection (OCP); Open-Load Detection (OL)
+    page: 21
+    driver: "`Faults`, `FaultMask`, `ClearFaults()`"
+    docs: [api-guide, troubleshooting]
+  - topic: Plunger-movement detection, thermal shutdown, UVLO and the HIT check
+    doc: ds
+    section: >-
+      Detection of Plunger Movement (DPM); Thermal Shutdown (TSD); Undervoltage Lockout (UVLO);
+      HIT Current Not Reached Flag (HHF)
+    page: 22
+    driver: "`DpmConfig`, `ReadStatus()`, `Error::DeviceReset`, `Error::Undervoltage`, `LatchedFaults`"
+    docs: [drive-modes, api-guide, troubleshooting]
+  - topic: The SPI, the 8-bit accesses and the daisy chain
+    doc: ds
+    section: SPI Detailed Description; Figure 5
+    page: 23
+    driver: "`detail::RegisterBus`, `kSpiMode`, `kMsbFirst`, `SetChannelsOn()`, `SetHoldCode()`"
+    docs: [architecture, limitations, porting]
+  - topic: The programming procedure
+    doc: ds
+    section: Programming Procedure; Figure 6
+    page: 23
+    driver: "`EnsureInitialized()`, `kStartAttempts`, `Config::wake_timeout_us`, `ConfigureChannel()`"
+    docs: [contract, architecture, api-guide]
+  - topic: The Command Register and the fault byte
+    doc: ds
+    section: Command Register Description (COMMAND); Table 9; Figure 7
+    page: 25
+    driver: "`reg::Command()`, `GetLastStatusByte()`"
+    docs: [architecture, porting]
+  - topic: STATUS
+    doc: ds
+    section: Status Register Description (STATUS); Table 10; Register Details, STATUS (0x00)
+    page: 26
+    driver: "`Status`, `ReadStatus()`, `GetLatchedFaults()`, `FaultMask`, `EncodeStatus()`, `DecodePairMode()`"
+    docs: [api-guide, configuration]
+  - topic: CFG_CHn
+    doc: ds
+    section: Configuration Register Description (CFG_CH_); Table 11; Register Details, CFG_CH
+    page: 27
+    driver: "`ChannelConfig`, `EncodeChannel()`, `ConfigureChannel()`"
+    docs: [configuration, drive-modes]
+  - topic: FAULT and its two clear-on-read behaviours
+    doc: ds
+    section: Fault Register Description (FAULT); Table 12; Clearing the FAULT Register; Figure 8
+    page: 28
+    driver: "`ReadFaults()`, `ClearFaults()`, `GetLatchedFaults()`, `GetStartupFaults()`, `Error::Unsupported`"
+    docs: [api-guide, limitations]
+  - topic: CFG_DPM
+    doc: ds
+    section: Detection of Plunger Movement Register Description (CFG_DPM); Figure 9
+    page: 29
+    driver: "`DpmConfig`, `SetDpm()`, `DpmCurrentCode()`, `DebounceUs()`"
+    docs: [drive-modes, configuration]
+  - topic: 32-bit and 8-bit transfers and the command echo
+    doc: ds
+    section: Reading and Writing Operations of Registers; Figures 10 to 13
+    page: 30
+    driver: "`detail::RegisterBus`, `kTransferBytes`, `Verify::ReadBack`"
+    docs: [architecture, porting, contract]
+  - topic: Communication error detection
+    doc: ds
+    section: Communication Error Detection (COMF)
+    page: 34
+    driver: "`Error::CommunicationError`, `kContinuousWord`"
+    docs: [troubleshooting, contract]
+  - topic: Register map and reset values
+    doc: ds
+    section: Register Map; Register Details
+    page: 35
+    driver: "`reg::` constants, `Config{}`"
+    docs: [configuration, architecture]
+  - topic: Current rating and safe operating area
+    doc: ds
+    section: Applications Information; Current Rating; Figures 14 to 17
+    page: 42
+    driver: "none: board and thermal design"
+    docs: [hardware]
+  - topic: The application diagram
+    doc: ds
+    section: Typical Application Circuits; Application Diagram
+    page: 44
+    driver: "none: board design"
+    docs: [hardware]

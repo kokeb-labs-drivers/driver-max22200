@@ -1,0 +1,10 @@
+---
+# Driver metadata (handbook KB-REPO-018): kb-core's compatibility catalogue, the MCU gate, the kb tool and the
+# configurator read it. CI checks name and version against cmake/max22200_build_settings.cmake.
+name: max22200
+version: 0.1.0
+bus: [spi]          # spi, i2c, uart, adc, pio, gpio, can, canopen, modbus, onewire
+mcus: [any]         # any, or the MCU families it needs, e.g. [esp32]
+peripheral: null    # an MCU peripheral it needs with mcus, e.g. rmt
+kb_core_min: null   # the oldest kb-core release whose handler works with this version; null until kb-core exists
+authors: ["The driver-max22200 authors"]  # the copyright holder, as in LICENSE

@@ -1,0 +1,147 @@
+---
+# Kokeb Labs org-wide clang-tidy configuration (clang-tidy 20): the standard and high levels.
+# Source of truth: https://github.com/kokeb-labs/.github/tree/main/standards/config
+# The naming rules are the ones in standards/naming-and-style.md; change both together.
+# The safety level uses config/.clang-tidy-safety: this file plus every check the MISRA C++:2023 matrix names.
+Checks: >-
+  -*,
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  fuchsia-virtual-inheritance,
+  hicpp-multiway-paths-covered,
+  hicpp-no-assembler,
+  hicpp-signed-bitwise,
+  misc-definitions-in-headers,
+  misc-no-recursion,
+  misc-static-assert,
+  misc-unconventional-assign-operator,
+  -bugprone-branch-clone,
+  -bugprone-crtp-constructor-accessibility,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-suspicious-include,
+  -cppcoreguidelines-avoid-const-or-ref-data-members,
+  -cppcoreguidelines-avoid-do-while,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-special-member-functions,
+  -modernize-use-ranges,
+  -modernize-use-std-format,
+  -modernize-use-std-print,
+  -modernize-use-trailing-return-type,
+  -readability-function-cognitive-complexity,
+  -readability-identifier-length,
+  -readability-magic-numbers,
+  -readability-redundant-inline-specifier
+
+# Why each check above is off:
+#   bugprone-branch-clone            error-code mapping switches repeat branches on purpose
+#   bugprone-crtp-constructor-..    port bases keep a protected constructor so any port can derive
+#   bugprone-easily-swappable-...    register and bus APIs take several integers by nature
+#   bugprone-suspicious-include      drivers include their src/<chip>.ipp from the header
+#   cppcoreguidelines-avoid-const-.. CRTP drivers hold a reference to their port
+#   cppcoreguidelines-avoid-do-while do { } while (0) is the macro idiom
+#   *-magic-numbers                  register addresses, masks and datasheet constants
+#   cppcoreguidelines-pro-bounds-*   byte-buffer and register-table access in bus frames
+#   cppcoreguidelines-special-member  the rule-of-five is written out where it matters
+#   modernize-use-ranges             std::ranges::fill and the like return an iterator that a fill discards, which
+#                                    MISRA C++:2023 Rule 0.1.2 forbids: std::fill returns void
+#   modernize-use-std-format/-print  would suggest <format> and std::print, which the C++20 profile forbids
+#                                    (KB-CPP20-051)
+#   modernize-use-trailing-return    not the Kokeb Labs style
+#   readability-function-cognitive  register sequences are long but flat
+#   readability-identifier-length    i, n, T and reg are fine
+#   readability-redundant-inline-.. `inline constexpr` is kept for clarity
+#
+# On from the MISRA C++:2023 matrix (compliance/misra-cpp-2023.yml), because they are cheap and fit the code:
+#   fuchsia-virtual-inheritance      Rules 8.2.1, 13.1.1, 13.1.2: no virtual bases
+#   hicpp-multiway-paths-covered     Rule 9.4.2: switches cover every path (the safety level adds WarnOnMissingElse)
+#   hicpp-no-assembler               Rule 10.4.1: no asm
+#   hicpp-signed-bitwise             Rules 7.0.4, 7.0.5: no signed operand of a bitwise operator, including a
+#                                    uint8_t or uint16_t promoted to int: cast to uint32_t first
+#   misc-definitions-in-headers      Rule 6.2.4 (HeaderFileExtensions below includes .ipp)
+#   misc-no-recursion                Rule 8.2.10
+#   misc-static-assert               Rule 22.3.1
+#   misc-unconventional-assign-op..  Rule 15.0.2
+#   readability-uppercase-literal-.. Rule 5.13.5: L, LL, UL and ULL in upper case (NewSuffixes below); 0xFFu and
+#                                    1.0f stay accepted
+#   cppcoreguidelines-pro-type-union-access and -vararg (Rules 12.3.1, 8.2.11, 21.10.1): there are no unions and
+#                                    the Log hook takes a plain `const char*`, so nothing needs them off
+#   cert-*                           Rules 21.2.1 (cert-err34-c), 21.2.3 (cert-env33-c), 21.10.2 (cert-err52-cpp),
+#                                    Dir 0.3.1 (cert-flp30-c)
+#   bugprone-dangling-handle         Rules 6.8.1 to 6.8.4, KB-CPP20-044: std::span is a handle too (HandleClasses)
+# Include guards (KB-CPP-019, Rule 19.2.1) are checked by the handbook's source checks, not llvm-header-guard,
+# whose path-based names differ from the convention.
+
+WarningsAsErrors: ''
+# .ipp is a header: drivers include src/<chip>.ipp from inc/<chip>.hpp (misc-definitions-in-headers, Rule 6.2.4).
+HeaderFileExtensions: ['', 'h', 'hh', 'hpp', 'hxx', 'ipp']
+HeaderFilterRegex: '.*/(inc|include|src|lib|handlers)/.*'
+ExcludeHeaderFilterRegex: '.*/(build[^/]*|_deps|third_party|managed_components|external)/.*'
+FormatStyle: file
+
+CheckOptions:
+  # Kconfig values (CONFIG_*) are macros by definition; they are object-like, which MISRA Rule 19.0.2 allows.
+  - { key: cppcoreguidelines-macro-usage.AllowedRegexp,                 value: '^(DEBUG_|CONFIG_)' }
+  - { key: readability-implicit-bool-conversion.AllowPointerConditions, value: true }
+  - { key: readability-uppercase-literal-suffix.NewSuffixes,            value: 'L;LL;UL;ULL' }
+  # A positive literal (1U << 0, x << 8) is not flagged; a narrow unsigned operand promoted to int is.
+  - { key: hicpp-signed-bitwise.IgnorePositiveIntegerLiterals,          value: true }
+  # A span or string_view built from a temporary dangles (KB-CPP20-044).
+  - { key: bugprone-dangling-handle.HandleClasses,                      value: 'std::basic_string_view;std::experimental::basic_string_view;std::span' }
+  # Types: PascalCase. Chip classes keep the part number (PCA9685, TMC9660).
+  - { key: readability-identifier-naming.NamespaceCase,                 value: lower_case }
+  - { key: readability-identifier-naming.ClassCase,                     value: CamelCase }
+  - { key: readability-identifier-naming.StructCase,                    value: CamelCase }
+  - { key: readability-identifier-naming.UnionCase,                     value: CamelCase }
+  - { key: readability-identifier-naming.EnumCase,                      value: CamelCase }
+  - { key: readability-identifier-naming.TypeAliasCase,                 value: CamelCase }
+  - { key: readability-identifier-naming.TypedefCase,                   value: CamelCase }
+  - { key: readability-identifier-naming.ConceptCase,                   value: CamelCase }
+  - { key: readability-identifier-naming.TemplateParameterCase,         value: CamelCase }
+  - { key: readability-identifier-naming.ValueTemplateParameterCase,    value: CamelCase }
+  # kb::interfaces keeps its C-style kb_*_t types (kb_spi_err_t, kb_u8_t).
+  - { key: readability-identifier-naming.TypeAliasIgnoredRegexp,        value: '^kb_[a-z0-9_]+_t$' }
+  - { key: readability-identifier-naming.TypedefIgnoredRegexp,          value: '^kb_[a-z0-9_]+_t$' }
+  # Enumerators: PascalCase; UPPER_CASE allowed for datasheet names and GpioSignal::ACTIVE.
+  - { key: readability-identifier-naming.EnumConstantCase,              value: CamelCase }
+  - { key: readability-identifier-naming.EnumConstantIgnoredRegexp,     value: '^[A-Z][A-Z0-9_]*$' }
+  # Functions and methods: PascalCase. Private helpers: camelBack.
+  - { key: readability-identifier-naming.FunctionCase,                  value: CamelCase }
+  - { key: readability-identifier-naming.MethodCase,                    value: CamelCase }
+  - { key: readability-identifier-naming.PrivateMethodCase,             value: camelBack }
+  # Allowed lower-case functions: kb::rtos's os_* and the kb_* C API, host test cases (test_*),
+  # and the vocabulary-type members ok(), begin(), end(), size(), data(), empty().
+  - { key: readability-identifier-naming.FunctionIgnoredRegexp,         value: '^((os|kb)_[a-z0-9_]+|test_[a-z0-9_]+)$' }
+  - { key: readability-identifier-naming.MethodIgnoredRegexp,           value: '^(ok|begin|end|size|data|empty)$' }
+  # Variables, parameters and public data members: snake_case.
+  - { key: readability-identifier-naming.ParameterCase,                 value: lower_case }
+  - { key: readability-identifier-naming.VariableCase,                  value: lower_case }
+  - { key: readability-identifier-naming.MemberCase,                    value: lower_case }
+  # Private and protected data members: snake_case_ with a trailing underscore.
+  - { key: readability-identifier-naming.PrivateMemberCase,             value: lower_case }
+  - { key: readability-identifier-naming.PrivateMemberSuffix,           value: '_' }
+  - { key: readability-identifier-naming.ProtectedMemberCase,           value: lower_case }
+  - { key: readability-identifier-naming.ProtectedMemberSuffix,         value: '_' }
+  # Constants: kPascalCase. UPPER_CASE allowed for datasheet register and bit names.
+  - { key: readability-identifier-naming.ConstexprVariableCase,         value: CamelCase }
+  - { key: readability-identifier-naming.ConstexprVariablePrefix,       value: k }
+  - { key: readability-identifier-naming.ConstexprVariableIgnoredRegexp, value: '^[A-Z][A-Z0-9_]*$' }
+  - { key: readability-identifier-naming.GlobalConstantCase,            value: CamelCase }
+  - { key: readability-identifier-naming.GlobalConstantPrefix,          value: k }
+  - { key: readability-identifier-naming.GlobalConstantIgnoredRegexp,   value: '^[A-Z][A-Z0-9_]*$' }
+  - { key: readability-identifier-naming.StaticConstantCase,            value: CamelCase }
+  - { key: readability-identifier-naming.StaticConstantPrefix,          value: k }
+  - { key: readability-identifier-naming.StaticConstantIgnoredRegexp,   value: '^[A-Z][A-Z0-9_]*$' }
+  - { key: readability-identifier-naming.ClassConstantCase,             value: CamelCase }
+  - { key: readability-identifier-naming.ClassConstantPrefix,           value: k }
+  - { key: readability-identifier-naming.ClassConstantIgnoredRegexp,    value: '^[A-Z][A-Z0-9_]*$' }
+  # Macros: UPPER_CASE, prefixed with the chip in drivers (PCA9685_...) or KB_ in kb-core; CONFIG_... from Kconfig.
+  - { key: readability-identifier-naming.MacroDefinitionCase,           value: UPPER_CASE }

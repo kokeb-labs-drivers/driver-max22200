@@ -1,0 +1,32 @@
+---
+# External link check (advisory: outside the gate, because third-party sites fail at random).
+name: Docs link check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-docs-linkcheck-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-linkcheck:
+    name: Link check
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-docs-linkcheck.yml@v1
+    with:
+      checkout_recursive: false
+      paths: "docs/** *.md **/*.md"
+      fail_on_errors: false
+      timeout: "30"
+      max_retries: "3"
+      retry_wait_time: "2"
+      exclude_private: true
+      exclude_mail: true
+      verbose: true
+      config_file: "_config/lychee.toml"

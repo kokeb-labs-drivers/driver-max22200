@@ -1,0 +1,28 @@
+# Documentation site on the shared MkDocs platform: theme, plugin and toolchain come from the
+# kokeb-mkdocs-theme package in kokeb-labs/ci-tools. This file lives in _config/ with the other
+# tool configuration; the pages are in ../docs. From the repository root:
+#
+#   pip install "git+https://github.com/kokeb-labs/ci-tools@v1\
+#   #subdirectory=packages/kokeb-mkdocs-theme"      (one line, without the backslash)
+#   mkdocs serve -f _config/mkdocs.yml               http://127.0.0.1:8000
+#   mkdocs build -f _config/mkdocs.yml --strict      what CI runs
+#   kokeb-docs figures && kokeb-docs gen         refresh figures and generated regions
+#   kokeb-docs check                               what CI checks before the build
+#
+# kokeb-docs finds this file on its own. Pages: docs/, order: docs/.nav.yml, rules:
+# docs/DOCS-STYLE-GUIDE.md in kokeb-labs/ci-tools.
+site_name: MAX22200 Driver
+site_description: >-
+  C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.
+repo_url: https://github.com/kokeb-labs-drivers/driver-max22200
+copyright: Copyright (c) 2026 The driver-max22200 authors
+docs_dir: ../docs
+site_dir: ../site
+
+theme:
+  name: kokeb
+
+plugins:
+  - kokeb
+  - search
+  - awesome-nav

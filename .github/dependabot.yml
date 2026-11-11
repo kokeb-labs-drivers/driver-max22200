@@ -1,0 +1,12 @@
+---
+# GitHub Actions updates (standards/repo-governance.md#dependabot). Submodules move by pin-bump PRs, and
+# the reusable workflows are pinned to @v1, which Dependabot leaves alone.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    labels: [dependencies]
+    commit-message:
+      prefix: "ci"

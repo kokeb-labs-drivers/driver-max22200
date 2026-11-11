@@ -1,0 +1,31 @@
+---
+# clang-format and clang-tidy with the org configs in _config/ (standards/naming-and-style.md). The shared
+# workflow points the tools at _config/.clang-format and _config/.clang-tidy; the repository has no root copies.
+name: C++ lint
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test-cpp-lint:
+    name: clang-format and clang-tidy
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-cpp-lint.yml@v1
+    permissions:
+      contents: read
+      pull-requests: write
+    with:
+      clang_version: "20"
+      clang_format_config: "_config/.clang-format"
+      clang_tidy_config: "_config/.clang-tidy"
+      extensions: "c,cpp,cc,cxx,h,hpp,ipp"
+      # examples/esp32 has its own lint job; tests/compile_fail must not compile, by design.
+      ignore: "build|.git|docs|_site|examples/esp32|tools/scaffold|tests/compile_fail"
+      files_changed_only: false
+      lines_changed_only: false
+      step_summary: true
+      tidy_checks: ""
+      # compile_commands.json for clang-tidy: the host tests build every header and the docs snippets.
+      cmake_args: "-DMAX22200_BUILD_TESTS=ON"

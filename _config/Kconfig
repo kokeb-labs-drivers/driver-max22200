@@ -1,0 +1,44 @@
+# Kconfig for the MAX22200 driver. The root CMakeLists.txt registers it with ESP-IDF
+# (idf_component_register(... KCONFIG _config/Kconfig)), so `idf.py menuconfig` shows
+# "MAX22200 solenoid driver". The values reach the code only through
+# inc/max22200_kconfig.hpp; no public driver signature uses them.
+menuconfig MAX22200
+    bool "MAX22200 solenoid driver"
+    default y
+    help
+      Defaults for max22200::KconfigDefaults(). The driver itself does not
+      need Kconfig; outside ESP-IDF the same defaults come from Config{}.
+
+if MAX22200
+
+choice MAX22200_VARIANT
+    prompt "Fitted part"
+    default MAX22200_VARIANT_PLAIN
+    help
+      Config::variant. The parts differ only in how a FAULT read clears the
+      flags: selectively (MAX22200A) or all at once (MAX22200). MAX22200 is
+      correct on both; choose MAX22200A only when the BOM says it is fitted.
+
+config MAX22200_VARIANT_PLAIN
+    bool "MAX22200 (clear on read; safe on both parts)"
+config MAX22200_VARIANT_A
+    bool "MAX22200A (selective clear on read)"
+
+endchoice
+
+config MAX22200_CLOCK_80KHZ
+    bool "80 kHz oscillator (FREQM = 1)"
+    default n
+    help
+      Config::clock. Off: 100 kHz, the reset value.
+
+config MAX22200_RREF_OHM
+    int "RREF from IREF to ground, in ohms (0: not given)"
+    range 0 100000
+    default 0
+    help
+      Config::rref_ohm. 15000 (IFS = 1 A) to 100000, or 0 when the
+      board's RREF is not given: codes still work, the milliamp
+      conversions refuse it. Values from 1 to 14999 fail Validate().
+
+endif

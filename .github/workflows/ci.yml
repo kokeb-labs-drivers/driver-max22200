@@ -1,0 +1,90 @@
+---
+# The repository's CI: every check, then the one gate that the ruleset requires ("CI gate / gate").
+# Each check is its own workflow file (re-run a check from its run; there is no manual trigger) that calls the shared
+# workflows of kokeb-labs/ci-tools at @v1; this file runs them together so a single gate can need all of them.
+name: CI
+
+on:
+  push:
+    branches: [main, 'release/*']
+    tags: ['v*']
+  pull_request:
+    branches: [main, 'release/*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  host-tests:
+    name: Host tests
+    uses: ./.github/workflows/ci-host-tests.yml
+
+  esp32:
+    name: ESP32 examples
+    uses: ./.github/workflows/esp32-examples-build-ci.yml
+    permissions:
+      contents: read
+      pull-requests: write
+
+  docs:
+    name: Docs
+    uses: ./.github/workflows/ci-docs-publish.yml
+    permissions:
+      contents: write  # the publish job pushes gh-pages on main and tags; pull requests never publish
+
+  quality:
+    name: Host quality
+    uses: ./.github/workflows/ci-host-quality.yml
+    permissions:
+      contents: read
+
+  cross:
+    name: Cross-compile
+    uses: ./.github/workflows/ci-cross-build.yml
+    permissions:
+      contents: read
+
+  misra:
+    name: MISRA
+    uses: ./.github/workflows/ci-misra.yml
+    permissions:
+      contents: read
+
+  lint:
+    name: C++ lint
+    uses: ./.github/workflows/ci-cpp-lint.yml
+    permissions:
+      contents: read
+      pull-requests: write
+
+  # DCO (pull requests; elsewhere it passes with nothing to check), the org standard, Markdown and YAML lint, the
+  # handbook rules, template drift (warns only) and cppcheck: steps of one job, billed as one.
+  checks:
+    name: Repository checks
+    uses: ./.github/workflows/ci-repo-checks.yml
+    permissions:
+      contents: read
+      pull-requests: read
+
+
+  ci-gate:
+    name: CI gate
+    needs:
+      - host-tests
+      - quality
+      - cross
+      - esp32
+      - docs
+      - lint
+      - misra
+      - checks
+    if: always()
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-ci-gate.yml@v1
+    permissions:
+      contents: read
+    with:
+      needs_json: ${{ toJSON(needs) }}

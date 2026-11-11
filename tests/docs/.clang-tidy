@@ -1,0 +1,5 @@
+# The documentation snippets call stand-ins for a vendor SDK (platform_spi_transfer, ...), named the way C SDKs
+# name things, so the org naming rules do not apply to them.
+InheritParentConfig: true
+Checks: >-
+  -readability-identifier-naming

@@ -1,0 +1,75 @@
+---
+# Builds every app in examples/esp32/app_config.yml for each listed ESP-IDF version and build type,
+# and lints the example sources.
+name: ESP32 examples build
+
+on:
+  workflow_call:
+
+env:
+  PROJECT_DIR: examples/esp32
+  TOOLS_DIR: examples/esp32/scripts
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      project_dir: ${{ steps.vars.outputs.project_dir }}
+      tools_dir: ${{ steps.vars.outputs.tools_dir }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          submodules: recursive
+
+      - name: Set local variables
+        id: vars
+        run: |
+          echo "project_dir=${{ env.PROJECT_DIR }}" >> "$GITHUB_OUTPUT"
+          echo "tools_dir=${{ env.TOOLS_DIR }}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate configuration
+        run: |
+          cd ${{ steps.vars.outputs.tools_dir }}
+          python3 generate_matrix.py --validate --verbose
+
+      - name: Generate build matrix
+        id: matrix
+        run: |
+          cd ${{ steps.vars.outputs.tools_dir }}
+          MATRIX=$(python3 generate_matrix.py)
+          echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
+          echo "Generated matrix with $(echo "${MATRIX}" | jq '.include | length') build combinations"
+
+  build:
+    needs: validate
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-build.yml@v1
+    permissions:
+      contents: read
+      pull-requests: write
+    with:
+      project_dir: ${{ needs.validate.outputs.project_dir }}
+      project_tools_dir: ${{ needs.validate.outputs.tools_dir }}
+
+  lint:
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-cpp-lint.yml@v1
+    permissions:
+      contents: read
+      pull-requests: write
+    with:
+      clang_version: "20"
+      clang_format_config: "_config/.clang-format"
+      clang_tidy_config: "_config/.clang-tidy"
+      extensions: "c,cpp,cc,cxx,h,hpp"
+      ignore: >
+        build|.git|third_party|vendor|src/|inc/|include/|docs/|_config/|_site/|tests/|tools/|
+        examples/host/|examples/esp32/scripts/|examples/esp32/build/
+      files_changed_only: false
+      step_summary: true
+      file_annotations: true
+      # clang-format only: clang-tidy would need the ESP-IDF headers and sdkconfig, which only the IDF build has.
+      # The driver code these examples use is tidied by the host lint job.
+      tidy_checks: "-*"

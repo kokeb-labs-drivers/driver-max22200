@@ -1,0 +1,59 @@
+# Lychee link checker configuration for driver and library repositories
+# =============================================================================
+# It handles common link-check issues: rate-limited licence pages and badges, and pages of a repository
+# that do not exist yet.
+# Based on official example: https://github.com/lycheeverse/lychee/blob/master/lychee.example.toml
+# =============================================================================
+
+# Website timeout from connect to response finished (in seconds)
+timeout = 30
+
+# Maximum number of allowed retries before a link is declared dead
+max_retries = 3
+
+# Maximum number of allowed redirects
+max_redirects = 10
+
+# Minimum wait time in seconds between retries of failed requests
+retry_wait_time = 1
+
+# User agent to send with each request
+user_agent = "lychee/0.21.0"
+
+# Request method
+method = "get"
+
+# Proceed for server connections considered insecure (invalid TLS)
+insecure = false
+
+# Exclude all private IPs from checking
+# Equivalent to setting exclude_private, exclude_link_local, and exclude_loopback to true
+exclude_all_private = true
+
+# Check mail addresses (disabled to avoid mailto links)
+include_mail = false
+
+# Check links inside code and pre blocks as well as Markdown code blocks
+include_verbatim = false
+
+# Skip missing input files (default is to error if they don't exist)
+skip_missing = false
+
+# Comma-separated list of accepted status codes for valid links
+# 200: OK
+# 429: Too Many Requests (rate limited but valid)
+# 403: Forbidden (some sites block automated requests but are valid)
+accept = ["200", "429", "403"]
+
+# Exclude URLs and mail addresses from checking (treated as regular expressions)
+exclude = [
+  # Licence pages and badges - frequently rate limited
+  '^https?://(www\.)?opensource\.org/licenses?/.*',
+  '^https?://(www\.)?apache\.org/licenses/.*',
+  '^https?://img\.shields\.io/badge/[Ll]icense-.*',
+
+  # Workflow badges and the docs site of a new repository (may not exist yet)
+  '^https://github\.com/[^/]+/[^/]+/actions/workflows/.*',
+  '^https://[^/]+\.github\.io/[^/]+/.*',
+
+]

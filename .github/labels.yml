@@ -1,0 +1,33 @@
+---
+# The org label set (standards/repo-governance.md#issues-and-labels). Labels are created by hand when a
+# repository is set up; docs/repo-setup.md has a loop that creates them from this file with gh.
+- name: bug
+  color: d73a4a
+  description: Something behaves wrong
+- name: enhancement
+  color: a2eeef
+  description: New capability or API change
+- name: driver-request
+  color: 5319e7
+  description: A new chip driver
+- name: safety
+  color: b60205
+  description: Can damage hardware or cause unsafe motion, heat or pressure; fixed first
+- name: breaking
+  color: e99695
+  description: Changes a public API, a config layout or NVS; needs a Breaking changelog entry
+- name: standard
+  color: 0e8a16
+  description: Brings the repository in line with the org standard
+- name: documentation
+  color: 0075ca
+  description: Docs only
+- name: ci
+  color: fbca04
+  description: Workflows and tooling
+- name: dependencies
+  color: 0366d6
+  description: Dependency and action updates
+- name: good first issue
+  color: 7057ff
+  description: Small and well described

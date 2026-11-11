@@ -1,0 +1,50 @@
+---
+# Host tests on GCC and Clang: unit tests over the register model (-fno-exceptions -fno-rtti,
+# warnings as errors), compile-fail tests, doc snippets, version copies, the install consumer and the host example
+# (examples/host), which also runs on its own as the quickstart shows it.
+# Both compilers run in one job, one after the other, with the same commands: the Clang step runs even when the GCC
+# step failed, and the job fails if either did.
+name: Host tests
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  host-tests:
+    name: Host tests (gcc, clang)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: GCC
+        env:
+          COMPILER: gcc
+          CXX_COMPILER: g++
+        run: &host-tests |
+          set -euo pipefail
+          echo "::group::Configure ($COMPILER)"
+          cmake -S . -B "build-host-$COMPILER" -DMAX22200_BUILD_TESTS=ON -DCMAKE_CXX_COMPILER="$CXX_COMPILER" \
+            -DCMAKE_BUILD_TYPE=Debug
+          echo "::endgroup::"
+          echo "::group::Build ($COMPILER)"
+          cmake --build "build-host-$COMPILER" --parallel
+          echo "::endgroup::"
+          echo "::group::Test ($COMPILER)"
+          ctest --test-dir "build-host-$COMPILER" --output-on-failure
+          echo "::endgroup::"
+          # The quickstart's first step, exactly as a reader runs it: the host example as its own project.
+          echo "::group::Host example, standalone ($COMPILER)"
+          cmake -S examples/host -B "build-example-$COMPILER" -DCMAKE_CXX_COMPILER="$CXX_COMPILER"
+          cmake --build "build-example-$COMPILER" --parallel
+          "./build-example-$COMPILER/max22200_host_example"
+          echo "::endgroup::"
+
+      - name: Clang
+        if: ${{ !cancelled() }}
+        env:
+          COMPILER: clang
+          CXX_COMPILER: clang++
+        run: *host-tests

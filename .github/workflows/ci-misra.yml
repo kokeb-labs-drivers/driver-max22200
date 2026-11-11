@@ -1,0 +1,26 @@
+---
+name: MISRA
+
+# MISRA C++:2023 and the handbook's C++20 profile (KB-CPP20) on traced host and Cortex-M builds of every
+# translation unit: the CodeQL coding-standards pack, the profile pack, and clang-tidy's and cppcheck's validated
+# checks, against the handbook's compliance matrix and deviation records (handbook docs/standards/misra.md).
+# Deviations of this repository are in docs/deviations.yml.
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  misra:
+    name: MISRA C++:2023
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-misra.yml@v1
+    permissions:
+      contents: read
+    with:
+      level: high
+      cmake_args: "-DMAX22200_BUILD_TESTS=ON"
+      cross_build_target: max22200_optimised_build
+      # The code is released under the MIT licence in LICENSE and is to be published; until then the repository
+      # is private and the analysis runs under that declaration (ci-tools docs/ru-misra.md, Licence).
+      open_source_prerelease: true

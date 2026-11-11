@@ -1,0 +1,21 @@
+---
+name: Host quality
+
+# Complexity, coverage, sanitizer and fuzz gates at this repository's assurance level (handbook ADR-0020).
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Quality gates
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-host-quality.yml@v1
+    permissions:
+      contents: read
+    with:
+      level: high
+      cmake_args: "-DMAX22200_BUILD_TESTS=ON"
+      fuzz_cmake_args: "-DMAX22200_BUILD_FUZZERS=ON"
+      library_paths: "inc src"

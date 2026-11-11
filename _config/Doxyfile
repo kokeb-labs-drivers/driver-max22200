@@ -1,0 +1,38 @@
+# Doxygen configuration for the API reference (published under /api/ by the docs CI).
+# Doxygen resolves paths against the folder it runs in, not this file's: run it from the repository root
+# (`doxygen _config/Doxyfile`), as the docs CI and tests/check_doxygen.cmake do.
+# Every option not listed keeps Doxygen's default. Public symbols in inc/ must be documented:
+# EXTRACT_ALL = NO with WARN_AS_ERROR = FAIL_ON_WARNINGS fails the build on any undocumented one.
+PROJECT_NAME           = "MAX22200 Driver"
+PROJECT_NUMBER         = 0.1.0
+PROJECT_BRIEF          = "API reference"
+OUTPUT_DIRECTORY       = build/doxygen
+INPUT                  = inc docs/_doxygen/mainpage.md
+FILE_PATTERNS          = *.hpp *.h *.md
+RECURSIVE              = NO
+USE_MDFILE_AS_MAINPAGE = docs/_doxygen/mainpage.md
+EXTENSION_MAPPING      = ipp=C++
+EXCLUDE_SYMBOLS        = *::detail *::detail::* detail
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+QUIET                  = YES
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_IF_INCOMPLETE_DOC = YES
+WARN_NO_PARAMDOC       = YES
+WARN_AS_ERROR          = FAIL_ON_WARNINGS
+WARN_FORMAT            = "$file:$line: $text"
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        = .
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = NO
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+GENERATE_TREEVIEW      = NO
+SEARCHENGINE           = YES
+HAVE_DOT               = NO

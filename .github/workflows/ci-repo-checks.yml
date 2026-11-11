@@ -1,0 +1,61 @@
+---
+# The small repository checks in one job (ci-tools ru-repo-checks): DCO on pull requests, the org standard
+# (licence, governance files), Markdown and YAML lint, the handbook rules against .kokeb/handbook.yml, template
+# drift (warns only; scaffold.py --check-drift --fix takes the template's version) and cppcheck over the driver
+# sources (a finding fails CI). A second small job runs the handbook's source checks and the stand-alone check.
+name: Repository checks
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Repository checks
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-repo-checks.yml@v1
+    permissions:
+      contents: read
+      pull-requests: read
+    with:
+      markdown_globs: 'docs/** *.md **/*.md'
+      markdown_config_file: '_config/.markdownlint.json'
+      yaml_paths: '.github/workflows/*.yml,**/*.yml,**/*.yaml'
+      yaml_config_file: '_config/.yamllint'
+      yaml_exclude_patterns: >-
+        .git/**,node_modules/**,venv/**,.venv/**,_site/**,**/espidf-tools/**,examples/esp32/scripts/**
+      cppcheck_paths: "inc src"
+      cppcheck_std: "c++20"
+      cppcheck_enable: "warning,style,performance,portability,information"
+      cppcheck_force: true
+      cppcheck_strict: true  # a cppcheck finding fails CI
+
+  # The handbook's source checks: include guards and no #pragma (KB-CPP-019), the bus requirements as constexpr
+  # (KB-CPP-123), a single-shot raw access (KB-CPP-129) and the C++20 profile (KB-CPP20: no forbidden features,
+  # CMAKE_CXX_EXTENSIONS OFF, [[nodiscard]] error types, named hook concepts, the Kconfig header as a leaf). The script comes from a pinned commit of the public
+  # handbook and needs only the Python standard library; a finding fails CI.
+  source-checks:
+    name: Handbook source checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          repository: kokeb-labs/handbook
+          ref: daec60fa62c5e418eb72a1bfb28c0937f536a751  # main: checks/source_checks.py with the C++20 profile checks
+          path: .handbook
+          sparse-checkout: checks/source_checks.py
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - name: Scan
+        run: python3 .handbook/checks/source_checks.py scan --repo .
+      # The repository's own check (tools/check_standalone.py, kept by the template): it names no other project,
+      # carries no dated history and gives its copyright to "The <repo> authors".
+      - name: Stand-alone check
+        run: python3 tools/check_standalone.py

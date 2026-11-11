@@ -1,0 +1,6 @@
+---
+# What this repository is, for the handbook check (kokeb-labs/ci-tools ru-handbook-check, handbook KB-REPO-002).
+# A scaffolded driver or library gets its own kind here; the level stays high.
+handbook: "1.0"
+kind: driver
+level: high

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or discussion
+    url: https://github.com/orgs/kokeb-labs-drivers/discussions
+    about: Ask usage questions and discuss ideas here instead of opening an issue.
+  - name: Security vulnerability
+    url: https://github.com/kokeb-labs/.github/blob/main/SECURITY.md
+    about: Report privately through a GitHub security advisory. Do not open a public issue.

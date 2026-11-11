@@ -1,0 +1,35 @@
+{
+  "name": "max22200",
+  "cls": "MAX22200",
+  "calls": [
+    "EnsureInitialized",
+    "Deinitialize",
+    "ApplyConfig",
+    "SetChannelsOn",
+    "SetChannel",
+    "SetBridge",
+    "ReadChannelsOn",
+    "ConfigureChannel",
+    "SetHoldCode",
+    "SetPairMode",
+    "SetFaultMask",
+    "SetDpm",
+    "ReadChannelConfig",
+    "ReadStatus",
+    "ReadFaults",
+    "ClearFaults",
+    "ReadFaultPin",
+    "ReadRegister"
+  ],
+  "sources": [
+    "inc/max22200.hpp:public calls",
+    "inc/max22200_spi_interface.hpp:SpiInterface"
+  ],
+  "bus": "SPI",
+  "base": "SpiInterface",
+  "hooks": [
+    "GpioSet",
+    "EnsureInitialized",
+    "Transfer"
+  ]
+}

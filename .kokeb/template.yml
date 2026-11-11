@@ -1,0 +1,23 @@
+---
+# How this repository was made from kokeb-labs/driver-template. The template's drift check
+# (tools/scaffold.py --check-drift, CI: kokeb-labs/ci-tools ru-template-drift) scaffolds the template again
+# with these arguments and compares the files it manages. List a file under `local` only when it differs on
+# purpose, with the reason.
+template: 8068322e01b6b5c3ede59bff7a97a4694a33168b
+kind: "driver"
+name: "max22200"
+bus: "spi"
+namespace: "max22200"
+description: "C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers."
+include_root: null
+org: "kokeb-labs-drivers"
+repo: "driver-max22200"
+author: "The driver-max22200 authors"
+license: "MIT"
+datasheet: "https://www.analog.com/en/products/max22200.html"
+platforms: [host, esp32]
+local:
+  - path: .claude/skills/add-port/SKILL.md
+    reason: "describes this chip's CMD and ENABLE pins and its 1- and 4-byte transfers"
+  - path: .claude/skills/datasheet-conformance/SKILL.md
+    reason: "links this chip's datasheet and revision"

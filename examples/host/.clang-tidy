@@ -1,0 +1,7 @@
+# The example port keeps its hooks as instance methods: the driver calls a port object (the port contract), even
+# when a hook such as Log does not touch the port's state. The host example prints its readings with std::printf
+# (cppcoreguidelines-pro-type-vararg): it is a program for a desktop, not driver code.
+InheritParentConfig: true
+Checks: >-
+  -readability-convert-member-functions-to-static,
+  -cppcoreguidelines-pro-type-vararg

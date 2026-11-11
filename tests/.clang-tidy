@@ -1,0 +1,20 @@
+# The tests follow the org clang-tidy configuration (_config/.clang-tidy, linked to the root by CI). These checks
+# are off here because the code they would change is test scaffolding, never shipped:
+#   readability-convert-member-functions-to-static  mock ports keep their hooks as instance methods: the driver
+#                                                   calls a port object (the port contract), whatever the hook does
+#   cppcoreguidelines-non-private-member-variables-in-classes  the mock chip exposes its state for the tests to
+#                                                   set and read
+#   cppcoreguidelines-macro-usage                   TEST_CASE / CHECK are macros so they can report file and line
+#   cppcoreguidelines-avoid-c-arrays, modernize-avoid-c-arrays  the mock register file and the test registry
+#   modernize-use-designated-initializers           the test registry's two-field entries
+#   cppcoreguidelines-pro-type-vararg               the test runner and the fuzz replay print their report with
+#                                                   std::printf on the host; the driver itself never formats text
+InheritParentConfig: true
+Checks: >-
+  -readability-convert-member-functions-to-static,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  -cppcoreguidelines-macro-usage,
+  -cppcoreguidelines-avoid-c-arrays,
+  -modernize-avoid-c-arrays,
+  -modernize-use-designated-initializers,
+  -cppcoreguidelines-pro-type-vararg

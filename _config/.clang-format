@@ -1,0 +1,17 @@
+# Org-wide clang-format configuration (clang-format 20).
+# Source of truth: https://github.com/kokeb-labs/.github/tree/main/standards/config
+# Copy into _config/ unchanged; see standards/naming-and-style.md#formatting.
+---
+Language: Cpp
+BasedOnStyle: LLVM
+Standard: c++20
+ColumnLimit: 100
+IndentWidth: 2
+ContinuationIndentWidth: 4
+PointerAlignment: Left
+DerivePointerAlignment: false
+AllowShortFunctionsOnASingleLine: Empty
+BreakTemplateDeclarations: Yes
+IncludeBlocks: Preserve
+PenaltyBreakBeforeFirstCallParameter: 1
+PenaltyReturnTypeOnItsOwnLine: 200
