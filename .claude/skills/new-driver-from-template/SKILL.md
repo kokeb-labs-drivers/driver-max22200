@@ -71,3 +71,5 @@ Use the `datasheet-conformance` skill for every step, one subsystem at a time:
    `docs/repo-setup.md` for the org settings. Before merging a driver that switches loads, have an independent
    reviewer (the `safety-reviewer` agent, run by someone who did not write the code) check it against the
    datasheet: a model written by the same author shares the author's assumptions, so green tests are not enough.
+7. After the merge, do not tag until `CI` on `main` is green; then follow `docs/repo-setup.md` section 6 (release
+   candidate, public, Pages) and the `release` skill, section 5, when a check goes red for a reason outside the code.
