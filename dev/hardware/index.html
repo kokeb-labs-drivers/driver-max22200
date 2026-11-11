@@ -1,0 +1,2122 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
+      
+      
+      
+        <link rel="canonical" href="https://kokeb-labs-drivers.github.io/driver-max22200/latest/hardware/">
+      
+      
+        <link rel="prev" href="../platforms/">
+      
+      
+        <link rel="next" href="../architecture/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/kokeb/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Hardware - MAX22200 Driver</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M0%208a8%208%200%201%201%2016%200A8%208%200%200%201%200%208m8-6.5a6.5%206.5%200%201%200%200%2013%206.5%206.5%200%200%200%200-13M6.5%207.75A.75.75%200%200%201%207.25%207h1a.75.75%200%200%201%20.75.75v2.75h.25a.75.75%200%200%201%200%201.5h-2a.75.75%200%200%201%200-1.5h.25v-2h-.25a.75.75%200%200%201-.75-.75M8%206a1%201%200%201%201%200-2%201%201%200%200%201%200%202%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201.5c-2.363%200-4%201.69-4%203.75%200%20.984.424%201.625.984%202.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621%201.49a.75.75%200%200%201-1.484.211c-.04-.282-.163-.547-.37-.847a9%209%200%200%200-.542-.68q-.126-.149-.268-.32C3.201%207.75%202.5%206.766%202.5%205.25%202.5%202.31%204.863%200%208%200s5.5%202.31%205.5%205.25c0%201.516-.701%202.5-1.328%203.259q-.142.172-.268.319c-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751%200%200%201-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848q.113-.133.213-.253c.561-.679.985-1.32.985-2.304%200-2.06-1.637-3.75-4-3.75M5.75%2012h4.5a.75.75%200%200%201%200%201.5h-4.5a.75.75%200%200%201%200-1.5M6%2015.25a.75.75%200%200%201%20.75-.75h2.5a.75.75%200%200%201%200%201.5h-2.5a.75.75%200%200%201-.75-.75%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M6.457%201.047c.659-1.234%202.427-1.234%203.086%200l6.082%2011.378A1.75%201.75%200%200%201%2014.082%2015H1.918a1.75%201.75%200%200%201-1.543-2.575Zm1.763.707a.25.25%200%200%200-.44%200L1.698%2013.132a.25.25%200%200%200%20.22.368h12.164a.25.25%200%200%200%20.22-.368Zm.53%203.996v2.5a.75.75%200%200%201-1.5%200v-2.5a.75.75%200%200%201%201.5%200M9%2011a1%201%200%201%201-2%200%201%201%200%200%201%202%200%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M9.504.43a1.516%201.516%200%200%201%202.437%201.713L10.415%205.5h2.123c1.57%200%202.346%201.909%201.22%203.004l-7.34%207.142a1.25%201.25%200%200%201-.871.354h-.302a1.25%201.25%200%200%201-1.157-1.723L5.633%2010.5H3.462c-1.57%200-2.346-1.909-1.22-3.004zm1.047%201.074L3.286%208.571A.25.25%200%200%200%203.462%209H6.75a.75.75%200%200%201%20.694%201.034l-1.713%204.188%206.982-6.793A.25.25%200%200%200%2012.538%207H9.25a.75.75%200%200%201-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005%200-.009.004%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5%205.782V2.5h-.25a.75.75%200%200%201%200-1.5h6.5a.75.75%200%200%201%200%201.5H11v3.282l3.666%205.76C15.619%2013.04%2014.543%2015%2012.767%2015H3.233c-1.776%200-2.852-1.96-1.899-3.458Zm-2.4%206.565a.75.75%200%200%200%20.633%201.153h9.534a.75.75%200%200%200%20.633-1.153L12.225%2010.5h-8.45ZM9.5%202.5h-3V6c0%20.143-.04.283-.117.403L4.73%209h6.54L9.617%206.403A.75.75%200%200%201%209.5%206Z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M1.75%202.5h10.5a.75.75%200%200%201%200%201.5H1.75a.75.75%200%200%201%200-1.5m4%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5m0%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5M2.5%207.75v6a.75.75%200%200%201-1.5%200v-6a.75.75%200%200%201%201.5%200%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+  <link rel="stylesheet" href="../assets/kokeb/kokeb.css">
+
+    
+      
+    
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/kokeb/fonts.css">
+  <noscript><link rel="stylesheet" href="../assets/kokeb/fonts.css"></noscript>
+
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  
+  
+  <meta name="theme-color" content="#0e1726" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b2140" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kokeb Labs">
+  <meta property="og:title" content="Hardware - MAX22200 Driver">
+  <meta property="og:description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
+  <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-max22200/latest/hardware/">
+  <meta name="twitter:card" content="summary">
+  <script>
+(function () {
+  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
+  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
+      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
+  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
+  var stub = {
+    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
+    render: function (id, text) {
+      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
+      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
+      if (el) el.setAttribute("data-kb-mermaid", "");
+      return near(el).then(load).then(function (m) { return m.render(id, text); });
+    }
+  };
+  function load() {
+    return loading || (loading = new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = SRC;
+      s.integrity = SRI;
+      s.crossOrigin = "anonymous";
+      s.onload = function () {
+        real = window.mermaid;
+        window.mermaid = stub;
+        real.initialize(config);
+        resolve(real);
+      };
+      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
+      document.head.appendChild(s);
+    }));
+  }
+  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
+  function watch() {
+    if (io) io.disconnect();
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
+      });
+    }, { rootMargin: ahead ? "100% 0px" : "0px" });
+    waiting.forEach(function (w) { io.observe(w.el); });
+  }
+  function release(which) {
+    waiting = waiting.filter(function (w) {
+      if (!which(w)) return true;
+      io.unobserve(w.el);
+      w.go();
+      return false;
+    });
+  }
+  function near(el) {
+    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
+    return new Promise(function (resolve) {
+      waiting.push({ el: el, go: resolve });
+      if (io) io.observe(el); else watch();
+    });
+  }
+  function engaged() {
+    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
+    ahead = true;
+    if (io) watch();
+  }
+  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
+  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
+  window.mermaid = stub;
+})();
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hardware" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You are reading the documentation of an older version.
+  <a href="https://kokeb-labs-drivers.github.io/driver-max22200/"><strong>Go to the latest version.</strong></a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MAX22200 Driver" class="md-header__button md-logo" aria-label="MAX22200 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          
+          <a class="kb-org" href="https://kokeb-labs.github.io/" title="All Kokeb Labs documentation">Kokeb Labs</a>
+          <span class="kb-org__sep" aria-hidden="true">/</span>
+          <span class="md-ellipsis">
+            MAX22200 Driver
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hardware
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Follow the system theme"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Follow the system theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kokeb-labs-drivers/driver-max22200" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-max22200
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../quickstart/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-guide/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MAX22200 Driver" class="md-nav__button md-logo" aria-label="MAX22200 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    MAX22200 Driver
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-max22200
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Get started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platforms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platforms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application circuit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-pins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control pins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bus-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bus settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-and-heat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current and heat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-scale-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full-scale current
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../architecture/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-reference/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application circuit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-pins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control pins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bus-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bus settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-and-heat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current and heat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-scale-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full-scale current
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kokeb-labs-drivers/driver-max22200/edit/main/docs/hardware.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="hardware">Hardware<a class="headerlink" href="#hardware" title="Permanent link">&para;</a></h1>
+<p>The MAX22200's pins, bus settings, timing and power, as the driver uses them. Everything here is from the
+datasheet; nothing on this page is <strong>verified on hardware</strong> with this driver yet (<a href="../limitations/">Status and
+limitations</a>).</p>
+<!-- generated: datasheet-refs -->
+<details class="abstract">
+<summary>Datasheet sections this page relies on</summary>
+<p>From Analog Devices 19-100531 1:</p>
+<ul>
+<li>The two parts and how each clears the FAULT register: General Description; Ordering Information, p. 1</li>
+<li>Supply, logic levels, on-resistance, OCP and open-load thresholds: Absolute Maximum Ratings; Electrical Characteristics, p. 7</li>
+<li>Full-scale current constant KFS and the CDR accuracy: Electrical Characteristics (KFS0, KFS1, ITRERR), p. 9</li>
+<li>Enable, wake-up and disable times; SPI timing: Electrical Characteristics (tEN, tWU, tDIS, SPI); Figure 1, p. 10</li>
+<li>Pins, CMD, ENABLE, FAULT and the TRIG inputs: Pin Configuration; Pin Description, p. 12</li>
+<li>Current rating and safe operating area: Applications Information; Current Rating; Figures 14 to 17, p. 42</li>
+<li>The application diagram: Typical Application Circuits; Application Diagram, p. 44</li>
+</ul>
+<p>All of them, with the driver API for each: <a href="../datasheet/">Datasheet map</a>.</p>
+</details>
+<!-- /generated -->
+
+<h2 id="parts">Parts<a class="headerlink" href="#parts" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>FAULT register</th>
+<th>Driver setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAX22200A</td>
+<td>Selective clear on read: a read clears only the flags whose SDI bit is high</td>
+<td><code>Config::variant = Variant::Max22200A</code></td>
+</tr>
+<tr>
+<td>MAX22200</td>
+<td>Every read clears every flag; a fault that arrives during the read is lost</td>
+<td><code>Config::variant = Variant::Max22200</code> (the default)</td>
+</tr>
+</tbody>
+</table>
+<p>The two parts are otherwise the same ("Clearing the FAULT Register", Ordering Information). The chip cannot tell
+which it is, so the variant is configured; the datasheet recommends the MAX22200A for new designs. The default,
+<code>Max22200</code>, is correct on both: it never asks for a selective clear, and <code>ClearFaults()</code> sends all ones. Declare
+<code>Max22200A</code> only when the bill of materials names it and a bench check shows a zero-SDI read leaves a latched flag
+set (<a href="../limitations/#before-you-depend-on-it">bench steps 5 and 11</a>): a selective clear
+sent to a MAX22200 clears every flag. The selective clear's SDI byte order follows Figure 8 (LSB byte first), one
+constant (<code>reg::kFaultClearLsbByteFirst</code>), <strong>not verified on hardware</strong>.</p>
+<h2 id="pins">Pins<a class="headerlink" href="#pins" title="Permanent link">&para;</a></h2>
+<p>The 32-pin TQFN as the Pin Configuration draws it, from the top: pin 1 at the bottom left, the exposed pad (power
+ground) underneath.</p>
+<figure class="kb-figure">
+<img src="../diagrams/chip-pinout.svg#only-light" alt="Pinout of the MAX22200 in TQFN-32, top view: 32 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it." width="1046" height="1154"><img src="../diagrams/chip-pinout.dark.svg#only-dark" alt="Pinout of the MAX22200 in TQFN-32, top view: 32 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it." width="1046" height="1154">
+<figcaption>MAX22200 pinout, TQFN-32</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MAX22200 seen from the top, in its TQFN-32 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<!-- generated: chip-pins -->
+<p>TQFN-32, 32 pins and an exposed pad (Pin Configuration, p. 12).</p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Name</th>
+<th>Type (domain)</th>
+<th>Function</th>
+<th>Driver hook</th>
+<th>If unused</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>FAULT</code></td>
+<td>open drain (logic)</td>
+<td>Fault output, low while an unmasked fault is present; needs a pull-up</td>
+<td><code>GpioRead(CtrlPin::Fault)</code></td>
+<td>Leave open</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>CMD</code></td>
+<td>digital in (logic)</td>
+<td>High to write the Command Register, low for every other register; pull-down</td>
+<td><code>GpioSet(CtrlPin::Cmd)</code></td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>CSB</code></td>
+<td>bus (logic)</td>
+<td>SPI chip select, active low; pull-up current</td>
+<td><code>Transfer()</code></td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>GND</code></td>
+<td>ground</td>
+<td>Signal ground</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>SCK</code></td>
+<td>bus (logic)</td>
+<td>SPI clock, up to 10 MHz; pull-down</td>
+<td><code>Transfer()</code></td>
+<td>-</td>
+<td>Electrical Characteristics (SPI); Figure 1, p. 10</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>SDI</code></td>
+<td>bus (logic)</td>
+<td>SPI data in (MOSI); pull-down</td>
+<td><code>Transfer()</code></td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>SDO</code></td>
+<td>bus (logic)</td>
+<td>SPI data out (MISO), open drain; needs a pull-up</td>
+<td><code>Transfer()</code></td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>TRIGA</code></td>
+<td>digital in (logic)</td>
+<td>Trigger input of channels 0, 2, 4 and 6; pull-down</td>
+<td>-</td>
+<td>Connect to GND</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>VM</code></td>
+<td>power (VM)</td>
+<td>Supply, 4.5 V to 36 V</td>
+<td>-</td>
+<td>-</td>
+<td>Electrical Characteristics (Supply Voltage), p. 7</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>OUT4</code></td>
+<td>power output (VM)</td>
+<td>Half-bridge output, channel 4</td>
+<td>-</td>
+<td>Leave open</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>OUT5</code></td>
+<td>power output (VM)</td>
+<td>Half-bridge output, channel 5</td>
+<td>-</td>
+<td>Leave open</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>VM</code></td>
+<td>power (VM)</td>
+<td>Supply; 0.1 µF ceramic at pins 12 and 13</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>VM</code></td>
+<td>power (VM)</td>
+<td>Supply; 0.1 µF ceramic at pins 12 and 13</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>OUT6</code></td>
+<td>power output (VM)</td>
+<td>Half-bridge output, channel 6</td>
+<td>-</td>
+<td>Leave open</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>OUT7</code></td>
+<td>power output (VM)</td>
+<td>Half-bridge output, channel 7</td>
+<td>-</td>
+<td>Leave open</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>VM</code></td>
+<td>power (VM)</td>
+<td>Supply</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>TRIGB</code></td>
+<td>digital in (logic)</td>
+<td>Trigger input of channels 1, 3, 5 and 7; pull-down</td>
+<td>-</td>
+<td>Connect to GND</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>IREF</code></td>
+<td>analog (V18)</td>
+<td>15 kΩ to 100 kΩ to GND sets the full-scale current of every CDR channel</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>GND</code></td>
+<td>ground</td>
+<td>Signal ground</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>V18</code></td>
+<td>power (V18)</td>
+<td>1.8 V LDO output; 2.2 µF ceramic to GND, no load</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>ENABLE</code></td>
+<td>digital in (logic)</td>
+<td>High: on; low: sleep. 1.5 MΩ pull-down; tolerates VM</td>
+<td><code>GpioSet(CtrlPin::Enable)</code></td>
+<td>-</td>
+<td>Enable Logic Input, p. 14</td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>CFN</code></td>
+<td>analog (VM)</td>
+<td>Charge pump, 22 nF VM-rated ceramic to CFP</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>CFP</code></td>
+<td>analog (VM)</td>
+<td>Charge pump, 22 nF VM-rated ceramic to CFN</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>VCP</code></td>
+<td>analog (VM)</td>
+<td>Charge-pump output, 1 µF (5 V or more) to VM</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>25</td>
+<td><code>VM</code></td>
+<td>power (VM)</td>
+<td>Supply</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>26</td>
+<td><code>OUT3</code></td>
+<td>power output (VM)</td>
+<td>Half-bridge output, channel 3</td>
+<td>-</td>
+<td>Leave open</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>27</td>
+<td><code>OUT2</code></td>
+<td>power output (VM)</td>
+<td>Half-bridge output, channel 2</td>
+<td>-</td>
+<td>Leave open</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>28</td>
+<td><code>VM</code></td>
+<td>power (VM)</td>
+<td>Supply; 0.1 µF ceramic at pins 28 and 29</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>29</td>
+<td><code>VM</code></td>
+<td>power (VM)</td>
+<td>Supply; 0.1 µF ceramic at pins 28 and 29</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>30</td>
+<td><code>OUT1</code></td>
+<td>power output (VM)</td>
+<td>Half-bridge output, channel 1</td>
+<td>-</td>
+<td>Leave open</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>31</td>
+<td><code>OUT0</code></td>
+<td>power output (VM)</td>
+<td>Half-bridge output, channel 0</td>
+<td>-</td>
+<td>Leave open</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>32</td>
+<td><code>VM</code></td>
+<td>power (VM)</td>
+<td>Supply</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>EP</td>
+<td><code>PGND</code></td>
+<td>ground</td>
+<td>Exposed pad: power ground and heat path; solder to the ground plane</td>
+<td>-</td>
+<td>-</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+</tbody>
+</table>
+<p>Source of this table and of the chip figures: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>.</p>
+<!-- /generated -->
+
+<p>The eight VM pins are one supply: bypass them with two 0.1 µF ceramics, one at pins 12 and 13 and one at pins 28
+and 29, plus 10 µF bulk. TRIGA switches the even channels and TRIGB the odd ones when a channel is set to its
+trigger pin (<code>trigger_pin</code>); the driver never drives them. SDO and FAULT are open drain: fit a pull-up to the MCU's
+logic supply. The pinout, the block diagram, the circuit and both tables are drawn from
+<a href="../hardware.yml"><code>docs/hardware.yml</code></a>.</p>
+<h2 id="inside-the-chip">Inside the chip<a class="headerlink" href="#inside-the-chip" title="Permanent link">&para;</a></h2>
+<p>The Simplified Block Diagram: the SPI interface feeds the VDR/CDR control logic, which drives the eight half bridges
+and reads back their current sense and open-load detectors; the LDO, the charge pump, the oscillator and the current
+reference set up its supplies, clock and full-scale current.</p>
+<figure class="kb-figure">
+<img src="../diagrams/chip-blocks.svg#only-light" alt="Block diagram of the MAX22200: its function blocks, how they connect and which package pins reach each block." width="1200" height="1263" loading="lazy"><img src="../diagrams/chip-blocks.dark.svg#only-dark" alt="Block diagram of the MAX22200: its function blocks, how they connect and which package pins reach each block." width="1200" height="1263" loading="lazy">
+<figcaption>Inside the MAX22200</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MAX22200's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="application-circuit">Application circuit<a class="headerlink" href="#application-circuit" title="Permanent link">&para;</a></h2>
+<p>The Application Diagram, with the parts the Pin Description gives for each pin. One chip drives every load the
+half bridges support: a high-side solenoid, a low-side solenoid, a latched valve as a full bridge, two outputs in
+parallel and a brushed DC motor. The diagram has no flyback diodes: when the low-side FET turns off, the high-side
+FET of the same half bridge turns on and the coil current decays through it (Fixed-Frequency Current Control).
+TRIGB is grounded; TRIGA is optional.</p>
+<figure class="kb-figure">
+<img src="../diagrams/chip-circuit-typical.svg#only-light" alt="Schematic of the MAX22200 application diagram: the chip with U2 MCU, C1 capacitor 0.1 µF, C2 capacitor 0.1 µF, C3 polarized-capacitor 10 µF, C4 capacitor 2.2 µF, C5 capacitor 22 nF, C6 capacitor 1 µF, R1 resistor 15 kΩ, R2 resistor 10 kΩ, R3 resistor 10 kΩ, L0 solenoid, L1 solenoid, L3 solenoid, J1 DC motor, J2 Latched valve; the MCU wires carry the port hooks GpioRead(CtrlPin::Fault), GpioSet(CtrlPin::Cmd), GpioSet(CtrlPin::Enable), Transfer()." width="1624" height="1005" loading="lazy"><img src="../diagrams/chip-circuit-typical.dark.svg#only-dark" alt="Schematic of the MAX22200 application diagram: the chip with U2 MCU, C1 capacitor 0.1 µF, C2 capacitor 0.1 µF, C3 polarized-capacitor 10 µF, C4 capacitor 2.2 µF, C5 capacitor 22 nF, C6 capacitor 1 µF, R1 resistor 15 kΩ, R2 resistor 10 kΩ, R3 resistor 10 kΩ, L0 solenoid, L1 solenoid, L3 solenoid, J1 DC motor, J2 Latched valve; the MCU wires carry the port hooks GpioRead(CtrlPin::Fault), GpioSet(CtrlPin::Cmd), GpioSet(CtrlPin::Enable), Transfer()." width="1624" height="1005" loading="lazy">
+<figcaption>MAX22200: Application diagram</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<!-- generated: chip-parts -->
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Kind</th>
+<th>Value</th>
+<th>Connects</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U2</td>
+<td>MCU</td>
+<td>-</td>
+<td>GND: GND, VDD: +3V3, SCK: SCK, MOSI: SDI, MISO: SDO, CS: CSB, CMD: CMD, EN: ENABLE, FLT: FAULT, TRIG: TRIGA</td>
+<td>Typical Application Circuits; Application Diagram, p. 44</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>capacitor</td>
+<td>0.1 µF</td>
+<td>+24V, GND</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>capacitor</td>
+<td>0.1 µF</td>
+<td>+24V, GND</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>polarized capacitor</td>
+<td>10 µF</td>
+<td>+24V, GND</td>
+<td>Pin Description, p. 12</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>capacitor</td>
+<td>2.2 µF</td>
+<td>GND, V18</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>capacitor</td>
+<td>22 nF</td>
+<td>CP, CN</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>capacitor</td>
+<td>1 µF</td>
+<td>+24V, VCP</td>
+<td>Pin Description (continued), p. 13</td>
+</tr>
+<tr>
+<td>R1</td>
+<td>resistor</td>
+<td>15 kΩ (not confirmed: an example inside the 15 kΩ to 100 kΩ range; 15 kΩ gives IFS = 1 A)</td>
+<td>GND, IREF</td>
+<td>Full-Scale Current Setting (IFS), p. 18</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>resistor</td>
+<td>10 kΩ (not confirmed: the application diagram shows the FAULT pull-up without a value)</td>
+<td>+3V3, FAULT</td>
+<td>Typical Application Circuits; Application Diagram, p. 44</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>resistor</td>
+<td>10 kΩ (not confirmed: the application diagram shows the SDO pull-up without a value)</td>
+<td>+3V3, SDO</td>
+<td>Typical Application Circuits; Application Diagram, p. 44</td>
+</tr>
+<tr>
+<td>L0</td>
+<td>solenoid</td>
+<td>-</td>
+<td>GND, OUT0</td>
+<td>Typical Application Circuits; Application Diagram, p. 44</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>solenoid</td>
+<td>-</td>
+<td>+24V, OUT1</td>
+<td>Typical Application Circuits; Application Diagram, p. 44</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>solenoid</td>
+<td>-</td>
+<td>+24V, OUT45</td>
+<td>Typical Application Circuits; Application Diagram, p. 44</td>
+</tr>
+<tr>
+<td>J1</td>
+<td>DC motor</td>
+<td>-</td>
+<td>1: OUT6, 2: OUT7</td>
+<td>Typical Application Circuits; Application Diagram, p. 44</td>
+</tr>
+<tr>
+<td>J2</td>
+<td>Latched valve</td>
+<td>-</td>
+<td>2: OUT2, 1: OUT3</td>
+<td>Typical Application Circuits; Application Diagram, p. 44</td>
+</tr>
+</tbody>
+</table>
+<p>Export a circuit for a schematic or PCB tool: <code>kokeb-docs hardware --kicad-netlist OUT.net --circuit typical</code>.</p>
+<!-- /generated -->
+
+<h2 id="control-pins">Control pins<a class="headerlink" href="#control-pins" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th><code>CtrlPin</code></th>
+<th>Who drives it</th>
+<th>The driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CMD</td>
+<td><code>CtrlPin::Cmd</code></td>
+<td>Your port's <code>GpioSet()</code>, required</td>
+<td>High for each command byte, low for the data and between accesses</td>
+</tr>
+<tr>
+<td>ENABLE</td>
+<td><code>CtrlPin::Enable</code></td>
+<td>Your port's <code>GpioSet()</code>, required (return <code>true</code> if it is tied high)</td>
+<td>High in <code>EnsureInitialized()</code>, low in <code>Deinitialize()</code> and after a failed start</td>
+</tr>
+<tr>
+<td>FAULT</td>
+<td><code>CtrlPin::Fault</code></td>
+<td>Your port's <code>GpioRead()</code>, optional</td>
+<td>Read by <code>ReadFaultPin()</code> only</td>
+</tr>
+<tr>
+<td>TRIGA, TRIGB</td>
+<td>none</td>
+<td>Your application</td>
+<td>Never; see the note under <a href="#timing">Timing</a></td>
+</tr>
+</tbody>
+</table>
+<p><code>GpioSignal::ACTIVE</code> is the pin's function asserted: CMD and ENABLE high, FAULT low. The port maps it to the
+level.</p>
+<h2 id="bus-settings">Bus settings<a class="headerlink" href="#bus-settings" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPI mode</td>
+<td>0 (CPOL = 0, CPHA = 0), MSB first</td>
+<td>"SPI Detailed Description"</td>
+</tr>
+<tr>
+<td>Clock</td>
+<td>Up to 10 MHz (tCLK 100 ns, tCH and tCL 30 ns)</td>
+<td>Electrical Characteristics, Figure 1</td>
+</tr>
+<tr>
+<td>CSB</td>
+<td>Low for one transfer (1 or 4 bytes), high 30 ns at least between transfers</td>
+<td>Figure 1</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>Set at least 20 ns (tCMS) before the CSB falling edge of a command byte, held (tCMH, no value given) after CSB rises; high at the CSB rising edge (p26)</td>
+<td>Figure 1, p26</td>
+</tr>
+<tr>
+<td>SDO</td>
+<td>Valid 40 ns after the falling SCK edge into 310 Ω and 20 pF; the pull-up's RC limits the rate</td>
+<td>Electrical Characteristics, note 2</td>
+</tr>
+<tr>
+<td>Daisy chain</td>
+<td>Not supported by this driver (5 MHz in a chain)</td>
+<td>Figure 5</td>
+</tr>
+</tbody>
+</table>
+<p>The driver sends a command byte with CMD high, then the data with CMD low: 4 bytes for a 32-bit access (LSB byte first
+when writing, MSB byte first when reading), 1 byte for an 8-bit access of bits 31:24. CMD idles high: it goes low only
+for a data phase and back high right after, so a stray clock is never taken as data. See
+<a href="../architecture/#one-access-two-transfers">Architecture</a>.</p>
+<h2 id="timing">Timing<a class="headerlink" href="#timing" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Value</th>
+<th>Where the driver waits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tEN</td>
+<td>0.5 ms max, ENABLE rising to SPI ready</td>
+<td><code>EnsureInitialized()</code>, after ENABLE goes high (<code>reg::kEnableUs</code>)</td>
+</tr>
+<tr>
+<td>tWU</td>
+<td>2.5 ms max, ACTIVE = 1 to the outputs active</td>
+<td><code>EnsureInitialized()</code>, after each ACTIVE write of the wake loop (<code>reg::kWakeUpUs</code>), every <code>kWakePollUs</code> up to <code>Config::wake_timeout_us</code></td>
+</tr>
+<tr>
+<td>tDIS</td>
+<td>2.5 ms max, ENABLE falling to the outputs Hi-Z</td>
+<td>Not waited: <code>Deinitialize()</code> writes ACTIVE = 0 first, which puts the outputs Hi-Z</td>
+</tr>
+<tr>
+<td>tOCP</td>
+<td>1.2 µs typ (doubled with SRC)</td>
+<td>Chip-internal</td>
+</tr>
+<tr>
+<td>tOL</td>
+<td>200 µs typ, open-load deglitch</td>
+<td>Chip-internal</td>
+</tr>
+</tbody>
+</table>
+<p><code>EnsureInitialized()</code> blocks for at least tEN + tWU (3 ms), longer while UVM stays set. VDRnCDR and HSnLS change
+only while every channel is off <strong>and TRIGA and TRIGB are low</strong> (Programming Procedure, step 5c). The driver checks
+the channels it switched (<code>ChannelsActive</code>) but cannot see the TRIG pins: keep them low while you change a drive
+mode or a side, or use <code>Verify::ReadBack</code>, which reports a change the chip ignored.</p>
+<h2 id="power">Power<a class="headerlink" href="#power" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Supply</th>
+<th>Range</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VM</td>
+<td>4.5 V to 36 V (40 V absolute)</td>
+<td>UVLO at 4 V typ rising (3.75 V to 4.25 V), 0.12 V hysteresis</td>
+</tr>
+<tr>
+<td>Logic inputs</td>
+<td>6 V absolute maximum; high above 1.2 V, low below 0.65 V</td>
+<td>3.3 V and 1.8 V MCUs both work</td>
+</tr>
+<tr>
+<td>ENABLE</td>
+<td>High above 0.9 V, up to VM</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Current from VM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ENABLE low</td>
+<td>11 µA max</td>
+</tr>
+<tr>
+<td>ACTIVE = 0</td>
+<td>200 µA typ, 400 µA max</td>
+</tr>
+<tr>
+<td>Every channel off (VDR)</td>
+<td>2.5 mA typ</td>
+</tr>
+<tr>
+<td>Every channel on, CDR, no load</td>
+<td>5.2 mA typ</td>
+</tr>
+</tbody>
+</table>
+<p>Below UVLO every channel is Hi-Z and the charge pump stops; the registers survive until V18 falls below the
+power-on reset threshold, after which every register is back at its reset value and the next call returns
+<code>DeviceReset</code> without writing to the chip ("Undervoltage Lockout (UVLO)").</p>
+<h2 id="current-and-heat">Current and heat<a class="headerlink" href="#current-and-heat" title="Permanent link">&para;</a></h2>
+<p>The OCP threshold is 1.1 A minimum; in CDR the regulation loop limits the current. Do not exceed 1 A RMS per
+channel, and keep the junction below 125 °C: the safe operating area depends on the board, the supply, the number of
+channels on, the chopping frequency and SRC (Current Rating, Figures 14 to 17). Thermal shutdown at 145 °C turns
+every output off; they come back by themselves when the die cools, with the OVT flag set until STATUS is read.</p>
+<h2 id="full-scale-current">Full-scale current<a class="headerlink" href="#full-scale-current" title="Permanent link">&para;</a></h2>
+<p>IFS = KFS x 1 V / RREF, with KFS = 15 000 (HFS = 0) or 7 500 (HFS = 1). RREF from 15 kΩ to 100 kΩ gives IFS from
+1 A down to 150 mA (HFS halves it). Declare RREF in <code>Config::rref_ohm</code> to use the milliamp conversions
+(<a href="../drive-modes/#current-drive-cdr">Drive modes</a>). The CDR accuracy is ±6 % from 71 % to 100 % of IFS, ±10 % from
+20 % to 70 %, ±15 % from 10 % to 20 % and ±25 % from 5 % to 10 %, with a 1 % RREF: use HFS for small currents.</p>
+<h2 id="reference-documents">Reference documents<a class="headerlink" href="#reference-documents" title="Permanent link">&para;</a></h2>
+<p>The datasheet: <a href="https://www.analog.com/en/products/max22200.html">MAX22200 product page</a>. Every pin, setting and
+timing on this page cites a section of it; its revision, its SHA-256 and the sections each page relies on are in
+<a href="../datasheets.yml"><code>docs/datasheets.yml</code></a>.</p>
+<!-- generated: datasheet-card -->
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Revision</th>
+<th>Get it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Datasheet: MAX22200/MAX22200A 36V, 1A Octal Integrated Serial-Controlled Solenoid and Motor Driver (Analog Devices 19-100531)</td>
+<td>1, 2025-03</td>
+<td><a href="https://www.analog.com/en/products/max22200.html">vendor page</a></td>
+</tr>
+</tbody>
+</table>
+<p>Written against these revisions; the SHA-256 of each file is in <a href="../datasheets.yml"><code>docs/datasheets.yml</code></a>. Where each part
+of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p>
+<!-- /generated -->
+
+<table>
+<thead>
+<tr>
+<th>Also useful</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
+<td>The register map as the driver uses it, with datasheet section names</td>
+</tr>
+<tr>
+<td><a href="https://www.analog.com/en/products/max22200.html">Application diagram</a></td>
+<td>Datasheet p. 44: high side, low side, a latched valve, a parallel pair and a DC motor on one chip</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../platforms/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Platforms">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Platforms
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Architecture
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright kb-footer">
+  <nav class="kb-footer__links" aria-label="Kokeb Labs">
+    <a href="https://kokeb-labs.github.io/">Kokeb Labs docs</a>
+    <a href="https://github.com/kokeb-labs-drivers">GitHub organisation</a>
+    
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200">Source</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200/issues">Report an issue</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/main/LICENSE">License</a>
+    
+  </nav>
+  
+    <div class="md-copyright__highlight">Copyright (c) 2026 The driver-max22200 authors</div>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/kokeb-labs-drivers" target="_blank" rel="noopener" title="Kokeb Labs on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.prune", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../search/main.js"></script>
+      
+    
+  </body>
+</html>

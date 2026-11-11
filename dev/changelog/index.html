@@ -1,0 +1,1536 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
+      
+      
+      
+        <link rel="canonical" href="https://kokeb-labs-drivers.github.io/driver-max22200/latest/changelog/">
+      
+      
+        <link rel="prev" href="../diagrams/">
+      
+      
+        <link rel="next" href="../repo-setup/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/kokeb/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Changelog - MAX22200 Driver</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M0%208a8%208%200%201%201%2016%200A8%208%200%200%201%200%208m8-6.5a6.5%206.5%200%201%200%200%2013%206.5%206.5%200%200%200%200-13M6.5%207.75A.75.75%200%200%201%207.25%207h1a.75.75%200%200%201%20.75.75v2.75h.25a.75.75%200%200%201%200%201.5h-2a.75.75%200%200%201%200-1.5h.25v-2h-.25a.75.75%200%200%201-.75-.75M8%206a1%201%200%201%201%200-2%201%201%200%200%201%200%202%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201.5c-2.363%200-4%201.69-4%203.75%200%20.984.424%201.625.984%202.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621%201.49a.75.75%200%200%201-1.484.211c-.04-.282-.163-.547-.37-.847a9%209%200%200%200-.542-.68q-.126-.149-.268-.32C3.201%207.75%202.5%206.766%202.5%205.25%202.5%202.31%204.863%200%208%200s5.5%202.31%205.5%205.25c0%201.516-.701%202.5-1.328%203.259q-.142.172-.268.319c-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751%200%200%201-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848q.113-.133.213-.253c.561-.679.985-1.32.985-2.304%200-2.06-1.637-3.75-4-3.75M5.75%2012h4.5a.75.75%200%200%201%200%201.5h-4.5a.75.75%200%200%201%200-1.5M6%2015.25a.75.75%200%200%201%20.75-.75h2.5a.75.75%200%200%201%200%201.5h-2.5a.75.75%200%200%201-.75-.75%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M6.457%201.047c.659-1.234%202.427-1.234%203.086%200l6.082%2011.378A1.75%201.75%200%200%201%2014.082%2015H1.918a1.75%201.75%200%200%201-1.543-2.575Zm1.763.707a.25.25%200%200%200-.44%200L1.698%2013.132a.25.25%200%200%200%20.22.368h12.164a.25.25%200%200%200%20.22-.368Zm.53%203.996v2.5a.75.75%200%200%201-1.5%200v-2.5a.75.75%200%200%201%201.5%200M9%2011a1%201%200%201%201-2%200%201%201%200%200%201%202%200%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M9.504.43a1.516%201.516%200%200%201%202.437%201.713L10.415%205.5h2.123c1.57%200%202.346%201.909%201.22%203.004l-7.34%207.142a1.25%201.25%200%200%201-.871.354h-.302a1.25%201.25%200%200%201-1.157-1.723L5.633%2010.5H3.462c-1.57%200-2.346-1.909-1.22-3.004zm1.047%201.074L3.286%208.571A.25.25%200%200%200%203.462%209H6.75a.75.75%200%200%201%20.694%201.034l-1.713%204.188%206.982-6.793A.25.25%200%200%200%2012.538%207H9.25a.75.75%200%200%201-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005%200-.009.004%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5%205.782V2.5h-.25a.75.75%200%200%201%200-1.5h6.5a.75.75%200%200%201%200%201.5H11v3.282l3.666%205.76C15.619%2013.04%2014.543%2015%2012.767%2015H3.233c-1.776%200-2.852-1.96-1.899-3.458Zm-2.4%206.565a.75.75%200%200%200%20.633%201.153h9.534a.75.75%200%200%200%20.633-1.153L12.225%2010.5h-8.45ZM9.5%202.5h-3V6c0%20.143-.04.283-.117.403L4.73%209h6.54L9.617%206.403A.75.75%200%200%201%209.5%206Z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M1.75%202.5h10.5a.75.75%200%200%201%200%201.5H1.75a.75.75%200%200%201%200-1.5m4%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5m0%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5M2.5%207.75v6a.75.75%200%200%201-1.5%200v-6a.75.75%200%200%201%201.5%200%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+  <link rel="stylesheet" href="../assets/kokeb/kokeb.css">
+
+    
+      
+    
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/kokeb/fonts.css">
+  <noscript><link rel="stylesheet" href="../assets/kokeb/fonts.css"></noscript>
+
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  
+  
+  <meta name="theme-color" content="#0e1726" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b2140" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kokeb Labs">
+  <meta property="og:title" content="Changelog - MAX22200 Driver">
+  <meta property="og:description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
+  <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-max22200/latest/changelog/">
+  <meta name="twitter:card" content="summary">
+  <script>
+(function () {
+  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
+  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
+      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
+  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
+  var stub = {
+    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
+    render: function (id, text) {
+      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
+      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
+      if (el) el.setAttribute("data-kb-mermaid", "");
+      return near(el).then(load).then(function (m) { return m.render(id, text); });
+    }
+  };
+  function load() {
+    return loading || (loading = new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = SRC;
+      s.integrity = SRI;
+      s.crossOrigin = "anonymous";
+      s.onload = function () {
+        real = window.mermaid;
+        window.mermaid = stub;
+        real.initialize(config);
+        resolve(real);
+      };
+      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
+      document.head.appendChild(s);
+    }));
+  }
+  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
+  function watch() {
+    if (io) io.disconnect();
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
+      });
+    }, { rootMargin: ahead ? "100% 0px" : "0px" });
+    waiting.forEach(function (w) { io.observe(w.el); });
+  }
+  function release(which) {
+    waiting = waiting.filter(function (w) {
+      if (!which(w)) return true;
+      io.unobserve(w.el);
+      w.go();
+      return false;
+    });
+  }
+  function near(el) {
+    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
+    return new Promise(function (resolve) {
+      waiting.push({ el: el, go: resolve });
+      if (io) io.observe(el); else watch();
+    });
+  }
+  function engaged() {
+    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
+    ahead = true;
+    if (io) watch();
+  }
+  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
+  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
+  window.mermaid = stub;
+})();
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You are reading the documentation of an older version.
+  <a href="https://kokeb-labs-drivers.github.io/driver-max22200/"><strong>Go to the latest version.</strong></a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MAX22200 Driver" class="md-header__button md-logo" aria-label="MAX22200 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          
+          <a class="kb-org" href="https://kokeb-labs.github.io/" title="All Kokeb Labs documentation">Kokeb Labs</a>
+          <span class="kb-org__sep" aria-hidden="true">/</span>
+          <span class="md-ellipsis">
+            MAX22200 Driver
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Follow the system theme"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Follow the system theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kokeb-labs-drivers/driver-max22200" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-max22200
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../quickstart/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-guide/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MAX22200 Driver" class="md-nav__button md-logo" aria-label="MAX22200 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    MAX22200 Driver
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-max22200
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../quickstart/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../architecture/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../diagrams/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datasheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datasheet map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing and CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#unreleased" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Unreleased]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010---2026-11-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.0] - 2026-11-10
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.0] - 2026-11-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repo-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repository setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#unreleased" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Unreleased]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010---2026-11-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.0] - 2026-11-10
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.0] - 2026-11-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kokeb-labs-drivers/driver-max22200/edit/main/docs/changelog.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<p>What changed in each release of the driver. Entries under <strong>Breaking</strong> need source changes in code that used the
+affected API.</p>
+<h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The repository moved to kokeb-labs-drivers; URLs follow.</li>
+</ul>
+<h2 id="010---2026-11-10">[0.1.0] - 2026-11-10<a class="headerlink" href="#010---2026-11-10" title="Permanent link">&para;</a></h2>
+<h3 id="breaking">Breaking<a class="headerlink" href="#breaking" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Every I/O call of a running driver can return <code>Error::DeviceReset</code> (was <code>ReadStatus()</code> only): a fault byte or a
+  STATUS value with ACTIVE = 0 means a power-on reset. <code>ReadRegister(reg::kStatus)</code> no longer returns such a STATUS
+  as read.</li>
+<li>Every I/O call of a running driver can return <code>Error::CommunicationError</code> when it sees COMER go from 0 to 1 (was
+  only with <code>Verify::ReadBack</code>): an earlier write was miscounted.</li>
+<li>New <code>Error::Uncertain</code> (23): <code>SetChannelsOn()</code>, <code>SetChannel()</code> and <code>SetBridge()</code> refuse a switch-on in a pair whose
+  mode a write with a failed reply left unknown; that pair is switched off instead (the rest of a <code>SetChannelsOn()</code> mask
+  still goes out, and a channel a failed write may have switched on is switched off when asked, even if the copy
+  already says off).
+  A switch-off there is never refused: it switches both channels of the pair off, the partner too.</li>
+<li><code>SetChannel(ch, false)</code> in a full-bridge pair sets HiZ (both channels off) instead of returning <code>InvalidArgument</code>.</li>
+<li><code>LatchedFaults</code> has new fields (<code>overcurrent</code>, <code>open_load</code>, <code>hit_not_reached</code>, <code>plunger</code>, <code>lost</code>), and <code>Any()</code>
+  counts them.</li>
+<li><code>FullScaleUa()</code> returns <code>Result&lt;uint32_t&gt;</code> (<code>InvalidArgument</code> for an RREF out of range, <code>kNoRref</code> included) instead
+  of 0, and <code>HitTimeUs()</code> returns <code>Result&lt;uint32_t&gt;</code> (<code>InvalidArgument</code> for <code>kHitTimeContinuous</code>) instead of
+  <code>kForever</code>, which is removed: no public helper returns a sentinel (handbook KB-CPP-126, KB-CPP-127).</li>
+<li>A load-dependent diagnostic (<code>open_load_detect</code>, <code>plunger_detect</code>, <code>hit_current_check</code>) needs its channel in the new
+  <code>Config::loaded_channels</code>; <code>Validate()</code>, <code>ApplyConfig()</code>, <code>EnsureInitialized()</code> and <code>ConfigureChannel()</code> refuse it
+  otherwise with <code>InvalidArgument</code> (KB-CPP-131).</li>
+<li>The port concept checks the required hooks exactly: each parameter of <code>EnsureInitialized()</code>, <code>Transfer()</code> and
+  <code>GpioSet()</code> must have exactly the documented type, and each hook must be <code>noexcept</code> and return <code>bool</code>
+  (KB-CPP20-006). <code>GpioSet()</code> is part of <code>SpiPort</code>. A <code>DelayUs()</code>, <code>GpioRead()</code> or <code>Log()</code> declared with another
+  signature is a compile error (KB-CPP20-007).</li>
+<li><code>reg::kMaxSpiHz</code> is replaced by <code>kMaxClockHz</code> with the other bus requirements in <code>max22200_spi_interface.hpp</code>.</li>
+<li><code>Error</code> is <code>[[nodiscard]]</code>; <code>GetConfig()</code> is <code>const&amp;</code>-qualified and deleted on a temporary driver.</li>
+<li><code>EnsureInitialized()</code> takes 48 transfers (was 46): it reads and clears FAULT.</li>
+</ul>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Bus requirements as <code>constexpr</code> (KB-CPP-123): <code>kSpiMode</code>, <code>kMsbFirst</code>, <code>kMaxClockHz</code>, <code>kMinCsHighNs</code>, <code>kCsSetupNs</code>,
+  <code>kCsHoldNs</code>, <code>kContinuousWord</code>, <code>kCmdSetupNs</code>, <code>kTransferBytes</code>, <code>kSdoOpenDrain</code>, with datasheet references; the host
+  and ESP32 ports and the documented port check their settings with <code>static_assert</code>.</li>
+<li>A driver-owned latch of clear-on-read flags (KB-CPP-119): every 32-bit STATUS read ORs OVT and UVM into it, every
+  FAULT read the flags it clears; <code>GetLatchedFaults()</code> and <code>ClearLatchedFaults()</code>, no I/O. Only the clear empties
+  it (a restart does not), and a reply a floating SDO produces is never latched (KB-CPP-116).</li>
+<li>The start-up reads and clears FAULT and reports what was latched before it in <code>GetStartupFaults()</code> (KB-CPP-058).</li>
+<li><code>ReadRegister()</code>, a single-shot raw 32-bit read with no retry (KB-CPP-129).</li>
+<li><code>DecodePairMode()</code>, <code>ValidLoadDiagnostics()</code>, <code>Faults::Or()</code> and <code>Faults::And()</code>, <code>LatchedFaults</code>.</li>
+<li>Strict ISO C++20 everywhere (KB-CPP20-001): <code>CMAKE_CXX_EXTENSIONS OFF</code>, <code>-pedantic-errors</code> and the C++20
+  deprecations as errors; a header self-check per public header on GCC, Clang, the Cortex-M build and inside the
+  ESP-IDF build (<code>max22200_cxx20_check.cpp</code>).</li>
+<li>Compile-fail tests for a narrowed <code>Transfer()</code> length, a <code>Transfer()</code> without <code>noexcept</code>, a <code>DelayUs(uint16_t)</code>, a
+  <code>void GpioRead()</code>, a <code>GpioRead()</code> taking the signal by value and a misdeclared <code>Log()</code>; <code>tests/test_latch.cpp</code>;
+  compile-time round trips of the register encoders.</li>
+<li>
+<p>The review skills <code>cpp20-profile</code>, <code>misra-review</code> and <code>hardware-lessons-review</code> and the <code>safety-reviewer</code> agent,
+  from the template.</p>
+</li>
+<li>
+<p>First version of the driver for the Analog Devices MAX22200 and MAX22200A octal solenoid and motor drivers,
+  written on the Kokeb Labs driver template from datasheet 19-100531 Rev 1, every rule checked against the
+  datasheet.</p>
+</li>
+<li><code>max22200::MAX22200&lt;Port&gt;</code> with the configuration in the constructor and one start-up call, <code>EnsureInitialized()</code>:
+  CMD high, ENABLE and tEN, the programming procedure of Figure 6 (STATUS read; a wake loop of bare ACTIVE = 1 writes,
+  tWU and STATUS reads until ACTIVE reads 1 with UVM clear, bounded by <code>Config::wake_timeout_us</code>, 100 ms by default;
+  STATUS write, every CFG_CHn and CFG_DPM), and a read-back of every register and of each write's command echo. A
+  wake that runs out returns <code>Undervoltage</code> (UVM set) or <code>Timeout</code>, uninitialised with every channel off. COMER
+  repeats the procedure (<code>kStartAttempts</code>). <code>ApplyConfig()</code> writes only what changed; <code>Deinitialize()</code> switches every
+  channel off, clears ACTIVE and drives ENABLE low.</li>
+<li>Switching from the driver's copy of ONCH, one 8-bit write each: <code>SetChannelsOn()</code>, <code>SetChannel()</code> (parallel pairs
+  switch as one), <code>SetBridge()</code> (Table 7); <code>ReadChannelsOn()</code>. The Command Register stays in force until rewritten
+  (p25), so an ONCH write right after another is one transfer (the data byte); any other access, a failure, an ENABLE
+  change, COMER or a read-back sends the command again. The data byte's STATUS[7:0] updates <code>GetLastStatusByte()</code>.</li>
+<li>Settings: <code>ConfigureChannel()</code>, <code>SetHoldCode()</code> (8-bit HOLD update on the fly), <code>SetPairMode()</code>, <code>SetFaultMask()</code>,
+  <code>SetDpm()</code>; <code>Verify::ReadBack</code> per call reads the register back and checks COMER. A drive-mode, side or pair-mode
+  change while a channel concerned is on is refused (<code>Error::ChannelsActive</code>).</li>
+<li>Diagnostics: <code>ReadStatus()</code> (power-on reset reported as <code>Error::DeviceReset</code>), <code>ReadFaults()</code> and <code>ClearFaults()</code>
+  for both parts (<code>Config::variant</code>, <code>Variant::Max22200</code> by default: correct on both parts, a selective clear needs
+  <code>Max22200A</code> declared per the BOM and a bench check), <code>ReadFaultPin()</code> through an optional <code>GpioRead()</code> hook,
+  <code>GetLastStatusByte()</code>.</li>
+<li>After a read-back that differs the driver's copy takes the value read (ONCH, CFG_CH, HOLD, STATUS, CFG_DPM); the
+  ONCH bits that differ stay untrusted, and a channel whose CFG_CH write failed or read back different accepts no write
+  while a channel is on.</li>
+<li><code>ChannelConfig</code> and <code>Config</code> as the registers' codes, <code>Config{}</code> equal to the reset state, <code>Validate()</code> and
+  <code>ValidateChannel()</code> with every datasheet rule; exact conversions <code>CurrentCode()</code>, <code>CurrentUa()</code> (IFS / 128),
+  <code>HitTimeCode()</code>, <code>HitTimeUs()</code>, <code>DpmCurrentCode()</code> (IFS / 127), <code>DebounceUs()</code>, <code>ChopPeriodNs()</code>,
+  <code>DutyLimitsOf()</code>; Kconfig options for the part, the oscillator and RREF.</li>
+<li>Errors <code>NoDevice</code>, <code>Pin</code>, <code>CommunicationError</code>, <code>WriteMismatch</code>, <code>Undervoltage</code>, <code>ChannelsActive</code>,
+  <code>DeviceReset</code>.</li>
+<li>Host tests over a protocol model of both parts, written from the datasheet independently of the driver's register
+  header and cross-checked against it, with the bus and board faults the port contract allows, every transfer and pin write
+  of every operation failed in turn; a libFuzzer target with its corpus replayed as a CTest; the host and ESP32
+  examples; the Drive modes and Status and limitations pages. Not verified on hardware.</li>
+</ul>
+<p><strong>Datasheet rules the first version applies.</strong> Details on the Status and limitations page:</p>
+<ul>
+<li>CDR currents use IFS / 128 (Table 4); no current becomes code 127, the unregulated full-on state.</li>
+<li>HIT times use the exact chopping frequency (33.3 kHz, 26.7 kHz, Tables 1 and 5); a HIT time beyond 254 steps is
+  refused instead of becoming "continuous IHIT".</li>
+<li>COMER is tested as a bit of the fault byte (Figure 6), never by comparing the whole byte.</li>
+<li>The selective FAULT clear sends its mask LSB byte first, where Figure 8 draws it; not verified on hardware: it is
+  one constant, <code>reg::kFaultClearLsbByteFirst</code>, and a bench step decides. A FAULT read on the MAX22200A clears only
+  what SDI selects.</li>
+<li>VDR duty codes are sent as asked, so 0 % and 100 % are reachable (Table 3); the chip applies δMIN and δMAX itself.</li>
+<li>SRC at 50 kHz, CDR, SRC, HFS or DPM on the high side, and HHF in VDR are refused.</li>
+<li>The start-up wakes the chip with bare ACTIVE writes until ACTIVE reads 1 with UVM clear (Figure 6), bounded by
+  <code>Config::wake_timeout_us</code>. COMER is not assumed to clear on a STATUS read (p36: "Read Only"): it is armed once the
+  wake is done, only a 0 to 1 transition repeats the procedure, and ENABLE goes low for tDIS and high for tEN between
+  attempts.</li>
+<li>CMD idles high: it is driven high again after every data phase, the one-transfer ONCH write included (p25-26).</li>
+<li><code>Config::rref_ohm</code> is not given by default (<code>kNoRref</code>): the code-level API works without it, and <code>CurrentCode()</code>,
+  <code>CurrentUa()</code> and <code>DpmCurrentCode()</code> return <code>InvalidArgument</code> until it is set.</li>
+<li>CFG_DPM is compared on bits 14:0 only: bits 31:15 are reserved, three of them read only with no reset value
+  (p40-41).</li>
+<li>Mode and pair-mode changes are refused while the channels concerned run (step 5c, Register Details); parallel pairs
+  switch both ONCH bits (Table 6); out-of-range DPM settings are refused instead of clamped; shutdown reports its
+  writes.</li>
+</ul>
+<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Hardware page: the pinout, the block diagram and the application circuit are now figures drawn from
+  <code>docs/hardware.yml</code>, which also generates the pin table (replacing the hand-written one) and the parts table.
+  Every pin, block and part cites the datasheet section and page; values the datasheet does not give are marked as
+  not confirmed. <code>kokeb-docs hardware --kicad-netlist</code> exports the circuit.</li>
+<li>Synced with the driver template: <code>tools/preflight.sh</code> runs clang-tidy over every file CI lints, as CI does, and
+  the hardware-lessons review adds the switch-off lessons. The fault-handling example in the API guide clears the
+  overcurrent channels with unsigned bit operations, which that clang-tidy run requires.</li>
+<li>The <code>misra-review</code>, <code>cpp20-profile</code> and <code>new-driver-from-template</code> skills and <code>docs/repo-setup.md</code> follow the
+  template: reading the MISRA report, the known tool misfires, enumeration ranges without a sentinel, and the
+  settings tool.</li>
+<li><code>tools/preflight.sh</code> and the <code>verify</code> and <code>hardware-lessons-review</code> skills follow the template: every check CI runs
+  that a workstation can run, in one command, and the rules for device resets, faults the chip clears itself, dropped
+  writes, switch-offs that no uncertainty refuses, channels in doubt and a model that changes state on its own.</li>
+<li>Follows the driver template's portable ownership: copyright belongs to <code>The driver-max22200 authors</code> (<code>LICENSE</code>, every
+  source header, <code>driver.yml</code> <code>authors</code>, the docs footer). <code>tools/check_standalone.py</code> runs in the <em>Handbook source
+  checks</em> job and keeps the code and docs about this chip only. <code>AGENTS.md</code> follows the template's structure; the
+  issue and PR templates ask for the board, MCU and port in one field.</li>
+<li>The port concepts match each hook's address against exactly one <code>noexcept</code> signature with
+  <code>detail::ExactHook&lt;Port, Sig&gt;::Take(&amp;Port::Hook)</code> instead of probing it with a converting <code>detail::Exactly&lt;T&gt;</code>:
+  no conversion operator is left. A misdeclared hook is still a compile error. <code>kAlwaysFalse</code> takes a class and
+  the enumeration helpers an enumeration (<code>ClassType</code>, <code>Enumeration</code>), each with a compile-fail test.
+  <code>HasGpioRead</code> matches <code>bool GpioRead(CtrlPin, GpioSignal&amp;) noexcept</code> the same way, so a hook that takes the
+  signal by value or as <code>const&amp;</code> still does not match.</li>
+<li>Include guards instead of <code>#pragma once</code> in every header (KB-CPP-019).</li>
+<li>Every narrow operand of a shift or bitwise operator is widened to <code>uint32_t</code> first, and <code>UL</code> literals and
+  <code>unsigned</code> casts are fixed-width (KB-CPP20-020, -021); enumerations are range-checked with <code>detail::IsEnumerator()</code>
+  (KB-CPP20-025); <code>ToString()</code> is a switch over every enumerator.</li>
+<li>The ESP32 port sets CMD high and ENABLE low before it enables their outputs (KB-HW-018); the Porting page lists each
+  control pin's idle level and polarity.</li>
+<li>The data phases go through fixed-extent <code>std::span</code>s (KB-CPP20-042).</li>
+<li>MISRA C++:2023 conformance: integer constant arguments have exactly the parameter's type through the <code>consteval</code>
+  literals <code>detail::operator""_u8</code> and <code>operator""_u32</code> (<code>EncodeStatus(config_, 0_u8, true)</code>,
+  <code>FaultClearSdi(0xFFFF'FFFF_u32)</code>; an out-of-range literal does not compile), and a narrow ONCH bit is widened
+  explicitly (Rule 7.0.6); the layout checks compare against <code>U</code> literals (Rule 7.0.5); operands of <code>&amp;&amp;</code>, <code>||</code>, <code>?:</code>
+  and comparisons are parenthesised (Rule 8.0.1); every switch over an enumeration ends with <code>default: break;</code>, and
+  the host tests build with <code>-Wswitch-enum</code> so a new enumerator still warns (Rule 9.4.2); the five defaulted
+  <code>operator==</code> are hidden friends (Rule 16.6.1); the <code>.ipp</code> include at the end of <code>max22200.hpp</code> carries the
+  deviation marker of MD-CPP-009 (Rule 19.0.3). Behaviour is unchanged.</li>
+<li>Synced with driver-template: <code>_config/.clang-tidy</code> (the handbook's high-level profile), the repository checks with
+  the handbook's source checks, the <code>verify</code>, <code>add-driver-feature</code> and <code>new-driver-from-template</code> skills.</li>
+</ul>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A <code>SetChannelsOn()</code> that returns <code>Uncertain</code> no longer skips its write while a switch-off is unverified: a switch-off
+  that no fault byte with COMER clear has vouched for yet (the chip may have miscounted it, and the next fault byte
+  may have been lost on the bus) counts as possibly on, so a mask that asks that channel off goes out again.</li>
+<li>Doubt that a write settles is no longer lost when the chip miscounts that very write (p34, p36): a switch-off, a
+  STATUS write that carries ONCH, CMxy or FREQM moves the doubt it clears into the unverified sets, so the COMER that
+  follows restores it; with COMER already set a STATUS write keeps the doubt until a read-back, and a read-back that
+  matches proves every switch.</li>
+<li>A configuration write (CFG_CHn, HOLD, STATUS, CFG_DPM) whose command byte shows a new COMER stops before its data
+  phase and returns <code>CommunicationError</code>: the channels the miscount left in doubt may be on, so a drive-mode change
+  would be ignored by the chip (Programming Procedure 5c). ONCH writes are never stopped, so a switch-off always goes
+  out.</li>
+<li>While COMER stays set (detection degraded), <code>ConfigureChannel()</code> reads its write back (2 more transfers), and a CFG_CH
+  or STATUS write without a read-back leaves the channel's mode, or the pair modes and FREQM it changes, in doubt: a
+  miscounted configuration write cannot show then, so it is never trusted.</li>
+<li><code>tools/preflight.sh</code> follows the template: clang-tidy runs as CI runs it. A signed-bitwise finding it then reported in
+  the fault-handling example of the API guide is fixed.</li>
+<li>A power-on reset (UVLO, p22) is detected by every call from the fault byte of its command, before the data phase:
+  no write reaches the reset chip, so no setter re-activates it with the cached ONCH over reset CFG_CHn values. The
+  driver marks itself uninitialised with every channel off and returns <code>DeviceReset</code>. A STATUS value with
+  ACTIVE = 0 does the same. A one-transfer ONCH write that gets no fault byte back (0xFF) sends its command again so
+  the reset shows.</li>
+<li>Flags the chip clears by itself (OLF on a switch-on, p21; HHF on a new cycle, p23) are no longer lost: the summary
+  flags of every fault byte (OVT, UVM, OCP, OLF, HHF, DPM) go into <code>GetLatchedFaults()</code> at no extra I/O.</li>
+<li>A miscounted write (COMER, p34) is no longer reported as <code>Ok</code> for ever: the first call that sees COMER go from 0
+  to 1 returns <code>CommunicationError</code>; the ONCH bits the writes since the last clean fault byte changed count as on for
+  <code>ChannelsActive</code>, their channels as of either drive mode, and <code>ApplyConfig()</code> writes their registers again.</li>
+<li>A write whose reply failed may have taken effect: a pair mode or FREQM it changed is unknown until a STATUS write
+  (pair off) or read-back settles it, a switch in that pair returns <code>Uncertain</code>, <code>ConfigureChannel()</code> accepts only a
+  channel valid at both clocks, and <code>ApplyConfig()</code> writes the register again even when the copy matches. A channel
+  that may run either drive mode is written, its own cached value included, only with every channel off, so the
+  write settles the mode.</li>
+<li>A COMER the wake leaves is cleared at start-up with ENABLE low, and while COMER stays set on a running driver every
+  switch-off is read back (2 more transfers each), so miscount detection never stays off silently;
+  <code>IsMiscountDetectionDegraded()</code> reports that state. A switch-off miscounted in the very call that first shows the
+  COMER keeps its channels in doubt (they count as on and are switched off again when asked), and so does a switch-off
+  whose forced read-back fails.</li>
+<li>Read data of all ones is followed by one more command byte, so a reset between a read's command byte and its data
+  returns <code>DeviceReset</code> instead of the floating value.</li>
+<li>A STATUS read, or a FAULT read that clears, that fails or gets a floating reply sets <code>LatchedFaults::lost</code>: the
+  flags it cleared are unknown. A genuine FAULT of 0xFFFFFFFF with a 0xFF fault byte is treated the same, never used
+  as data.</li>
+<li>A STATUS read-back (<code>SetPairMode()</code>, <code>SetFaultMask()</code> with <code>Verify::ReadBack</code>) cleared OVT and UVM on the chip and
+  dropped them; they are kept in the latch.</li>
+<li>Faults latched before the start held the FAULT pin after a clean start; the start-up now clears them.</li>
+<li>A STATUS read-back with the reserved CMxy value 3 stored it as a <code>PairMode</code>; it is refused and the copy keeps its
+  mode.</li>
+<li><code>ApplyConfig()</code> on a running driver dropped a new <code>wake_timeout_us</code>; it is kept, as is the new <code>loaded_channels</code>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../diagrams/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Figures">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Figures
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../repo-setup/" class="md-footer__link md-footer__link--next" aria-label="Next: Repository setup">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Repository setup
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright kb-footer">
+  <nav class="kb-footer__links" aria-label="Kokeb Labs">
+    <a href="https://kokeb-labs.github.io/">Kokeb Labs docs</a>
+    <a href="https://github.com/kokeb-labs-drivers">GitHub organisation</a>
+    
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200">Source</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200/issues">Report an issue</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/main/LICENSE">License</a>
+    
+  </nav>
+  
+    <div class="md-copyright__highlight">Copyright (c) 2026 The driver-max22200 authors</div>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/kokeb-labs-drivers" target="_blank" rel="noopener" title="Kokeb Labs on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.prune", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../search/main.js"></script>
+      
+    
+  </body>
+</html>
