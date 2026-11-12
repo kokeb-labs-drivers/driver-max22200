@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['on_5fmask_0',['on_mask',['../structmax22200_1_1Status.html#a21fe9cfafc3c4898dde6285cfed5ea9c',1,'max22200::Status']]],
-  ['open_5fload_1',['open_load',['../structmax22200_1_1FaultMask.html#a495f86f8485280ac607c29089bf08b21',1,'max22200::FaultMask::open_load'],['../structmax22200_1_1Status.html#aea2a7ad2e4d389f2864234709a35c32b',1,'max22200::Status::open_load'],['../structmax22200_1_1Faults.html#aaaf10684aef1f6cc9b25335d3de83a88',1,'max22200::Faults::open_load'],['../structmax22200_1_1LatchedFaults.html#a04051ef9faa5ad2594fc02ac00d56819',1,'max22200::LatchedFaults::open_load']]],
-  ['open_5fload_5fdetect_2',['open_load_detect',['../structmax22200_1_1ChannelConfig.html#af2a50839eaa9dfaac95ca1c353ef80e1',1,'max22200::ChannelConfig']]],
-  ['overcurrent_3',['overcurrent',['../structmax22200_1_1FaultMask.html#a43ec14c0a6ed24ec9dcd4856a821288f',1,'max22200::FaultMask::overcurrent'],['../structmax22200_1_1Status.html#a043de304d3000622e3f8e4dbf702dc10',1,'max22200::Status::overcurrent'],['../structmax22200_1_1Faults.html#a877f649724a21a59fa380e4f1532b6c7',1,'max22200::Faults::overcurrent'],['../structmax22200_1_1LatchedFaults.html#ad164d61b4dc0fb13494a701fba03fda5',1,'max22200::LatchedFaults::overcurrent']]],
-  ['overtemperature_4',['overtemperature',['../structmax22200_1_1FaultMask.html#a9abf0fea7548b53800f18ca766de96ca',1,'max22200::FaultMask::overtemperature'],['../structmax22200_1_1Status.html#aef1d7efab810824be240a08ac6ab27d8',1,'max22200::Status::overtemperature'],['../structmax22200_1_1LatchedFaults.html#ade922cf5ff125caebd90b24ff7d10e0d',1,'max22200::LatchedFaults::overtemperature']]]
-];

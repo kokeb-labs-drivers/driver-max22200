@@ -1228,9 +1228,9 @@ and <code>find_package()</code> without changing its <code>target_link_libraries
 <code>include/max22200/src/max22200.ipp</code>. The host CI installs the package and builds a consumer against it on every
 pull request (<a href="../testing/">Testing and CI</a>).</p>
 <h2 id="esp-idf">ESP-IDF<a class="headerlink" href="#esp-idf" title="Permanent link">&para;</a></h2>
-<p>Under ESP-IDF the root <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/CMakeLists.txt"><code>CMakeLists.txt</code></a> registers the repository itself as a component: with
+<p>Under ESP-IDF the root <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/CMakeLists.txt"><code>CMakeLists.txt</code></a> registers the repository itself as a component: with
 <code>ESP_PLATFORM</code> set it calls <code>idf_component_register()</code> from the same build settings, with the menu in
-<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/_config/Kconfig"><code>_config/Kconfig</code></a>. There is no wrapper to copy. ESP-IDF names a component after its folder,
+<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/_config/Kconfig"><code>_config/Kconfig</code></a>. There is no wrapper to copy. ESP-IDF names a component after its folder,
 so the name in your <code>REQUIRES</code> is the name of the folder the repository is in. Pick one of these:</p>
 <table>
 <thead>
@@ -1283,17 +1283,17 @@ publishing is chosen, the manifest is added at the root then.</p>
 <tbody>
 <tr>
 <td>Settings</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/cmake/max22200_build_settings.cmake"><code>cmake/max22200_build_settings.cmake</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/cmake/max22200_build_settings.cmake"><code>cmake/max22200_build_settings.cmake</code></a></td>
 <td>Target name, include directories, sources, version: the single source of truth</td>
 </tr>
 <tr>
 <td>Library</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/CMakeLists.txt"><code>CMakeLists.txt</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/CMakeLists.txt"><code>CMakeLists.txt</code></a></td>
 <td>INTERFACE target, alias, install rules and the package export, or the ESP-IDF component</td>
 </tr>
 <tr>
 <td>Tool configuration</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/_config/Doxyfile"><code>_config/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/_config/Doxyfile"><code>_config/</code></a></td>
 <td>Doxyfile, the docs site, Kconfig, clang-format, clang-tidy and the linters</td>
 </tr>
 </tbody>

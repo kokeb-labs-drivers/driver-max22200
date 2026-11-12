@@ -1149,7 +1149,7 @@ port class, call two driver functions.</p>
 <!-- /generated -->
 
 <h2 id="try-it-on-your-pc">Try it on your PC<a class="headerlink" href="#try-it-on-your-pc" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/examples/host/README.md"><code>examples/host/</code></a> runs the real driver against a simulated MAX22200, through a host
+<p><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/examples/host/README.md"><code>examples/host/</code></a> runs the real driver against a simulated MAX22200, through a host
 port. From the repository root, with CMake and a C++20 compiler:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>examples/host<span class="w"> </span>-B<span class="w"> </span>build-example
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-example
@@ -1161,7 +1161,7 @@ port. From the repository root, with CMake and a C++20 compiler:</p>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>ONCH 0x01, flags 0x00
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>faults on channels 0x00
 </span></code></pre></div>
-<p>The calls in <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/examples/host/main.cpp"><code>main.cpp</code></a> are the ones below; only the port differs on an MCU. CI builds
+<p>The calls in <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/examples/host/main.cpp"><code>main.cpp</code></a> are the ones below; only the port differs on an MCU. CI builds
 and runs this example on every pull request.</p>
 <h2 id="1-wire-it">1. Wire it<a class="headerlink" href="#1-wire-it" title="Permanent link">&para;</a></h2>
 <table>

@@ -1192,67 +1192,67 @@ uses for the rest (handbook KB-CPP20-001).</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_max22200.cpp"><code>tests/test_max22200.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_max22200.cpp"><code>tests/test_max22200.cpp</code></a></td>
 <td>The lifecycle (no I/O before the start, the transfers of the start in Figure 6's order, tEN and tWU, the wake loop and its timeout, a retried start, shutdown and restart), <code>Validate()</code> and <code>ValidateChannel()</code> against each datasheet rule, switching with and without <code>Verify::ReadBack</code>, parallel pairs and full bridges, channel settings and the mode lock, HOLD on the fly, pair modes, masks and DPM, STATUS and <code>DeviceReset</code>, both FAULT clear behaviours (the selective clear's byte order), the FAULT pin, the encodings and every unit conversion</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_fast_path.cpp"><code>tests/test_fast_path.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_fast_path.cpp"><code>tests/test_fast_path.cpp</code></a></td>
 <td>The one-transfer ONCH write and every way it is invalidated, the STATUS byte it returns, the driver's copy after each kind of read-back mismatch, COMER at start-up (already set, cleared on read, new), CFG_DPM's reserved bits</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_latch.cpp"><code>tests/test_latch.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_latch.cpp"><code>tests/test_latch.cpp</code></a></td>
 <td>The latch of clear-on-read flags fed by every STATUS and FAULT read (a STATUS read-back keeps the OVT it clears), the faults latched before the start cleared and reported, the raw <code>ReadRegister()</code>, a CMxy of 3 refused, load diagnostics only on declared loads</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_reset.cpp"><code>tests/test_reset.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_reset.cpp"><code>tests/test_reset.cpp</code></a></td>
 <td>What the chip changes on its own: a power-on reset caught from the fault byte by every call before any data phase (with ACTIVE refused or taken while UVM is set), the restart after it; OLF and HHF the chip clears latched from the fault byte; the OCP latch; a miscounted write reported by the next call, its bits in doubt and its register written again; a failed reply: pair modes and FREQM unknown, <code>Uncertain</code>, registers written again; clear-on-read flags lost</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_model.cpp"><code>tests/test_model.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_model.cpp"><code>tests/test_model.cpp</code></a></td>
 <td>The model's register map against the driver's, and the model's own rules (command persistence, the clock count, COMER, OLF/HHF on switch-on, HHF on a new cycle, the OCP latch, CFG_DPM's read-only bits, the power-on reset, ACTIVE with UVM set)</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_bus_faults.cpp"><code>tests/test_bus_faults.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_bus_faults.cpp"><code>tests/test_bus_faults.cpp</code></a></td>
 <td>Every transfer of every operation, <code>EnsureInitialized()</code> included, fails in turn, before and after the chip took it; each returns <code>Bus</code>, CMD is left low and the next call works. Every pin write fails in turn; each returns <code>Pin</code> and a command without CMD high is never sent</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/fuzz/fuzz_max22200.cpp"><code>tests/fuzz/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/fuzz/fuzz_max22200.cpp"><code>tests/fuzz/</code></a></td>
 <td>The fuzz target; CTest replays its corpus (<code>max22200_fuzz_max22200_corpus</code>), see below</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_errors.cpp"><code>tests/test_errors.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_errors.cpp"><code>tests/test_errors.cpp</code></a></td>
 <td>Every chip-specific value (16 to 23) and <code>Unsupported</code> are returned by a real call</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_version.cpp"><code>tests/test_version.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_version.cpp"><code>tests/test_version.cpp</code></a></td>
 <td>The version getters follow the generated header (also against a 9.8.7 probe)</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/test_kconfig.cpp"><code>tests/test_kconfig.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/test_kconfig.cpp"><code>tests/test_kconfig.cpp</code></a></td>
 <td><code>KconfigDefaults()</code> with and without <code>CONFIG_</code> values</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/compile_fail/port_without_delay.cpp"><code>tests/compile_fail/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/compile_fail/port_without_delay.cpp"><code>tests/compile_fail/</code></a></td>
 <td>Code that must not compile, each for its <code>EXPECT:</code> diagnostic: a port without <code>DelayUs()</code>, without <code>GpioSet()</code>, with a <code>void GpioSet()</code>, a <code>Transfer()</code> with a narrower length or without <code>noexcept</code>, a <code>DelayUs(uint16_t)</code>, a <code>void GpioRead()</code>, a <code>GpioRead()</code> that takes the signal by value, a <code>Log()</code> with another signature, a class that is not a port</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/mock_max22200.hpp"><code>tests/mock_max22200.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/mock_max22200.hpp"><code>tests/mock_max22200.hpp</code></a></td>
 <td>The chip model; the mock ports over it are in <code>mock_max22200_bus.hpp</code></td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/check_version_copy.cmake"><code>tests/check_version_copy.cmake</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/check_version_copy.cmake"><code>tests/check_version_copy.cmake</code></a></td>
 <td><code>_config/Doxyfile</code> carries the CMake version</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/examples/host/README.md"><code>examples/host/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/examples/host/README.md"><code>examples/host/</code></a></td>
 <td>The host example, built with the test flags and run (<code>max22200_host_example</code>)</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/check_install.cmake"><code>tests/check_install.cmake</code></a></td>
-<td>Installs into a scratch prefix and builds <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/install_consumer/CMakeLists.txt"><code>tests/install_consumer/</code></a> with <code>find_package(max22200)</code></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/check_install.cmake"><code>tests/check_install.cmake</code></a></td>
+<td>Installs into a scratch prefix and builds <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/install_consumer/CMakeLists.txt"><code>tests/install_consumer/</code></a> with <code>find_package(max22200)</code></td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/check_doxygen.cmake"><code>tests/check_doxygen.cmake</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/check_doxygen.cmake"><code>tests/check_doxygen.cmake</code></a></td>
 <td>Doxygen with <code>_config/Doxyfile</code> and warnings as errors, when <code>doxygen</code> is installed</td>
 </tr>
 </tbody>
@@ -1261,7 +1261,7 @@ uses for the rest (handbook KB-CPP20-001).</p>
 modelled one way and listed: see <a href="../limitations/">Status and limitations</a>.</p>
 <h2 id="fuzz-tests">Fuzz tests<a class="headerlink" href="#fuzz-tests" title="Permanent link">&para;</a></h2>
 <p>Everything the driver receives comes from SDO and from the port's return values, so that is what a noisy cable, an
-unplugged board or a broken chip controls. <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/fuzz/fuzz_max22200.cpp"><code>tests/fuzz/fuzz_max22200.cpp</code></a> lets
+unplugged board or a broken chip controls. <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/fuzz/fuzz_max22200.cpp"><code>tests/fuzz/fuzz_max22200.cpp</code></a> lets
 libFuzzer choose the part and a configuration (sometimes for the other part, sometimes invalid), then up to 64 driver
 calls, and on every transfer what the bus does: pass the model's reply, fail the transfer (before or after the chip
 took it), lose it (the chip never sees it, SDO floats), flip bits of the reply or replace it; on every pin write
@@ -1346,7 +1346,7 @@ only a read-back can see.</p>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>./build-fuzz/tests/fuzz/fuzz_max22200<span class="w"> </span>-max_total_time<span class="o">=</span><span class="m">300</span><span class="w"> </span>tests/fuzz/corpus/fuzz_max22200
 </span></code></pre></div>
 <p>The same file also builds without libFuzzer as <code>fuzz_replay_fuzz_max22200</code>, and CTest replays every input in
-<a href="https://github.com/kokeb-labs-drivers/driver-max22200/tree/379561887805823b0ab006befda3c3e9da87aa67/tests/fuzz/corpus/fuzz_max22200"><code>tests/fuzz/corpus/fuzz_max22200/</code></a> on GCC and Clang: the seeds, and every input
+<a href="https://github.com/kokeb-labs-drivers/driver-max22200/tree/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/fuzz/corpus/fuzz_max22200"><code>tests/fuzz/corpus/fuzz_max22200/</code></a> on GCC and Clang: the seeds, and every input
 that ever broke a promise (<code>regress-*</code>), so a fixed bug stays fixed. CI fuzzes for 120 s on every pull request (job
 <code>Host quality / fuzz</code>). A local run of 4 minutes (12.2 million runs) broke no promise; on macOS the libFuzzer build
 uses UBSan's recover mode with <code>UBSAN_OPTIONS=halt_on_error=1</code> and <code>-fno-sanitize=function</code>, because Apple's linker
@@ -1354,7 +1354,7 @@ rejects that object otherwise (CI builds on Linux with the CMake flags).</p>
 <h2 id="quality-gates">Quality gates<a class="headerlink" href="#quality-gates" title="Permanent link">&para;</a></h2>
 <p>The <code>Host quality</code> job measures the library code, <code>inc/</code> and <code>src/</code> only (tests and examples are left out), and
 fails when a value is over the limits of this repository's assurance level, <code>high</code> (set in
-<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/.kokeb/handbook.yml"><code>.kokeb/handbook.yml</code></a>, defined by the handbook's ADR-0020):</p>
+<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/.kokeb/handbook.yml"><code>.kokeb/handbook.yml</code></a>, defined by the handbook's ADR-0020):</p>
 <table>
 <thead>
 <tr>
@@ -1430,16 +1430,16 @@ fails when a value is over the limits of this repository's assurance level, <cod
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-san<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-san<span class="w"> </span>--output-on-failure
 </span></code></pre></div>
 <p>The fuzz gate runs locally as shown in <a href="#fuzz-tests">Fuzz tests</a>.</p>
-<p>clang-tidy 20 (<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/_config/.clang-tidy"><code>_config/.clang-tidy</code></a>: bugprone, CERT, clang-analyzer,
+<p>clang-tidy 20 (<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/_config/.clang-tidy"><code>_config/.clang-tidy</code></a>: bugprone, CERT, clang-analyzer,
 cppcoreguidelines, modernize, performance, portability and readability, each disabled check with its reason) and
 cppcheck (strict) run in the <code>C++ lint</code> and <code>Repository checks</code> jobs and fail on any finding.</p>
 <h2 id="documentation-snippets">Documentation snippets<a class="headerlink" href="#documentation-snippets" title="Permanent link">&para;</a></h2>
-<p>Every C++ block on this site is included from <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/docs/my_port.hpp"><code>tests/docs/</code></a>, which the host build
+<p>Every C++ block on this site is included from <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/docs/my_port.hpp"><code>tests/docs/</code></a>, which the host build
 compiles (target <code>max22200_doc_snippets</code>) with the driver instantiated over the documented port. A change to
 the API that breaks a page breaks the build first. The README's example is a generated copy of the same file;
 <code>kokeb-docs check</code> fails when it drifts.</p>
 <h2 id="ci-workflows">CI workflows<a class="headerlink" href="#ci-workflows" title="Permanent link">&para;</a></h2>
-<p>Everything runs from <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/.github/workflows/ci.yml"><code>ci.yml</code></a>, which calls one workflow file per check and ends in
+<p>Everything runs from <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/.github/workflows/ci.yml"><code>ci.yml</code></a>, which calls one workflow file per check and ends in
 the <code>CI gate</code> job, the single required check (<code>CI gate / gate</code>).</p>
 <table>
 <thead>

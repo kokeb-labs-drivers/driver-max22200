@@ -1274,7 +1274,7 @@
 <!-- /generated -->
 
 <p>The driver never calls your SDK. It calls hooks on a class you derive from <code>max22200::SpiInterface&lt;Self&gt;</code> (in
-<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>). The base uses CRTP and declares no hook
+<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>). The base uses CRTP and declares no hook
 itself; the driver template is constrained by the <code>max22200::SpiPort</code> concept, so calls are resolved at compile
 time (no virtual functions, nothing to allocate) and a missing or misdeclared hook is a compile error at the point
 of use.</p>
@@ -1549,14 +1549,14 @@ check each rule.</p>
 <p>Every port lives with its example, in <code>examples/&lt;platform&gt;/</code>; the driver has none. <a href="../platforms/">Platforms</a> lists
 them and how to add one.</p>
 <ul>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/examples/host/host_max22200_port.hpp"><code>examples/host/host_max22200_port.hpp</code></a>: any PC, against a simulated
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/examples/host/host_max22200_port.hpp"><code>examples/host/host_max22200_port.hpp</code></a>: any PC, against a simulated
   chip. Start from it for a host build or a test bench; it is also the smallest complete port.</li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/examples/esp32/main/esp32_max22200_port.hpp"><code>examples/esp32/main/esp32_max22200_port.hpp</code></a>: ESP-IDF, with
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/examples/esp32/main/esp32_max22200_port.hpp"><code>examples/esp32/main/esp32_max22200_port.hpp</code></a>: ESP-IDF, with
   every hook. Start from it for any ESP-IDF target.</li>
 </ul>
 <h2 id="check-your-port">Check your port<a class="headerlink" href="#check-your-port" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Build it: the ports on this page are compiled by the host CI from <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/tests/docs/my_port.hpp"><code>tests/docs/</code></a>,
+<li>Build it: the ports on this page are compiled by the host CI from <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/tests/docs/my_port.hpp"><code>tests/docs/</code></a>,
    with the driver instantiated over them.</li>
 <li>Call <code>EnsureInitialized()</code>: <code>Ok</code> proves that CMD, ENABLE, SDI and SDO work: every 32-bit write echoed its
    command and every register read back what was written. <code>NoDevice</code> means SDO reads 0xFF (no supply, ENABLE low,

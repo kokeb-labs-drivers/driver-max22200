@@ -1110,7 +1110,7 @@ copy of the chip's registers the driver keeps.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200.hpp"><code>inc/max22200.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200.hpp"><code>inc/max22200.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
 <h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
 <table>
@@ -1124,17 +1124,17 @@ copy of the chip's registers the driver keeps.</p>
 <tbody>
 <tr>
 <td>Core</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200.hpp"><code>inc/max22200.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/src/max22200.ipp"><code>src/max22200.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200.hpp"><code>inc/max22200.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/src/max22200.ipp"><code>src/max22200.ipp</code></a></td>
 <td>Lifecycle, the programming procedure, the register copy, the checks, errors</td>
 </tr>
 <tr>
 <td>Types and registers</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_types.hpp"><code>inc/max22200_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_types.hpp"><code>inc/max22200_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
 <td><code>Error</code>, <code>Result&lt;T&gt;</code>, <code>Config</code>, the encodings, the unit conversions, <code>Validate()</code>; the register map</td>
 </tr>
 <tr>
 <td>Port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></td>
 <td>The CRTP base, <code>CtrlPin</code> and <code>GpioSignal</code>, the <code>SpiPort</code> concept, the two-phase access</td>
 </tr>
 <tr>
@@ -1144,7 +1144,7 @@ copy of the chip's registers the driver keeps.</p>
 </tr>
 <tr>
 <td>Kconfig layer</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_kconfig.hpp"><code>inc/max22200_kconfig.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_kconfig.hpp"><code>inc/max22200_kconfig.hpp</code></a></td>
 <td>Optional: a <code>Config</code> from ESP-IDF menuconfig</td>
 </tr>
 </tbody>
@@ -1256,23 +1256,23 @@ because:</p>
 <tbody>
 <tr>
 <td>The public API</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200.hpp"><code>inc/max22200.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200.hpp"><code>inc/max22200.hpp</code></a></td>
 </tr>
 <tr>
 <td>How a call is implemented</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/src/max22200.ipp"><code>src/max22200.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/src/max22200.ipp"><code>src/max22200.ipp</code></a></td>
 </tr>
 <tr>
 <td>Register banks, bits and timing</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
 </tr>
 <tr>
 <td>The settings, encodings and conversions</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_types.hpp"><code>inc/max22200_types.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_types.hpp"><code>inc/max22200_types.hpp</code></a></td>
 </tr>
 <tr>
 <td>The port contract and the two-phase access</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/379561887805823b0ab006befda3c3e9da87aa67/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/246afefa8a96ebae5ca4bff841f886311b35cedf/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></td>
 </tr>
 </tbody>
 </table>
