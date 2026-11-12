@@ -58,18 +58,26 @@ Use the `datasheet-conformance` skill for every step, one subsystem at a time:
    the `sha256` of the PDF you used (never commit the PDF), and one topic per section the driver uses (section,
    printed page, driver API, the docs pages that explain it). Every docs page a topic names keeps its
    `<!-- generated: datasheet-refs -->` box; remove the box from a page no topic names. A library has none of this.
-2. Every page in `docs/`: the chip card, pins, timing, power, errors; the README's paragraph, At a glance table,
+2. `docs/hardware.yml`: it still holds the fictional XMPL100 (an SPI part). Replace it with the real chip: the
+   package and every pin from the datasheet's pin configuration chapter; `package.outline` (the body in
+   millimetres, the pitch and the height) from the package outline drawing; `package.variants` from the ordering
+   information (every other package the part is sold in, with its part-number suffix; delete the list for a
+   single package); `supply` from the electrical characteristics; the hooks from the port header, the blocks from
+   the block diagram and one circuit from the application chapter. Cite section and page for each fact and leave
+   out a number the datasheet does not give. The README's pinout, outline and block figures and its chip card
+   (`<!-- generated: chip-card -->`) are drawn from this file, so the module view of the chip is never typed.
+3. Every page in `docs/`: the chip card, pins, timing, power, errors; the README's paragraph, At a glance table,
    wiring and documentation table. Remove every statement about the XMPL100.
-3. `kokeb-docs figures && kokeb-docs gen`, `mkdocs build -f _config/mkdocs.yml --strict`.
-4. `CHANGELOG.md`: `## [Unreleased]` / `### Added` describing the first version. Headings are only `### Breaking`,
+4. `kokeb-docs figures && kokeb-docs gen`, `mkdocs build -f _config/mkdocs.yml --strict`.
+5. `CHANGELOG.md`: `## [Unreleased]` / `### Added` describing the first version. Headings are only `### Breaking`,
    `### Added`, `### Changed`, `### Deprecated`, `### Removed`, `### Fixed`, `### Security` (the `release` skill
    and CI check this); anything else is a bold lead-in under one of them.
-5. The repository's About comes from its entry in `kokeb-labs/.github` `org/repos.json` (`docs/repo-setup.md`,
+6. The repository's About comes from its entry in `kokeb-labs/.github` `org/repos.json` (`docs/repo-setup.md`,
    step 2): the README's first sentence as the description, and the shared topics plus the bus, the device
    category, the vendor and the part.
-6. Run `tools/preflight.sh` until it reports `0 failure(s)`, then push once and open the PR; give the owner
+7. Run `tools/preflight.sh` until it reports `0 failure(s)`, then push once and open the PR; give the owner
    `docs/repo-setup.md` for the org settings. Before merging a driver that switches loads, have an independent
    reviewer (the `safety-reviewer` agent, run by someone who did not write the code) check it against the
    datasheet: a model written by the same author shares the author's assumptions, so green tests are not enough.
-7. After the merge, do not tag until `CI` on `main` is green; then follow `docs/repo-setup.md` section 6 (release
+8. After the merge, do not tag until `CI` on `main` is green; then follow `docs/repo-setup.md` section 6 (release
    candidate, public, Pages) and the `release` skill, section 5, when a check goes red for a reason outside the code.
