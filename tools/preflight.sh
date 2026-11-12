@@ -13,6 +13,15 @@ set -uo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$root" || exit 2
 quick=0; [ "${1:-}" = "--quick" ] && quick=1
+if [ "${1:-}" = "--container" ]; then
+  # The CI toolchain (Ubuntu 24.04, GCC 14, clang 18/20, cppcheck, lizard, gcovr, Arm GCC) in Docker: this script and the
+  # Linux-only gates (coverage, sanitizers, libFuzzer) run inside it on this checkout. First run builds the image.
+  img=kokeb-ci:local
+  [ -n "$(docker images -q "$img")" ] || docker build -t "$img" tools/ci-container || exit 2
+  docker run --rm -v "$root:/src" "$img" bash -c \
+    'cp -a /src /tmp/w && cd /tmp/w && tools/preflight.sh; a=$?; tools/ci-container/gates.sh /tmp/w; b=$?; exit $((a|b))'
+  exit $?
+fi
 prefix="$(grep -oE 'option\(([A-Z0-9_]+)_BUILD_TESTS' CMakeLists.txt | head -1 | sed 's/option(//; s/_BUILD_TESTS//')"
 [ -n "$prefix" ] || { echo "no <NAME>_BUILD_TESTS option in CMakeLists.txt"; exit 2; }
 work="$(mktemp -d "${TMPDIR:-/tmp}/preflight.XXXXXX")"
