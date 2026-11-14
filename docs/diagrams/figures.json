@@ -98,7 +98,7 @@
   "chip-wiring-typical": {
     "title": "Wiring: Application diagram",
     "alt": "Wiring of the MAX22200 for the Application diagram: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU SPI CS to CSB (Transfer()); MCU GPIO to CMD (GpioSet(CtrlPin::Cmd)); MCU GPIO to ENABLE (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULT (GpioRead(CtrlPin::Fault)); MCU GPIO to TRIGA; OUT6 to DC motor M+; OUT7 to DC motor M-; OUT2 to Latched valve B; OUT3 to Latched valve A. Supplies, grounds and the support parts are listed under the drawing.",
-    "description": "The MCU on the left, the MAX22200 in the middle, the blocks it drives on the right. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "description": "The MCU on the left, the MAX22200 in the middle, the blocks it drives on the right. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
     "profile": "overview",
     "width": 1200,
     "source": "docs/hardware.yml",

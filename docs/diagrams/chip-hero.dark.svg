@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="868" viewBox="0 0 1200 868" role="img" aria-labelledby="chip-hero-title chip-hero-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="889" viewBox="0 0 1200 889" role="img" aria-labelledby="chip-hero-title chip-hero-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
 <title id="chip-hero-title">MAX22200</title>
 <desc id="chip-hero-desc">Overview of the MAX22200, an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A half-bridge runs a HIT then HOLD sequence under current or voltage regulation, set over SPI. A MCU talks to it over SPI, CMD, ENABLE; it drives Solenoids, valves, relays; it reads back Coil current, TRIGA and TRIGB. Headline figures: 4.5 to 36 V supply (VM); 8 x 1 A half-bridges, 1 A RMS each; 200 mΩ typical on-resistance per output; 10 MHz SPI clock, one chip (5 MHz in a daisy chain); 5 x 5 mm TQFN-32 body.</desc>
 <defs><marker id="fk-arrow-amber-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FBBF24"/></marker><marker id="fk-arrow-blue-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#60A5FA"/></marker><marker id="fk-arrow-teal-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2BB3A3"/></marker></defs>
-<rect x="0.5" y="0.5" width="1199" height="867" rx="16" fill="#0E131A" stroke="#283241"/>
+<rect x="0.5" y="0.5" width="1199" height="888" rx="16" fill="#0E131A" stroke="#283241"/>
 <text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#F8D27A">OCTAL SOLENOID AND MOTOR DRIVER</text>
 <text x="32" y="85.6" font-size="32" font-weight="700" fill="#E8EDF3">MAX22200</text>
 <text x="32" y="115.4" font-size="18" fill="#9AA6B5">What talks to it, what it drives and what it reads back, with its headline numbers. Datasheet: General Description;</text>
@@ -51,11 +51,11 @@
 <rect x="764" y="214.5" width="4" height="148" rx="2" fill="#2BB3A3"/>
 <rect x="397" y="457.5" width="360" height="163" rx="12" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
 <rect x="397" y="465.5" width="4" height="147" rx="2" fill="#FBBF24"/>
-<rect x="32" y="660.5" width="214.4" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
-<rect x="262.4" y="660.5" width="214.4" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
-<rect x="492.8" y="660.5" width="214.4" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
-<rect x="723.2" y="660.5" width="214.4" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
-<rect x="953.6" y="660.5" width="214.4" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="32" y="660.5" width="214.4" height="198.5" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="262.4" y="660.5" width="214.4" height="198.5" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="492.8" y="660.5" width="214.4" height="198.5" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="723.2" y="660.5" width="214.4" height="198.5" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="953.6" y="660.5" width="214.4" height="198.5" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
 <text x="577" y="282.5" font-size="30" font-weight="700" text-anchor="middle" fill="#E8EDF3">MAX22200</text>
 <text x="577" y="312.5" font-size="17" text-anchor="middle" fill="#9AA6B5">TQFN-32</text>
 <text x="577" y="336.5" font-size="16" text-anchor="middle" fill="#9AA6B5">32 pins + pad</text>
@@ -76,21 +76,25 @@
 <text x="421" y="597.1" font-size="17" fill="#D2DAE4">odd channels)</text>
 <text x="48" y="708.5" font-size="30" font-weight="700" fill="#E8EDF3">4.5 to 36 V</text>
 <text x="48" y="738.1" font-size="17" fill="#D2DAE4">supply (VM)</text>
-<text x="48" y="819.4" font-size="16" fill="#9AA6B5">Supply Voltage, p. 7</text>
+<text x="48" y="841" font-size="16" fill="#9AA6B5">Supply Voltage, p. 7</text>
 <text x="278.4" y="708.5" font-size="30" font-weight="700" fill="#E8EDF3">8 x 1 A</text>
 <text x="278.4" y="738.1" font-size="17" fill="#D2DAE4">half-bridges, 1 A</text>
 <text x="278.4" y="761.1" font-size="17" fill="#D2DAE4">RMS each</text>
-<text x="278.4" y="819.4" font-size="16" fill="#9AA6B5">Benefits and Features, p. 1</text>
+<text x="278.4" y="819.4" font-size="16" fill="#9AA6B5">Benefits and Features,</text>
+<text x="278.4" y="841" font-size="16" fill="#9AA6B5">p. 1</text>
 <text x="508.8" y="708.5" font-size="30" font-weight="700" fill="#E8EDF3">200 mΩ</text>
 <text x="508.8" y="738.1" font-size="17" fill="#D2DAE4">typical on-resistance</text>
 <text x="508.8" y="761.1" font-size="17" fill="#D2DAE4">per output</text>
-<text x="508.8" y="819.4" font-size="16" fill="#9AA6B5">Benefits and Features, p. 1</text>
+<text x="508.8" y="819.4" font-size="16" fill="#9AA6B5">Benefits and Features,</text>
+<text x="508.8" y="841" font-size="16" fill="#9AA6B5">p. 1</text>
 <text x="739.2" y="708.5" font-size="30" font-weight="700" fill="#E8EDF3">10 MHz</text>
 <text x="739.2" y="738.1" font-size="17" fill="#D2DAE4">SPI clock, one chip</text>
 <text x="739.2" y="761.1" font-size="17" fill="#D2DAE4">(5 MHz in a daisy</text>
 <text x="739.2" y="784" font-size="17" fill="#D2DAE4">chain)</text>
-<text x="739.2" y="819.4" font-size="16" fill="#9AA6B5">SPI timing (tCLK), p. 10</text>
+<text x="739.2" y="819.4" font-size="16" fill="#9AA6B5">SPI timing (tCLK), p.</text>
+<text x="739.2" y="841" font-size="16" fill="#9AA6B5">10</text>
 <text x="969.6" y="708.5" font-size="30" font-weight="700" fill="#E8EDF3">5 x 5 mm</text>
 <text x="969.6" y="738.1" font-size="17" fill="#D2DAE4">TQFN-32 body</text>
-<text x="969.6" y="819.4" font-size="16" fill="#9AA6B5">Pin Configuration, p. 12</text>
+<text x="969.6" y="819.4" font-size="16" fill="#9AA6B5">Pin Configuration, p.</text>
+<text x="969.6" y="841" font-size="16" fill="#9AA6B5">12</text>
 </svg>

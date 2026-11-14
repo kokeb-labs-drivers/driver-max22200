@@ -7,89 +7,89 @@
 <text x="32" y="115.4" font-size="18" fill="#566070">What you connect by hand, with the driver hook on each MCU wire. The full schematic, with every part and value, is on the</text>
 <text x="32" y="141.5" font-size="18" fill="#566070">Hardware page. Datasheet: Typical Application Circuits; Application Diagram, p. 44.</text>
 <rect x="32" y="157.5" width="1136" height="1" fill="#E2E7EE"/>
-<path d="M277.8 280.3 L548 280.3" fill="none" stroke="#2563EB" stroke-width="2.2"/>
-<path d="M277.8 365.9 L548 365.9" fill="none" stroke="#2563EB" stroke-width="2.2"/>
-<path d="M277.8 451.5 L548 451.5" fill="none" stroke="#2563EB" stroke-width="2.2"/>
-<path d="M277.8 537.1 L548 537.1" fill="none" stroke="#2563EB" stroke-width="2.2"/>
-<path d="M277.8 622.7 L548 622.7" fill="none" stroke="#0B7A72" stroke-width="2.2"/>
-<path d="M277.8 708.3 L548 708.3" fill="none" stroke="#0B7A72" stroke-width="2.2"/>
-<path d="M277.8 793.9 L548 793.9" fill="none" stroke="#C26A05" stroke-width="2.2"/>
-<path d="M277.8 879.5 L548 879.5" fill="none" stroke="#0B7A72" stroke-width="2.2"/>
-<path d="M816 280.3 L950.2 280.3" fill="none" stroke="#7C4A1E" stroke-width="2.2"/>
-<path d="M816 365.9 L950.2 365.9" fill="none" stroke="#7C4A1E" stroke-width="2.2"/>
-<path d="M816 537.1 L950.2 537.1" fill="none" stroke="#7C4A1E" stroke-width="2.2"/>
-<path d="M816 622.7 L950.2 622.7" fill="none" stroke="#7C4A1E" stroke-width="2.2"/>
-<rect x="562" y="175.5" width="240" height="764.8" rx="10" fill="#F5F7FA" stroke="#2B3442" stroke-width="2.2"/>
-<rect x="77.8" y="175.5" width="200" height="764.8" rx="12" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
-<rect x="950.2" y="237.5" width="172" height="171.2" rx="12" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
-<rect x="950.2" y="494.3" width="172" height="171.2" rx="12" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<path d="M278.3 280.3 L548.5 280.3" fill="none" stroke="#2563EB" stroke-width="2.2"/>
+<path d="M278.3 365.9 L548.5 365.9" fill="none" stroke="#2563EB" stroke-width="2.2"/>
+<path d="M278.3 451.5 L548.5 451.5" fill="none" stroke="#2563EB" stroke-width="2.2"/>
+<path d="M278.3 537.1 L548.5 537.1" fill="none" stroke="#2563EB" stroke-width="2.2"/>
+<path d="M278.3 622.7 L548.5 622.7" fill="none" stroke="#0B7A72" stroke-width="2.2"/>
+<path d="M278.3 708.3 L548.5 708.3" fill="none" stroke="#0B7A72" stroke-width="2.2"/>
+<path d="M278.3 793.9 L548.5 793.9" fill="none" stroke="#C26A05" stroke-width="2.2"/>
+<path d="M278.3 879.5 L548.5 879.5" fill="none" stroke="#0B7A72" stroke-width="2.2"/>
+<path d="M816.5 280.3 L949.7 280.3" fill="none" stroke="#7C4A1E" stroke-width="2.2"/>
+<path d="M816.5 365.9 L949.7 365.9" fill="none" stroke="#7C4A1E" stroke-width="2.2"/>
+<path d="M816.5 537.1 L949.7 537.1" fill="none" stroke="#7C4A1E" stroke-width="2.2"/>
+<path d="M816.5 622.7 L949.7 622.7" fill="none" stroke="#7C4A1E" stroke-width="2.2"/>
+<rect x="562.5" y="175.5" width="240" height="764.8" rx="10" fill="#F5F7FA" stroke="#2B3442" stroke-width="2.2"/>
+<rect x="78.3" y="175.5" width="200" height="764.8" rx="12" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="949.7" y="237.5" width="172" height="171.2" rx="12" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="949.7" y="494.3" width="172" height="171.2" rx="12" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
 <rect x="32" y="968.3" width="1136" height="79" rx="12" fill="#FFEEF2" stroke="#F5BECB" stroke-width="1"/>
 <rect x="32" y="1061.3" width="1136" height="79" rx="12" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
-<text x="682" y="210.5" font-size="20" font-weight="700" text-anchor="middle" fill="#0E1726">MAX22200</text>
-<text x="682" y="232.9" font-size="16" text-anchor="middle" fill="#566070">U1</text>
-<text x="95.8" y="210.5" font-size="20" font-weight="700" fill="#1E429F">MCU</text>
-<text x="95.8" y="232.9" font-size="16" fill="#1E429F">U2</text>
-<text x="259.8" y="286.1" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">SPI SCK</text>
-<text x="584" y="286.1" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SCK</text>
-<rect x="548" y="274.3" width="14" height="12" rx="2" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
-<text x="412.9" y="270.3" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">SCK  pin 5</text>
-<text x="412.9" y="303.1" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">Transfer()</text>
-<text x="259.8" y="371.7" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">SPI MOSI</text>
-<text x="584" y="371.7" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SDI</text>
-<rect x="548" y="359.9" width="14" height="12" rx="2" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
-<text x="412.9" y="355.9" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">SDI  pin 6</text>
-<text x="412.9" y="388.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">Transfer()</text>
-<text x="259.8" y="457.3" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">SPI MISO</text>
-<text x="584" y="457.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SDO</text>
-<rect x="548" y="445.5" width="14" height="12" rx="2" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
-<text x="412.9" y="441.5" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">SDO  pin 7</text>
-<text x="412.9" y="474.3" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">Transfer()</text>
-<text x="412.9" y="495.9" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">+ R3 10 kΩ</text>
-<text x="259.8" y="542.9" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">SPI CS</text>
-<text x="584" y="542.9" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">CSB</text>
-<rect x="548" y="531.1" width="14" height="12" rx="2" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
-<text x="412.9" y="527.1" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">CSB  pin 3</text>
-<text x="412.9" y="559.9" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">Transfer()</text>
-<text x="259.8" y="628.5" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">GPIO</text>
-<text x="584" y="628.5" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">CMD</text>
-<rect x="548" y="616.7" width="14" height="12" rx="2" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
-<text x="412.9" y="612.7" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">CMD  pin 2</text>
-<text x="412.9" y="645.5" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">GpioSet(CtrlPin::Cmd)</text>
-<text x="259.8" y="714.1" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">GPIO</text>
-<text x="584" y="714.1" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">ENABLE</text>
-<rect x="548" y="702.3" width="14" height="12" rx="2" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
-<text x="412.9" y="698.3" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">ENABLE  pin 21</text>
-<text x="412.9" y="731.1" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">GpioSet(CtrlPin::Enable)</text>
-<text x="259.8" y="799.7" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">GPIO (IRQ)</text>
-<text x="584" y="799.7" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">FAULT</text>
-<rect x="548" y="787.9" width="14" height="12" rx="2" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
-<text x="412.9" y="783.9" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">FAULT  pin 1</text>
-<text x="412.9" y="816.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">GpioRead(CtrlPin::Fault)</text>
-<text x="412.9" y="838.3" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">+ R2 10 kΩ</text>
-<text x="259.8" y="885.3" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">GPIO</text>
-<text x="584" y="885.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">TRIGA</text>
-<rect x="548" y="873.5" width="14" height="12" rx="2" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
-<text x="412.9" y="869.5" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">TRIGA  pin 8</text>
-<text x="950.2" y="227.5" font-size="16" font-weight="700" fill="#0B5F59">DC motor</text>
-<text x="780" y="286.1" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">OUT6</text>
-<rect x="802" y="274.3" width="14" height="12" rx="2" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
-<text x="968.2" y="286.1" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0B5F59">M+</text>
+<text x="682.5" y="210.5" font-size="20" font-weight="700" text-anchor="middle" fill="#0E1726">MAX22200</text>
+<text x="682.5" y="232.9" font-size="16" text-anchor="middle" fill="#566070">U1</text>
+<text x="96.3" y="210.5" font-size="20" font-weight="700" fill="#1E429F">MCU</text>
+<text x="96.3" y="232.9" font-size="16" fill="#1E429F">U2</text>
+<text x="260.3" y="286.1" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">SPI SCK</text>
+<text x="584.5" y="286.1" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SCK</text>
+<rect x="548.5" y="274.3" width="14" height="12" rx="2" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="413.4" y="270.3" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">SCK  pin 5</text>
+<text x="413.4" y="303.1" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">Transfer()</text>
+<text x="260.3" y="371.7" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">SPI MOSI</text>
+<text x="584.5" y="371.7" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SDI</text>
+<rect x="548.5" y="359.9" width="14" height="12" rx="2" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="413.4" y="355.9" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">SDI  pin 6</text>
+<text x="413.4" y="388.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">Transfer()</text>
+<text x="260.3" y="457.3" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">SPI MISO</text>
+<text x="584.5" y="457.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SDO</text>
+<rect x="548.5" y="445.5" width="14" height="12" rx="2" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="413.4" y="441.5" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">SDO  pin 7</text>
+<text x="413.4" y="474.3" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">Transfer()</text>
+<text x="413.4" y="495.9" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">+ R3 10 kΩ</text>
+<text x="260.3" y="542.9" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">SPI CS</text>
+<text x="584.5" y="542.9" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">CSB</text>
+<rect x="548.5" y="531.1" width="14" height="12" rx="2" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="413.4" y="527.1" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">CSB  pin 3</text>
+<text x="413.4" y="559.9" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">Transfer()</text>
+<text x="260.3" y="628.5" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">GPIO</text>
+<text x="584.5" y="628.5" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">CMD</text>
+<rect x="548.5" y="616.7" width="14" height="12" rx="2" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<text x="413.4" y="612.7" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">CMD  pin 2</text>
+<text x="413.4" y="645.5" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">GpioSet(CtrlPin::Cmd)</text>
+<text x="260.3" y="714.1" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">GPIO</text>
+<text x="584.5" y="714.1" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">ENABLE</text>
+<rect x="548.5" y="702.3" width="14" height="12" rx="2" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<text x="413.4" y="698.3" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">ENABLE  pin 21</text>
+<text x="413.4" y="731.1" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">GpioSet(CtrlPin::Enable)</text>
+<text x="260.3" y="799.7" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">GPIO (IRQ)</text>
+<text x="584.5" y="799.7" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">FAULT</text>
+<rect x="548.5" y="787.9" width="14" height="12" rx="2" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<text x="413.4" y="783.9" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">FAULT  pin 1</text>
+<text x="413.4" y="816.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">GpioRead(CtrlPin::Fault)</text>
+<text x="413.4" y="838.3" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="middle" fill="#566070">+ R2 10 kΩ</text>
+<text x="260.3" y="885.3" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#1E429F">GPIO</text>
+<text x="584.5" y="885.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">TRIGA</text>
+<rect x="548.5" y="873.5" width="14" height="12" rx="2" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<text x="413.4" y="869.5" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">TRIGA  pin 8</text>
+<text x="949.7" y="227.5" font-size="16" font-weight="700" fill="#0B5F59">DC motor</text>
+<text x="780.5" y="286.1" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">OUT6</text>
+<rect x="802.5" y="274.3" width="14" height="12" rx="2" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<text x="967.7" y="286.1" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0B5F59">M+</text>
 <text x="883.1" y="270.3" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">OUT6  pin 14</text>
-<text x="780" y="371.7" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">OUT7</text>
-<rect x="802" y="359.9" width="14" height="12" rx="2" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
-<text x="968.2" y="371.7" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0B5F59">M-</text>
+<text x="780.5" y="371.7" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">OUT7</text>
+<rect x="802.5" y="359.9" width="14" height="12" rx="2" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<text x="967.7" y="371.7" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0B5F59">M-</text>
 <text x="883.1" y="355.9" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">OUT7  pin 15</text>
-<text x="950.2" y="484.3" font-size="16" font-weight="700" fill="#0B5F59">Latched valve</text>
-<text x="780" y="542.9" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">OUT2</text>
-<rect x="802" y="531.1" width="14" height="12" rx="2" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
-<text x="968.2" y="542.9" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0B5F59">B</text>
+<text x="949.7" y="484.3" font-size="16" font-weight="700" fill="#0B5F59">Latched valve</text>
+<text x="780.5" y="542.9" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">OUT2</text>
+<rect x="802.5" y="531.1" width="14" height="12" rx="2" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<text x="967.7" y="542.9" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0B5F59">B</text>
 <text x="883.1" y="527.1" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">OUT2  pin 27</text>
-<text x="780" y="628.5" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">OUT3</text>
-<rect x="802" y="616.7" width="14" height="12" rx="2" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
-<text x="968.2" y="628.5" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0B5F59">A</text>
+<text x="780.5" y="628.5" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">OUT3</text>
+<rect x="802.5" y="616.7" width="14" height="12" rx="2" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<text x="967.7" y="628.5" font-size="16" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0B5F59">A</text>
 <text x="883.1" y="612.7" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">OUT3  pin 26</text>
 <text x="50" y="1003.3" font-size="20" font-weight="700" fill="#9F1239">Supplies and ground</text>
-<text x="50" y="1026.8" font-size="17" fill="#9F1239">+24V: VM · GND: GND, PGND, TRIGB; also U2.GND · +3V3: ; also U2.VDD · V18: V18</text>
+<text x="50" y="1026.8" font-size="17" fill="#9F1239">+24V: VM · GND: GND, PGND, TRIGB; also U2.GND · +3V3 (no MAX22200 pin): U2.VDD · V18: V18</text>
 <text x="50" y="1096.3" font-size="20" font-weight="700" fill="#334155">Also on the board</text>
 <text x="50" y="1119.8" font-size="17" fill="#334155">Support parts: 5 capacitors, 3 resistors, 4 other parts around the supplies (values in the full schematic).</text>
 <text x="32" y="1165.8" font-size="16" fill="#566070">* Not confirmed in the datasheet: net +3V3: the data sheet does not say where the pull-ups go; the MCU's logic supply is assumed; R1: an</text>
