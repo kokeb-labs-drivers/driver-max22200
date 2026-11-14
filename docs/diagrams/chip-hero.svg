@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="868" viewBox="0 0 1200 868" role="img" aria-labelledby="chip-hero-title chip-hero-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-hero-title">MAX22200</title>
+<desc id="chip-hero-desc">Overview of the MAX22200, an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A half-bridge runs a HIT then HOLD sequence under current or voltage regulation, set over SPI. A MCU talks to it over SPI, CMD, ENABLE; it drives Solenoids, valves, relays; it reads back Coil current, TRIGA and TRIGB. Headline figures: 4.5 to 36 V supply (VM); 8 x 1 A half-bridges, 1 A RMS each; 200 mΩ typical on-resistance per output; 10 MHz SPI clock, one chip (5 MHz in a daisy chain); 5 x 5 mm TQFN-32 body.</desc>
+<defs><marker id="fk-arrow-amber-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#C26A05"/></marker><marker id="fk-arrow-blue-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2563EB"/></marker><marker id="fk-arrow-teal-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0B7A72"/></marker></defs>
+<rect x="0.5" y="0.5" width="1199" height="867" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#7A360E">OCTAL SOLENOID AND MOTOR DRIVER</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#0E1726">MAX22200</text>
+<text x="32" y="115.4" font-size="18" fill="#566070">What talks to it, what it drives and what it reads back, with its headline numbers. Datasheet: General Description;</text>
+<text x="32" y="141.5" font-size="18" fill="#566070">Applications; Benefits and Features, p. 1.</text>
+<rect x="32" y="157.5" width="1136" height="1" fill="#E2E7EE"/>
+<path d="M246 288.5 L446 288.5" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-blue-strong)" marker-start="url(#fk-arrow-blue-strong)"/>
+<path d="M708 288.5 L760 288.5" fill="none" stroke="#0B7A72" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-teal-strong)"/>
+<path d="M577 453.5 L577 409.5" fill="none" stroke="#C26A05" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-amber-strong)"/>
+<rect x="450" y="210.6" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="450" y="231.9" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="450" y="253.1" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="450" y="274.4" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="450" y="295.6" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="450" y="316.9" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="450" y="338.1" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="450" y="359.4" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="692" y="210.6" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="692" y="231.9" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="692" y="253.1" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="692" y="274.4" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="692" y="295.6" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="692" y="316.9" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="692" y="338.1" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="692" y="359.4" width="12" height="7" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="490.4" y="171.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="514.1" y="171.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="537.9" y="171.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="561.6" y="171.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="585.4" y="171.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="609.1" y="171.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="632.9" y="171.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="656.6" y="171.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="490.4" y="393.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="514.1" y="393.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="537.9" y="393.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="561.6" y="393.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="585.4" y="393.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="609.1" y="393.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="632.9" y="393.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="656.6" y="393.5" width="7" height="12" rx="2" fill="#F1F4F8" stroke="#64748B" stroke-width="1.2"/>
+<rect x="462" y="183.5" width="230" height="210" rx="10" fill="#F5F7FA" stroke="#2B3442" stroke-width="2.2"/>
+<circle cx="482" cy="203.5" r="6" fill="#2B3442"/>
+<rect x="32" y="231.5" width="210" height="114" rx="12" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="32" y="239.5" width="4" height="98" rx="2" fill="#2563EB"/>
+<rect x="764" y="206.5" width="260" height="164" rx="12" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="764" y="214.5" width="4" height="148" rx="2" fill="#0B7A72"/>
+<rect x="397" y="457.5" width="360" height="163" rx="12" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<rect x="397" y="465.5" width="4" height="147" rx="2" fill="#C26A05"/>
+<rect x="32" y="660.5" width="214.4" height="176.9" rx="12" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="262.4" y="660.5" width="214.4" height="176.9" rx="12" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="492.8" y="660.5" width="214.4" height="176.9" rx="12" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="723.2" y="660.5" width="214.4" height="176.9" rx="12" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="953.6" y="660.5" width="214.4" height="176.9" rx="12" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<text x="577" y="282.5" font-size="30" font-weight="700" text-anchor="middle" fill="#0E1726">MAX22200</text>
+<text x="577" y="312.5" font-size="17" text-anchor="middle" fill="#566070">TQFN-32</text>
+<text x="577" y="336.5" font-size="16" text-anchor="middle" fill="#566070">32 pins + pad</text>
+<text x="56" y="266.5" font-size="20" font-weight="700" fill="#1E429F">MCU</text>
+<text x="56" y="297.1" font-size="17" fill="#2B3442">your firmware and</text>
+<text x="56" y="321.8" font-size="17" fill="#2B3442">this driver</text>
+<rect x="264" y="276.5" width="164" height="24" rx="12" fill="#FFFFFF"/>
+<text x="346" y="294.3" font-size="16" font-weight="500" text-anchor="middle" fill="#566070">SPI, CMD, ENABLE</text>
+<text x="788" y="241.5" font-size="20" font-weight="700" fill="#0B5F59">Solenoids, valves,</text>
+<text x="788" y="267.5" font-size="20" font-weight="700" fill="#0B5F59">relays</text>
+<text x="788" y="298.1" font-size="17" fill="#2B3442">up to eight, low side or</text>
+<text x="788" y="322.8" font-size="17" fill="#2B3442">high side; pairs as full</text>
+<text x="788" y="347.5" font-size="17" fill="#2B3442">bridges</text>
+<text x="421" y="492.5" font-size="20" font-weight="700" fill="#8A3C0B">Reads back</text>
+<text x="421" y="523.1" font-size="17" fill="#2B3442">Coil current (lossless sensing in each</text>
+<text x="421" y="547.8" font-size="17" fill="#2B3442">half-bridge)</text>
+<text x="421" y="572.4" font-size="17" fill="#2B3442">TRIGA and TRIGB (switch even and</text>
+<text x="421" y="597.1" font-size="17" fill="#2B3442">odd channels)</text>
+<text x="48" y="708.5" font-size="30" font-weight="700" fill="#0E1726">4.5 to 36 V</text>
+<text x="48" y="738.1" font-size="17" fill="#2B3442">supply (VM)</text>
+<text x="48" y="819.4" font-size="16" fill="#566070">Supply Voltage, p. 7</text>
+<text x="278.4" y="708.5" font-size="30" font-weight="700" fill="#0E1726">8 x 1 A</text>
+<text x="278.4" y="738.1" font-size="17" fill="#2B3442">half-bridges, 1 A</text>
+<text x="278.4" y="761.1" font-size="17" fill="#2B3442">RMS each</text>
+<text x="278.4" y="819.4" font-size="16" fill="#566070">Benefits and Features, p. 1</text>
+<text x="508.8" y="708.5" font-size="30" font-weight="700" fill="#0E1726">200 mΩ</text>
+<text x="508.8" y="738.1" font-size="17" fill="#2B3442">typical on-resistance</text>
+<text x="508.8" y="761.1" font-size="17" fill="#2B3442">per output</text>
+<text x="508.8" y="819.4" font-size="16" fill="#566070">Benefits and Features, p. 1</text>
+<text x="739.2" y="708.5" font-size="30" font-weight="700" fill="#0E1726">10 MHz</text>
+<text x="739.2" y="738.1" font-size="17" fill="#2B3442">SPI clock, one chip</text>
+<text x="739.2" y="761.1" font-size="17" fill="#2B3442">(5 MHz in a daisy</text>
+<text x="739.2" y="784" font-size="17" fill="#2B3442">chain)</text>
+<text x="739.2" y="819.4" font-size="16" fill="#566070">SPI timing (tCLK), p. 10</text>
+<text x="969.6" y="708.5" font-size="30" font-weight="700" fill="#0E1726">5 x 5 mm</text>
+<text x="969.6" y="738.1" font-size="17" fill="#2B3442">TQFN-32 body</text>
+<text x="969.6" y="819.4" font-size="16" fill="#566070">Pin Configuration, p. 12</text>
+</svg>

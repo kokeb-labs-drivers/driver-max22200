@@ -11,6 +11,18 @@
       "inc/max22200_spi_interface.hpp"
     ]
   },
+  "chip-capabilities": {
+    "title": "What the MAX22200 does",
+    "alt": "Capability map of the MAX22200: Channel switching (supported): Switches each channel on or off with one 8-bit write of the ONCH byte, no read needed; HIT and HOLD sequence (supported): Pulls a plunger in at the HIT level for a set time, then holds it at a lower level to save power; CDR and VDR regulation (supported): Regulates the coil current against a full scale set by RREF, or the PWM duty cycle in 1 % steps; Chopping frequency and slew rate (supported): Sets the oscillator and each channel's chopping frequency, with slower edges for less EMI; Parallel and full-bridge pairs (supported): Ties two half-bridges for twice the current, or makes an H-bridge for a latched valve or a DC motor; Protection and fault flags (supported): Overcurrent, open load, HIT not reached, overtemperature, undervoltage: per-channel flags and FAULT; Detection of plunger movement (supported): Looks for the current dip a moving plunger makes during HIT, and flags a valve that did not move; Trigger inputs (partial): TRIGA and TRIGB switch even and odd channels directly; the driver selects them, your code drives the pins; Daisy chain (not covered): Several chips on one SPI chain at up to 5 MHz; the driver talks to one chip per object.",
+    "description": "Each card is one function of the MAX22200: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/max22200_spi_interface.hpp"
+    ]
+  },
   "chip-circuit-typical": {
     "title": "MAX22200: Application diagram",
     "alt": "Schematic of the MAX22200 application diagram: the chip with U2 MCU, C1 capacitor 0.1 µF, C2 capacitor 0.1 µF, C3 polarized-capacitor 10 µF, C4 capacitor 2.2 µF, C5 capacitor 22 nF, C6 capacitor 1 µF, R1 resistor 15 kΩ, R2 resistor 10 kΩ, R3 resistor 10 kΩ, L0 solenoid, L1 solenoid, L3 solenoid, J1 DC motor, J2 Latched valve; the MCU wires carry the port hooks GpioRead(CtrlPin::Fault), GpioSet(CtrlPin::Cmd), GpioSet(CtrlPin::Enable), Transfer().",
@@ -23,12 +35,72 @@
       "inc/max22200_spi_interface.hpp"
     ]
   },
+  "chip-frame-command": {
+    "title": "MAX22200: Command byte",
+    "alt": "Command byte of the MAX22200, 8 bits, most significant bit first. Command: RB/W (bit 7), RFU (bits 6 to 5), A_BNK (bits 4 to 1), 8bit/n32bits (bit 0); Reply: STATUS[7:0] (bits 7 to 0). The STATUS[7:0] field of the Reply row: bit 7 OVT, bit 6 OCP, bit 5 OLF, bit 4 HHF, bit 3 DPM, bit 2 COMER, bit 1 UVM, bit 0 ACTIVE. Below, the SPI mode 0 waveform of one transfer in the same bit grid.",
+    "description": "One Command byte of the MAX22200, 8 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits. The table at the bottom names each bit of the STATUS[7:0] field.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/max22200_spi_interface.hpp"
+    ]
+  },
+  "chip-frame-switch": {
+    "title": "MAX22200: 8-bit write",
+    "alt": "8-bit write of the MAX22200, 8 bits, most significant bit first. Write: ONCH[7:0] (STATUS[31:24]) (bits 7 to 0); Reply: STATUS[7:0] (bits 7 to 0).",
+    "description": "One 8-bit write of the MAX22200, 8 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/max22200_spi_interface.hpp"
+    ]
+  },
+  "chip-frame-write32": {
+    "title": "MAX22200: 32-bit write",
+    "alt": "32-bit write of the MAX22200, 32 bits, most significant bit first. Write: DATAIN[7:0] (bits 31 to 24), DATAIN[15:8] (bits 23 to 16), DATAIN[23:16] (bits 15 to 8), DATAIN[31:24] (bits 7 to 0); Reply: STATUS[7:0] (bits 31 to 24), command echo (bits 23 to 16), 0x00 (bits 15 to 8), 0x00 (bits 7 to 0).",
+    "description": "One 32-bit write of the MAX22200, 32 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/max22200_spi_interface.hpp"
+    ]
+  },
+  "chip-hero": {
+    "title": "MAX22200",
+    "alt": "Overview of the MAX22200, an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A half-bridge runs a HIT then HOLD sequence under current or voltage regulation, set over SPI. A MCU talks to it over SPI, CMD, ENABLE; it drives Solenoids, valves, relays; it reads back Coil current, TRIGA and TRIGB. Headline figures: 4.5 to 36 V supply (VM); 8 x 1 A half-bridges, 1 A RMS each; 200 mΩ typical on-resistance per output; 10 MHz SPI clock, one chip (5 MHz in a daisy chain); 5 x 5 mm TQFN-32 body.",
+    "description": "The MAX22200 in the middle, drawn as its TQFN-32 package. On the left the MCU that runs the driver, joined to it by SPI, CMD, ENABLE. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/max22200_spi_interface.hpp"
+    ]
+  },
   "chip-pinout": {
     "title": "MAX22200 pinout, TQFN-32",
     "alt": "Pinout of the MAX22200 in TQFN-32, top view: 32 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it.",
     "description": "The MAX22200 seen from the top, in its TQFN-32 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.",
     "profile": "detail",
     "width": 1046,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/max22200_spi_interface.hpp"
+    ]
+  },
+  "chip-wiring-typical": {
+    "title": "Wiring: Application diagram",
+    "alt": "Wiring of the MAX22200 for the Application diagram: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU SPI CS to CSB (Transfer()); MCU GPIO to CMD (GpioSet(CtrlPin::Cmd)); MCU GPIO to ENABLE (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULT (GpioRead(CtrlPin::Fault)); MCU GPIO to TRIGA; OUT6 to DC motor M+; OUT7 to DC motor M-; OUT2 to Latched valve B; OUT3 to Latched valve A. Supplies, grounds and the support parts are listed under the drawing.",
+    "description": "The MCU on the left, the MAX22200 in the middle, the blocks it drives on the right. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "profile": "overview",
+    "width": 1200,
     "source": "docs/hardware.yml",
     "sources": [
       "docs/hardware.yml",
