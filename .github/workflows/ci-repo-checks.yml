@@ -59,3 +59,12 @@ jobs:
       # carries no dated history and gives its copyright to "The <repo> authors".
       - name: Stand-alone check
         run: python3 tools/check_standalone.py
+      # The agent skills and the page agents read first name only files that exist; one source per header and SDK
+      # code only in src/boundary/ (tools/check_layout.py); the hardware level, badge and evidence agree; the declared
+      # C++ standard (driver.yml language:) agrees with the CMake files, flags, workflows and README.
+      - name: Agent skills, source layout, hardware level and language standard
+        run: |
+          python3 -I tools/check_skills.py
+          python3 -I tools/check_layout.py
+          python3 -I tools/check_hardware.py
+          python3 -I tools/check_language.py

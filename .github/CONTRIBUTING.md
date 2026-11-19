@@ -47,6 +47,8 @@ The [`verify` skill](../.claude/skills/verify/SKILL.md) lists every check CI run
       markdownlint, `kokeb-docs check`, `mkdocs build -f _config/mkdocs.yml --strict`.
 - [ ] New behaviour has host tests, including the failure paths (a failing port hook, a call before
       `EnsureInitialized()`).
+- [ ] No test or fuzz call takes a driver operation and a read of the state it changes as separate arguments
+      (`Check(d.Op(), sent())`): compute the result into a local first (`tools/eval_order_check.py`).
 - [ ] The README or `docs/` page and the Doxygen comments describe the change.
 - [ ] `CHANGELOG.md` has an entry under `## [Unreleased]`.
 - [ ] CI is green, including `CI gate / gate`.

@@ -1,11 +1,13 @@
 ---
 name: new-driver-from-template
-description: Turn a repository created from driver-template into a real driver or library - run tools/setup.py, then fill in the register map, port, tests and docs. Use right after `gh repo create --template kokeb-labs/driver-template`.
+description: Turn a repository created from driver-template into a real driver or library - run tools/setup.py, then fill in the register map, port, tests and docs. Use right after `gh repo create --template kokeb-labs/driver-template`, once plan-driver gave the verdict NEW.
 ---
 
 # New driver from the template
 
-The template's example chip is the fictional XMPL100. `docs/template.md` explains every file.
+The template's example chip is the fictional XMPL100. `docs/template.md` explains every file; `docs/agent-context.md`
+has the whole flow, the checks and the pitfalls. Start from `placement.md` of the `plan-driver` skill: its verdict is
+`NEW`, its API decisions and datasheet record are the input of step 2.
 
 ## 1. Scaffold
 
@@ -64,20 +66,36 @@ Use the `datasheet-conformance` skill for every step, one subsystem at a time:
    information (every other package the part is sold in, with its part-number suffix; delete the list for a
    single package); `supply` from the electrical characteristics; the hooks from the port header, the blocks from
    the block diagram and one circuit from the application chapter. Cite section and page for each fact and leave
-   out a number the datasheet does not give. The README's pinout, outline and block figures and its chip card
-   (`<!-- generated: chip-card -->`) are drawn from this file, so the module view of the chip is never typed.
-3. Every page in `docs/`: the chip card, pins, timing, power, errors; the README's paragraph, At a glance table,
-   wiring and documentation table. Remove every statement about the XMPL100.
-4. `kokeb-docs figures && kokeb-docs gen`, `mkdocs build -f _config/mkdocs.yml --strict`.
+   out a number the datasheet does not give. Then the README's chip-first opening, in the same file
+   (ci-tools `docs/readme-chip-first.md`): `overview` (the one-sentence `summary`, the datasheet's applications,
+   two to six headline `specs`, and the `system` the hero draws: host, bus, what the chip drives and reads back),
+   `capabilities` (one per chip function: icon, one line, status, the driver calls and registers that cover it,
+   checked against the headers under `driver`) and `frames` (one bus transfer, bit by bit). The README's hero,
+   capability map, block diagram, pinout, wiring, frame and outline figures, its chip summary, uses, chip card and
+   coverage table are all drawn from this file, so the view of the chip is never typed.
+3. Every page in `docs/`: the chip card, pins, timing, power, errors; the README's driver line under the chip
+   summary, the notes under Driver coverage (the driver paragraph, the glance table, the feature list) and the
+   documentation table. Remove every statement about the XMPL100. Keep the README's section order (the chip
+   first; no software layering figure in the README), and the same order on the site's home page, `docs/index.md`
+   (hero, chip summary, What it does, Where it is used, Inside the chip, Pins and wiring, Quick start, Driver
+   coverage, then What you get, Datasheet and the navigation cards).
+4. `kokeb-docs figures && kokeb-docs gen && kokeb-docs check` (it runs `kokeb-docs readme --check` and
+   `kokeb-docs readme --site --check`), `mkdocs build -f _config/mkdocs.yml --strict`.
 5. `CHANGELOG.md`: `## [Unreleased]` / `### Added` describing the first version. Headings are only `### Breaking`,
    `### Added`, `### Changed`, `### Deprecated`, `### Removed`, `### Fixed`, `### Security` (the `release` skill
    and CI check this); anything else is a bold lead-in under one of them.
 6. The repository's About comes from its entry in `kokeb-labs/.github` `org/repos.json` (`docs/repo-setup.md`,
    step 2): the README's first sentence as the description, and the shared topics plus the bus, the device
    category, the vendor and the part.
-7. Run `tools/preflight.sh` until it reports `0 failure(s)`, then push once and open the PR; give the owner
-   `docs/repo-setup.md` for the org settings. Before merging a driver that switches loads, have an independent
-   reviewer (the `safety-reviewer` agent, run by someone who did not write the code) check it against the
-   datasheet: a model written by the same author shares the author's assumptions, so green tests are not enough.
-8. After the merge, do not tag until `CI` on `main` is green; then follow `docs/repo-setup.md` section 6 (release
-   candidate, public, Pages) and the `release` skill, section 5, when a check goes red for a reason outside the code.
+7. Run `tools/preflight.sh` until it reports `0 failure(s)`. Keep the layout rule: `src/<stem>.cpp` (or `.ipp`) for
+   every header, SDK code only in `src/boundary/` (`tools/check_layout.py`). Set `hardware.level: H0` in
+   `driver.yml` (the template's default) until the `hardware-validation` skill says otherwise.
+8. Then the `review-round` skill until its stop rule holds, the `first-push` skill, and the `publish-driver` skill:
+   the driver stays private (or local) until then; the first push is a fresh single commit to the public
+   repository the owner creates, never a pull request of the whole driver. Give the owner `docs/repo-setup.md` for the
+   org settings. A driver that switches loads needs an independent reviewer (the `safety-reviewer` agent, run by
+   someone who did not write the code): a model written by the same author shares the author's assumptions, so green
+   tests are not enough.
+9. After publication, do not tag until `CI` on `main` is green and Pages is enabled; then the release candidate
+   (`release` skill; `docs/repo-setup.md` section 6), and the `release` skill, section 5, when a check goes red for a
+   reason outside the code.

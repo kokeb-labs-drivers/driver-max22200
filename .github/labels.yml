@@ -31,3 +31,9 @@
 - name: good first issue
   color: 7057ff
   description: Small and well described
+- name: needs-hardware
+  color: c5def5
+  description: Needs a run on real hardware before release
+- name: hardware-verified
+  color: 1d7644
+  description: Run on real hardware; the PR says which board

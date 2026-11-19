@@ -112,6 +112,8 @@ def date_allowed(rel: str, line: str) -> bool:
         return True
     if rel.split("/")[-1].startswith("datasheets.yml") or re.search(r"datasheet|revision", line, re.I):
         return True
+    if line.lstrip().startswith("effective_from:"):
+        return True  # the language declaration's start date (driver.yml, and the example in its docs) is not history
     return rel == ".kokeb/handbook.yml" and re.search(r"expir", line, re.I) is not None
 
 
@@ -160,7 +162,7 @@ def selftest() -> int:
     cases = {
         "clean": ({"README.md": "# Chip\n\nReads the chip (datasheet section 7.5).\n",
                    "LICENSE": f"MIT License\n\n{c} {mine}\n\nPermission is hereby granted\n",
-                   "driver.yml": f'name: x1\nauthors: ["{mine}"]\n',
+                   "driver.yml": f'name: x1\nauthors: ["{mine}"]\nlanguage:\n  effective_from: {day}\n',
                    "_config/mkdocs.yml": f"copyright: {c} {mine}\n",
                    "CHANGELOG.md": f"## [0.1.0] - {day}\n",
                    "docs/datasheets.yml": f"    date: {day}\n",

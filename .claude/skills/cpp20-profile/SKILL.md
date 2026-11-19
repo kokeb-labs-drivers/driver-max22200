@@ -10,6 +10,24 @@ may use, the rules each comes with, and which it may not use. Deviation MD-CPP-0
 set: anything else, anything C++20 deprecates and anything from C++23 or later is a defect, even when a compiler
 accepts it.
 
+Catalogue ids (RD-nn) are in [`docs/recurring-defects.md`](../../../docs/recurring-defects.md); the policy is in
+[`docs/mechanization-policy.md`](../../../docs/mechanization-policy.md).
+
+## 0. Already mechanical: do not redo by eye
+
+The strict-dialect build, the handbook source checks (forbidden features, `include-allowlist/*`: a header outside the
+driver subset such as `<numeric>` or `<string_view>` is RD-11), clang-tidy and the compiler warnings below decide the
+rows of the table that name them. Read their output; spend review time on the `review` rows.
+
+## Review questions (what the table's `review` rows ask in practice)
+
+1. Which template parameter, `if constexpr` branch or concept is new, and which test instantiates each branch (005, 015)?
+2. Which shift counts, narrow operands or integer-to-enum casts are new, and where is each masked, widened or
+   range-checked (020, 021, 022, 025)? These found the most defects.
+3. Which buffers are spans, which spans are indexed, and where is each size checked (042, 043, 044)? Is any span stored?
+4. Which loop bounds come from `Config` or the chip, and against which named maximum are they validated (058)?
+5. Which `char` values are used as numbers (RD-12), and which header is new (RD-11)?
+
 ## 1. Run what is automated
 
 1. The strict-dialect build: configure and build the host tests (`cmake -S . -B build -DMAX22200_BUILD_TESTS=ON`,
@@ -121,6 +139,8 @@ pointer and a length instead of a span (042).
 
 ## 3. Report
 
-List each finding as `KB-CPP20-NNN`, category, `file:line`, what is wrong and the compliant form, mandatory and
-required first. Say which automated checks ran and which only run in CI. A feature the profile does not list is
-not used until the profile and MD-CPP-001 are changed in the handbook first.
+Review-round format. `BLOCKER`: a mandatory guideline (020, 025, 044, 048) broken or a forbidden feature in use;
+`MAJOR`: a required guideline broken; `minor`: an advisory one. Each: `KB-CPP20-NNN`, `file:line`, what is wrong and the
+compliant form. Say which automated checks ran and which run only in CI, list documented ambiguities, and end with one
+line: `NO BLOCKER` or `BLOCKERS REMAIN`. A feature the profile does not list is not used until the profile and
+MD-CPP-001 change in the handbook first.
