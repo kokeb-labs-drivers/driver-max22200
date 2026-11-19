@@ -7,7 +7,9 @@
 #
 # Tools are found on PATH, or named by these variables:
 #   CXX_GCC (g++), CXX_CLANG (clang++), CLANG_FORMAT, CLANG_TIDY (version 20, as CI), ARM_CXX (arm-none-eabi-g++),
-#   VENV (a Python venv with lizard, yamllint, kokeb-docs and mkdocs; see AGENTS.md "Docs checks").
+#   VENV (a Python venv with lizard, yamllint, kokeb-docs and mkdocs; see AGENTS.md "Docs checks"),
+#   CI_TOOLS_DIR (a kokeb-labs/ci-tools checkout, default ../ci-tools: handbook_check.py runs from it, and its include
+#   subset is the one tools/misra_lint.py enforces; handbook_check needs PyYAML, which the VENV has).
 # Left to CI: the ESP32 builds, the MISRA scan, and the coverage, sanitizer and fuzz gates.
 set -uo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
@@ -75,6 +77,51 @@ handbook() {
 }
 step handbook-source-checks handbook
 step standalone python3 tools/check_standalone.py
+# The handbook's repository checks (handbook_check.py of ci-tools, as the repository-checks job runs them): the only
+# skip is a missing checkout or PyYAML, and it is named.
+CI_TOOLS="${CI_TOOLS_DIR:-$root/../ci-tools}"
+HB_PY=python3; [ -n "${VENV:-}" ] && [ -x "$VENV/bin/python3" ] && HB_PY="$VENV/bin/python3"
+if [ ! -f "$CI_TOOLS/tools/handbook_check/handbook_check.py" ]; then
+  skip handbook-check "no ci-tools checkout at $CI_TOOLS; set CI_TOOLS_DIR"
+elif ! "$HB_PY" -c 'import yaml' >/dev/null 2>&1; then
+  skip handbook-check "no PyYAML for $HB_PY; set VENV"
+else
+  hbcheck() { "$HB_PY" "$CI_TOOLS/tools/handbook_check/handbook_check.py" --repo . | tee "$work/hb.out" &&
+    grep -q '^0 error(s)' "$work/hb.out"; }
+  step handbook-check hbcheck
+fi
+# MISRA C++:2023 defect classes the CI scan reported on earlier drivers (tools/misra_lint.py): not skippable.
+step misra-lint-selftest python3 tools/misra_lint.py --selftest
+step misra-lint python3 tools/misra_lint.py --quiet --root . --ci-tools "$CI_TOOLS"
+# Unspecified evaluation order in a test or fuzz check (RD-34): a call must not take a driver operation and a read of the
+# state it changes as separate arguments (GCC on x86-64 reads the arguments right to left; no other rehearsal sees it).
+step eval-order-selftest python3 -I tools/eval_order_check.py --selftest
+step eval-order python3 -I tools/eval_order_check.py --quiet --root .
+# The agent context: every skill is linked from docs/agent-context.md, has front matter and names files that exist; one
+# source per header and SDK code only in src/boundary/; the hardware level, badge and evidence agree.
+step skills-selftest python3 -I tools/check_skills.py --selftest
+step skills python3 -I tools/check_skills.py --quiet
+step layout-selftest python3 -I tools/check_layout.py --selftest
+step layout python3 -I tools/check_layout.py --quiet
+step hardware-selftest python3 -I tools/check_hardware.py --selftest
+step hardware python3 -I tools/check_hardware.py --quiet
+# The C++ standard is declared once in driver.yml (`language:`) and agrees with the CMake files, clang-format, the
+# -std flags, the workflows and the README (docs/language-standard.md).
+step language-selftest python3 -I tools/check_language.py --selftest
+step language python3 -I tools/check_language.py --quiet
+# The first-push gitlink: after `git add -A`, examples/esp32/scripts is a gitlink (mode 160000), not a missing or
+# empty folder (checked on a scratch copy of the index, the working tree's index is left alone).
+gitlink() {
+  [ -d examples/esp32 ] || { echo "no examples/esp32: nothing to check"; return 0; }
+  local idx="$work/gitlink.index"
+  cp "$(git rev-parse --git-path index)" "$idx" 2>/dev/null || : >"$idx"
+  GIT_INDEX_FILE="$idx" git add -A >/dev/null 2>&1
+  if GIT_INDEX_FILE="$idx" git ls-files -s -- examples/esp32/scripts | grep -q '^160000 '; then return 0; fi
+  echo "examples/esp32/scripts is not a gitlink (mode 160000) after git add -A: the first commit would lack the ESP-IDF"
+  echo "scripts submodule. Run: git submodule add https://github.com/kokeb-labs/espidf-tools.git examples/esp32/scripts"
+  return 1
+}
+step gitlink gitlink
 
 # 4. Format, tidy, cppcheck, complexity.
 if [ -n "$FMT" ]; then
@@ -84,7 +131,7 @@ if [ -n "$FMT" ]; then
 else skip clang-format "no clang-format"; fi
 if [ "$quick" = 0 ] && [ -n "$TIDY" ] && [ -n "$first" ]; then
   tidy() {  # every unit of the host build and every header alone (CI lints each file); fail on a file CI lints
-    local units=() f
+    local units=() f t0=$SECONDS
     while IFS= read -r f; do units+=("$f"); done < <(
       python3 -c 'import json,sys; print("\n".join(sorted({e["file"] for e in json.load(open(sys.argv[1]))})))' \
         "$first/compile_commands.json" | grep -E '/(tests|examples/host)/' | grep -v '/tests/compile_fail/'
@@ -97,13 +144,22 @@ if [ "$quick" = 0 ] && [ -n "$TIDY" ] && [ -n "$first" ]; then
     local linked=0
     [ -e .clang-tidy ] || { ln -s _config/.clang-tidy .clang-tidy && linked=1; }
     "$TIDY" -p "$first" --quiet "${SYSROOT[@]}" "${units[@]}" >"$work/tidy.raw" 2>&1
+    # tests/install_consumer is built by its own CMake project (not in the compilation database) and CI lints it like
+    # every other C++ file: lint it here against the source tree's headers and the generated version header.
+    if [ -f tests/install_consumer/main.cpp ]; then
+      local gen; gen="$(find "$first" -maxdepth 2 -type d -name '*_generated' | head -1)"
+      "$TIDY" --quiet "${SYSROOT[@]}" "$root/tests/install_consumer/main.cpp" -- -std=c++20 -fno-exceptions -fno-rtti \
+        "-I$root/inc" ${gen:+"-I$gen"} >>"$work/tidy.raw" 2>&1
+    fi
     [ "$linked" = 0 ] || rm -f .clang-tidy
     sed -E 's#/inc/\.\./src/#/src/#g; s#/tests/\.\./(inc|src)/#/\1/#g' "$work/tidy.raw" >"$work/tidy.out"
     grep -E "^$root/.*(warning|error):" "$work/tidy.out" |
       grep -vE "^$root/(build|docs|_site|examples/esp32|tools/scaffold|tests/compile_fail)/" >"$work/tidy.findings"
     if [ -s "$work/tidy.findings" ]; then cat "$work/tidy.findings"; return 1; fi
     # clang-tidy itself failing (a file it could not open or parse) is a failure too, not a clean run.
-    ! grep -qE "^Error while processing|error: no such file|LLVM ERROR" "$work/tidy.out"
+    ! grep -qE "^Error while processing|error: no such file|LLVM ERROR" "$work/tidy.out" || return 1
+    # CI stops the C++ lint job at 20 minutes: a third of that on this machine is a warning CI will time out.
+    [ $((SECONDS - t0)) -le 400 ] || { echo "clang-tidy took $((SECONDS - t0)) s (limit 400 s): fewer or smaller test units"; return 1; }
   }
   step clang-tidy tidy
 else skip clang-tidy "quick, or no clang-tidy"; fi

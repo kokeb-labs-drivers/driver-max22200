@@ -8,10 +8,12 @@ description: Run locally every check CI runs (strict-dialect host build and test
 Run from the repository root. Tool configuration is in `_config/`: pass its path, never copy it to the root.
 Stop at the first failure, fix the cause, start again. Never weaken a check to pass.
 
-**`tools/preflight.sh` runs steps 1 to 10 in one command** and ends with `0 failure(s)` or the list of failing
-steps and their logs; `tools/preflight.sh --container` runs it in the CI image (Docker) and adds the coverage,
+**`tools/preflight.sh` runs steps 1 to 10, the MISRA lint, the handbook check and the gitlink check in one
+command** and ends with `0 failure(s)` or the list of failing steps and their logs;
+`tools/preflight.sh --container` runs it in the CI image (Docker) and adds the coverage,
 sanitizer and fuzz gates (the `first-push` skill). It says what it skipped because a tool is missing (set `VENV`,
-`CXX_GCC`, `CXX_CLANG`, `CLANG_FORMAT`, `CLANG_TIDY`, `ARM_CXX` or `HANDBOOK_DIR` to point at yours). Push only
+`CXX_GCC`, `CXX_CLANG`, `CLANG_FORMAT`, `CLANG_TIDY`, `ARM_CXX`, `HANDBOOK_DIR` or `CI_TOOLS_DIR` to point at
+yours). Push only
 when it passes: CI minutes are for what a workstation cannot run (the ESP32 builds, the MISRA scan, the coverage,
 sanitizer and fuzz gates),
 not for finding a format or lint error. Fix everything it reports and push once, not once per finding. The steps
@@ -33,12 +35,23 @@ below say what each check does and how to run it alone.
    a test project, another driver repository), a dated history line, and a copyright holder other than
    `The <repo> authors`. Rewrite the sentence as this chip's behaviour with its datasheet section; a step still
    to check on hardware stays a bench procedure without a date.
+   The MISRA lint, `python3 tools/misra_lint.py` (step `misra-lint`, never skipped), prints `file:line error|warning
+   Rule N.N.N message` for the defect classes the CI scan reported on earlier drivers: an `if ... else if` chain
+   without a final `else` (9.4.1), unparenthesised comparison operands of `&&` and `||` (8.0.1), arithmetic or
+   comparison on a `char` (7.0.3), a dropped class-typed return value (0.1.2), differing parameter names of a
+   declaration and its definition (13.3.3) and an include outside the driver's library subset
+   (KB-CPP-012). Errors (in `inc/` and `src/`) fail the step; warnings (8.0.1, anything in `tests/` and
+   `examples/`) are printed: fix them in what you touch; `--strict` fails on them too.
+   `handbook_check.py` of ci-tools runs as step `handbook-check` (`CI_TOOLS_DIR`; the only skip is a missing checkout
+   or PyYAML, named in the last line), and step `gitlink` checks that `git add -A` leaves `examples/esp32/scripts` a
+   gitlink (mode 160000). See `docs/testing.md`, "The MISRA scan, rehearsed locally".
 5. Format the changed C++ files: `clang-format --style=file:_config/.clang-format -i <files>`, then
    `git diff --exit-code` shows nothing new.
 6. Tidy the changed files in `inc/` and `src/` when clang-tidy is installed:
    `cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON` then
    `clang-tidy -p build --config-file=_config/.clang-tidy <files>` on the changed `.cpp` files and the tests
-   that include the changed headers; fix findings in changed lines.
+   that include the changed headers, and `tests/install_consumer/main.cpp` (outside the compilation database: add
+   `-- -std=c++20 -Iinc -I<build>/<name>_generated`); fix findings in changed lines.
 7. cppcheck and complexity, as CI runs them (when installed):
    `cppcheck --std=c++20 --language=c++ --enable=warning,style,performance,portability,information --force
    --inline-suppr -I inc inc src` reports nothing, and `lizard -l cpp -m -w inc src` stays within the limits of the

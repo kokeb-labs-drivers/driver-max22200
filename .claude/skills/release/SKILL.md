@@ -6,15 +6,19 @@ description: Prepare and tag a release candidate, then the final release, follow
 # Release
 
 The rule is `standards/release.md`; the per-repository list is `standards/checklists/release.md`. Agents
-prepare; a maintainer pushes tags unless the owner said otherwise in this session.
+prepare; a maintainer pushes tags unless the owner said otherwise in this session. The final `vX.Y.Z` tag is always
+the owner's. A new driver's first publication and its first candidate follow the `publish-driver` skill.
 
 ## 1. Before
 
 1. `main` is green, including `CI gate / gate`; no open issue labelled `safety` affects this version. For a new
-   repository the first green `main` comes before any tag: the docs publish to `gh-pages` from `main` first, so a
-   release candidate is never the first publish (section 5 says why a tag cannot be re-run to pick up a fix).
-2. Choose the version: a breaking change bumps the minor (`0.1.x` to `0.2.0`), anything else the patch. Use
-   `-rc.N` while the release is benched. A driver no board uses MAY go straight to the final release (CI-only).
+   repository the order is: the fresh commit is published to the public repository, `main` is green, Pages is
+   enabled, and only then the first `-rc.N` is tagged (`publish-driver` skill). The docs publish to `gh-pages` from
+   `main` first, so a release candidate is never the first publish (section 5 says why a tag cannot be re-run to pick
+   up a fix).
+2. Choose the version: a breaking change bumps the minor (`0.1.x` to `0.2.0`), anything else the patch. A
+   first release is always a candidate (`v0.1.0-rc.1`); `-rc.N` continues while the hardware level
+   (`hardware-validation` skill) is below what the owner wants for the final release.
 3. Read `## [Unreleased]` in `CHANGELOG.md`: every breaking change is under `### Breaking` with what callers
    change; headings are exactly `### Breaking`, `### Added`, `### Changed`, `### Deprecated`, `### Removed`,
    `### Fixed`, `### Security`, in that order.
@@ -32,13 +36,15 @@ prepare; a maintainer pushes tags unless the owner said otherwise in this sessio
 ## 3. Release candidate
 
 1. Tag the merge commit on `main`: `git tag -a vX.Y.Z-rc.1 -m "vX.Y.Z-rc.1"` and push the tag (maintainer).
-2. `release.yml` creates the GitHub Release; set its body to the changelog section and state the bench status:
-   the board and test list, or **CI-only**.
-3. Bench it (a human): flash an MCU example from `examples/`, run the bench steps from the merged PRs.
+2. `release.yml` creates the GitHub Release; set its body to the changelog section and start it with the hardware
+   wording for the driver's level (`hardware-validation` skill, section 5): H0 says **not hardware-verified**.
+3. Bench it: an agent with a rig reaches H1, a hardware engineer H2 (`hardware-validation`); a result raises the level
+   in `driver.yml`, the README badge and the next candidate's text, never the text of a tag already pushed.
 
 ## 4. Final
 
-1. If the rc passed, tag **the same commit** `vX.Y.Z`. If anything changed, cut `-rc.N+1` instead.
+1. The owner decides whether the candidate is final. Then the owner tags **the same commit** `vX.Y.Z`. If anything
+   changed, cut `-rc.N+1` instead.
 2. Check the docs published for the tag and `latest` moved (an rc does not move `latest`).
 3. Open the pin-bump PRs in the repositories that consume this one, each linking the release (`bump-pin` skill there).
 
