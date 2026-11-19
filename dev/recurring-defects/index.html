@@ -1,0 +1,1907 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
+      
+      
+      
+        <link rel="canonical" href="https://kokeb-labs-drivers.github.io/driver-max22200/latest/recurring-defects/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/kokeb/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Recurring defects - MAX22200 Driver</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M0%208a8%208%200%201%201%2016%200A8%208%200%200%201%200%208m8-6.5a6.5%206.5%200%201%200%200%2013%206.5%206.5%200%200%200%200-13M6.5%207.75A.75.75%200%200%201%207.25%207h1a.75.75%200%200%201%20.75.75v2.75h.25a.75.75%200%200%201%200%201.5h-2a.75.75%200%200%201%200-1.5h.25v-2h-.25a.75.75%200%200%201-.75-.75M8%206a1%201%200%201%201%200-2%201%201%200%200%201%200%202%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201.5c-2.363%200-4%201.69-4%203.75%200%20.984.424%201.625.984%202.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621%201.49a.75.75%200%200%201-1.484.211c-.04-.282-.163-.547-.37-.847a9%209%200%200%200-.542-.68q-.126-.149-.268-.32C3.201%207.75%202.5%206.766%202.5%205.25%202.5%202.31%204.863%200%208%200s5.5%202.31%205.5%205.25c0%201.516-.701%202.5-1.328%203.259q-.142.172-.268.319c-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751%200%200%201-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848q.113-.133.213-.253c.561-.679.985-1.32.985-2.304%200-2.06-1.637-3.75-4-3.75M5.75%2012h4.5a.75.75%200%200%201%200%201.5h-4.5a.75.75%200%200%201%200-1.5M6%2015.25a.75.75%200%200%201%20.75-.75h2.5a.75.75%200%200%201%200%201.5h-2.5a.75.75%200%200%201-.75-.75%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M6.457%201.047c.659-1.234%202.427-1.234%203.086%200l6.082%2011.378A1.75%201.75%200%200%201%2014.082%2015H1.918a1.75%201.75%200%200%201-1.543-2.575Zm1.763.707a.25.25%200%200%200-.44%200L1.698%2013.132a.25.25%200%200%200%20.22.368h12.164a.25.25%200%200%200%20.22-.368Zm.53%203.996v2.5a.75.75%200%200%201-1.5%200v-2.5a.75.75%200%200%201%201.5%200M9%2011a1%201%200%201%201-2%200%201%201%200%200%201%202%200%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M9.504.43a1.516%201.516%200%200%201%202.437%201.713L10.415%205.5h2.123c1.57%200%202.346%201.909%201.22%203.004l-7.34%207.142a1.25%201.25%200%200%201-.871.354h-.302a1.25%201.25%200%200%201-1.157-1.723L5.633%2010.5H3.462c-1.57%200-2.346-1.909-1.22-3.004zm1.047%201.074L3.286%208.571A.25.25%200%200%200%203.462%209H6.75a.75.75%200%200%201%20.694%201.034l-1.713%204.188%206.982-6.793A.25.25%200%200%200%2012.538%207H9.25a.75.75%200%200%201-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005%200-.009.004%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5%205.782V2.5h-.25a.75.75%200%200%201%200-1.5h6.5a.75.75%200%200%201%200%201.5H11v3.282l3.666%205.76C15.619%2013.04%2014.543%2015%2012.767%2015H3.233c-1.776%200-2.852-1.96-1.899-3.458Zm-2.4%206.565a.75.75%200%200%200%20.633%201.153h9.534a.75.75%200%200%200%20.633-1.153L12.225%2010.5h-8.45ZM9.5%202.5h-3V6c0%20.143-.04.283-.117.403L4.73%209h6.54L9.617%206.403A.75.75%200%200%201%209.5%206Z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M1.75%202.5h10.5a.75.75%200%200%201%200%201.5H1.75a.75.75%200%200%201%200-1.5m4%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5m0%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5M2.5%207.75v6a.75.75%200%200%201-1.5%200v-6a.75.75%200%200%201%201.5%200%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+  <link rel="stylesheet" href="../assets/kokeb/kokeb.css">
+
+    
+      
+    
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/kokeb/fonts.css">
+  <noscript><link rel="stylesheet" href="../assets/kokeb/fonts.css"></noscript>
+
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  
+  
+  <meta name="theme-color" content="#0e1726" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b2140" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kokeb Labs">
+  <meta property="og:title" content="Recurring defects - MAX22200 Driver">
+  <meta property="og:description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
+  <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-max22200/latest/recurring-defects/">
+  <meta name="twitter:card" content="summary">
+  <script>
+(function () {
+  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
+  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
+      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
+  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
+  var stub = {
+    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
+    render: function (id, text) {
+      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
+      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
+      if (el) el.setAttribute("data-kb-mermaid", "");
+      return near(el).then(load).then(function (m) { return m.render(id, text); });
+    }
+  };
+  function load() {
+    return loading || (loading = new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = SRC;
+      s.integrity = SRI;
+      s.crossOrigin = "anonymous";
+      s.onload = function () {
+        real = window.mermaid;
+        window.mermaid = stub;
+        real.initialize(config);
+        resolve(real);
+      };
+      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
+      document.head.appendChild(s);
+    }));
+  }
+  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
+  function watch() {
+    if (io) io.disconnect();
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
+      });
+    }, { rootMargin: ahead ? "100% 0px" : "0px" });
+    waiting.forEach(function (w) { io.observe(w.el); });
+  }
+  function release(which) {
+    waiting = waiting.filter(function (w) {
+      if (!which(w)) return true;
+      io.unobserve(w.el);
+      w.go();
+      return false;
+    });
+  }
+  function near(el) {
+    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
+    return new Promise(function (resolve) {
+      waiting.push({ el: el, go: resolve });
+      if (io) io.observe(el); else watch();
+    });
+  }
+  function engaged() {
+    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
+    ahead = true;
+    if (io) watch();
+  }
+  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
+  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
+  window.mermaid = stub;
+})();
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#recurring-defects" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You are reading the documentation of an older version.
+  <a href="https://kokeb-labs-drivers.github.io/driver-max22200/"><strong>Go to the latest version.</strong></a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MAX22200 Driver" class="md-header__button md-logo" aria-label="MAX22200 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          
+          <a class="kb-org" href="https://kokeb-labs.github.io/" title="All Kokeb Labs documentation">Kokeb Labs</a>
+          <span class="kb-org__sep" aria-hidden="true">/</span>
+          <span class="md-ellipsis">
+            MAX22200 Driver
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Recurring defects
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Follow the system theme"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Follow the system theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kokeb-labs-drivers/driver-max22200" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-max22200
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../quickstart/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-guide/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MAX22200 Driver" class="md-nav__button md-logo" aria-label="MAX22200 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    MAX22200 Driver
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-max22200
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../quickstart/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../architecture/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-reference/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chip-protocol-and-safety-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chip-protocol and safety classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chip-protocol and safety classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rd-01-write-after-an-unseen-device-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-01 Write after an unseen device reset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-02-decision-from-one-unvalidated-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-02 Decision from one unvalidated read
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-03-stuck-or-floating-line-accepted-as-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-03 Stuck or floating line accepted as data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-04-invalid-argument-still-sends-something" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-04 Invalid argument still sends something
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-05-stop-switch-off-or-release-refused" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-05 Stop, switch-off or release refused
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-06-transfer-buffers-on-the-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-06 Transfer buffers on the stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-07-chip-model-shares-the-drivers-misreading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-07 Chip model shares the driver's misreading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-10-incomplete-state-machine-guard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-10 Incomplete state-machine guard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-30-out-of-bounds-or-ub-before-a-guard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-30 Out-of-bounds or UB before a guard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-31-clear-on-read-flags-lost-by-a-diagnostic-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-31 Clear-on-read flags lost by a diagnostic read
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datasheet-and-documentation-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datasheet and documentation classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Datasheet and documentation classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rd-28-datasheet-misread-in-a-decode-clear-or-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-28 Datasheet misread in a decode, clear or timing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-29-hardware-doc-exceeds-a-datasheet-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-29 Hardware doc exceeds a datasheet limit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-09-docs-promise-behaviour-the-code-lacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-09 Docs promise behaviour the code lacks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-08-false-coverage-matrix-or-fuzz-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-08 False coverage matrix or fuzz claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-32-docs-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-32 Docs style
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-33-another-projects-name-or-dated-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-33 Another project's name or dated history
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-and-test-quality-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process and test-quality classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process and test-quality classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rd-25-guards-no-test-kills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-25 Guards no test kills
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-26-fuzz-target-does-not-check-the-safety-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-26 Fuzz target does not check the safety rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-34-unspecified-evaluation-order-in-a-test-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-34 Unspecified evaluation order in a test check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-24-missing-gitlink-for-the-scripts-submodule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-24 Missing gitlink for the scripts submodule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-19-template-drift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-19 Template drift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-27-local-tidy-and-format-differ-from-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-27 Local tidy and format differ from CI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci-only-checks-misra-scan-esp-idf-compile-fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI-only checks (MISRA scan, ESP-IDF, compile-fail)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CI-only checks (MISRA scan, ESP-IDF, compile-fail)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rd-11-header-outside-the-library-subset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-11 Header outside the library subset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-12-rule-703-character-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-12 Rule 7.0.3 character arithmetic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-13-rule-801-missing-parentheses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-13 Rule 8.0.1 missing parentheses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-14-rule-941-else-less-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-14 Rule 9.4.1 else-less chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-15-rule-012-unused-return-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-15 Rule 0.1.2 unused return value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-16-rule-1333-parameter-names-differ" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-16 Rule 13.3.3 parameter names differ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-17-rule-706-literal-argument-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-17 Rule 7.0.6 literal argument type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-18-advisories-692-1514-002" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-18 Advisories 6.9.2, 15.1.4, 0.0.2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-20-esp-idf-requires-incomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-20 ESP-IDF REQUIRES incomplete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-21-esp32-example-cannot-start-with-its-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-21 ESP32 example cannot start with its defaults
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-22-compile-fail-regex-wording-differs-by-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-22 Compile-fail regex wording differs by compiler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rd-23-tests-are-also-scanned-by-misra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RD-23 Tests are also scanned by MISRA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kokeb-labs-drivers/driver-max22200/edit/main/docs/recurring-defects.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="recurring-defects">Recurring defects<a class="headerlink" href="#recurring-defects" title="Permanent link">&para;</a></h1>
+<p>The defects that reached an independent reviewer or the first CI run of more than one driver, one entry per class.
+Review skills cite these ids; the <a href="../mechanization-policy/">mechanization policy</a> says where each class is caught and
+when it moves up a level. Append new findings to the entry they belong to, or add an entry (see the policy).</p>
+<p>Evidence names the driver, the review round (<code>reviews/&lt;driver&gt;-review&lt;N&gt;.md</code>, finding id) or the CI run
+(<code>reports/&lt;driver&gt;-ci-*.txt</code>). Code examples are generic and minimal; none quotes a datasheet or a standard.</p>
+<p>Detection levels: <code>lint</code> (a script in the preflight or the gate, no judgement), <code>test</code> (a model knob, a mutation, a
+fuzz property or a compile-fail case that fails when the defect is present), <code>review</code> (a named reviewer asks one
+question). Status: <code>enforced</code> is in the template now; <code>planned</code> is the target, tracked in the policy's backlog,
+and until it lands the level below it (test, then review) is what protects the driver.</p>
+<h2 id="index">Index<a class="headerlink" href="#index" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>Class</th>
+<th>Drivers</th>
+<th>Detection now</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RD-01</td>
+<td>Write after an unseen device reset</td>
+<td>4</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-02</td>
+<td>Decision from one unvalidated read</td>
+<td>5</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-03</td>
+<td>Stuck or floating line accepted as data</td>
+<td>3</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-04</td>
+<td>Invalid argument still sends something</td>
+<td>2</td>
+<td>test</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-05</td>
+<td>Stop, switch-off or release refused</td>
+<td>4</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-06</td>
+<td>Transfer buffers on the stack</td>
+<td>4</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-07</td>
+<td>Chip model shares the driver's misreading</td>
+<td>2</td>
+<td>review</td>
+<td>lint + review</td>
+</tr>
+<tr>
+<td>RD-08</td>
+<td>False coverage matrix or fuzz claim</td>
+<td>3</td>
+<td>review</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-09</td>
+<td>Docs promise behaviour the code lacks</td>
+<td>6</td>
+<td>review</td>
+<td>review (claims check)</td>
+</tr>
+<tr>
+<td>RD-10</td>
+<td>Incomplete state-machine guard</td>
+<td>5</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-11</td>
+<td>Header outside the library subset</td>
+<td>2</td>
+<td>lint</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-12</td>
+<td>Rule 7.0.3 character arithmetic</td>
+<td>3</td>
+<td>CI</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-13</td>
+<td>Rule 8.0.1 missing parentheses</td>
+<td>2</td>
+<td>CI</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-14</td>
+<td>Rule 9.4.1 else-less chain</td>
+<td>3</td>
+<td>CI</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-15</td>
+<td>Rule 0.1.2 unused return value</td>
+<td>1</td>
+<td>CI</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-16</td>
+<td>Rule 13.3.3 parameter names differ</td>
+<td>1</td>
+<td>CI</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-17</td>
+<td>Rule 7.0.6 literal argument type</td>
+<td>4</td>
+<td>review</td>
+<td>lint (partial) + review</td>
+</tr>
+<tr>
+<td>RD-18</td>
+<td>Advisories 6.9.2, 15.1.4, 0.0.2</td>
+<td>5</td>
+<td>CI</td>
+<td>lint (known list)</td>
+</tr>
+<tr>
+<td>RD-19</td>
+<td>Template drift</td>
+<td>3</td>
+<td>lint</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-20</td>
+<td>ESP-IDF REQUIRES incomplete</td>
+<td>1</td>
+<td>CI</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-21</td>
+<td>ESP32 example cannot start with its defaults</td>
+<td>3</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-22</td>
+<td>Compile-fail regex wording differs by compiler</td>
+<td>0</td>
+<td>review</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-23</td>
+<td>Tests are also scanned by MISRA</td>
+<td>2</td>
+<td>CI, review</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-24</td>
+<td>Missing gitlink for the scripts submodule</td>
+<td>2</td>
+<td>lint</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-25</td>
+<td>Guards no test kills (surviving mutants)</td>
+<td>6</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-26</td>
+<td>Fuzz target does not check the safety rules</td>
+<td>3</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-27</td>
+<td>Local tidy and format differ from CI</td>
+<td>4</td>
+<td>CI</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-28</td>
+<td>Datasheet misread in a decode, clear or timing</td>
+<td>6</td>
+<td>review</td>
+<td>review</td>
+</tr>
+<tr>
+<td>RD-29</td>
+<td>Hardware doc exceeds a datasheet limit</td>
+<td>3</td>
+<td>review</td>
+<td>review</td>
+</tr>
+<tr>
+<td>RD-30</td>
+<td>Out-of-bounds or UB before a guard</td>
+<td>3</td>
+<td>test</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-31</td>
+<td>Clear-on-read flags lost by a diagnostic read</td>
+<td>2</td>
+<td>review</td>
+<td>test</td>
+</tr>
+<tr>
+<td>RD-32</td>
+<td>Docs style: line length, merged bullets, stale text</td>
+<td>3</td>
+<td>lint</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-33</td>
+<td>Another project's name or dated history</td>
+<td>1</td>
+<td>lint</td>
+<td>lint</td>
+</tr>
+<tr>
+<td>RD-34</td>
+<td>Unspecified evaluation order in a test check</td>
+<td>3</td>
+<td>lint</td>
+<td>lint</td>
+</tr>
+</tbody>
+</table>
+<h2 id="chip-protocol-and-safety-classes">Chip-protocol and safety classes<a class="headerlink" href="#chip-protocol-and-safety-classes" title="Permanent link">&para;</a></h2>
+<h3 id="rd-01-write-after-an-unseen-device-reset">RD-01 Write after an unseen device reset<a class="headerlink" href="#rd-01-write-after-an-unseen-device-reset" title="Permanent link">&para;</a></h3>
+<p>Rule: every way the chip can reset itself is detected from evidence the chip leaves, and no cached value is written
+over a chip that may have reset.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// bad: the chip browned out; shadow_ holds the old setpoint, the chip is at its reset value</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// bad: writes the whole shadow_ (the stale rest of it) over a chip that may have reset</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Result</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SetLimit</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">shadow_</span><span class="p">.</span><span class="n">limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">WriteReg</span><span class="p">(</span><span class="n">kLimit</span><span class="p">,</span><span class="w"> </span><span class="n">Pack</span><span class="p">(</span><span class="n">shadow_</span><span class="p">));</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">// good: check the evidence first, refuse until the application re-initialises</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">Result</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SetLimit</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ResetCheck</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">        </span><span class="c1">// status read, sentinel compare; pending until it passes</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">WriteReg</span><span class="p">(</span><span class="n">kLimit</span><span class="p">,</span><span class="w"> </span><span class="n">Pack</span><span class="p">(</span><span class="n">WithLimit</span><span class="p">(</span><span class="n">shadow_</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)));</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Hurts: stale state rewritten into a chip at reset values energises outputs or sets limits the application never
+chose; the call returns Ok.
+Seen: ads9324 (review1 J1), pf1550 (review1 M8, review2 F1, review3 N1, review4 R4-1, review5 R5-2), tmc5160
+(review1 M5), fdo2 (review1 B1: abort during start-up leaves the driver initialised). 4 drivers.
+Detection: <code>test</code>: model knob "reset mid-session" (registers to reset values, reset flags set) plus a fuzz property
+"no write after a reset is seen"; mutate the sentinel compare and the pending-check latch, each must fail a test.
+<code>review</code>: hardware-lessons-review 12a. Question: "List every way this chip resets or reloads; for each, which bit or
+sentinel shows it, which function reads it, and what does a setter do between the reset and that read?"</p>
+<h3 id="rd-02-decision-from-one-unvalidated-read">RD-02 Decision from one unvalidated read<a class="headerlink" href="#rd-02-decision-from-one-unvalidated-read" title="Permanent link">&para;</a></h3>
+<p>Rule: a read that decides a write, a state change or an identity is validated per the protocol (CRC, echo, length) and
+a read-modify-write uses only a validated read; a single bad read never clears state or masks a lost write.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// bad: one flipped read clears identity, the next switch-off returns NotInitialized and sends nothing</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ReadReg</span><span class="p">(</span><span class="n">kId</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">kExpectedId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">identified_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1">// good: two agreeing reads before a state is dropped; switch-off ignores identified_</span>
+</span></code></pre></div>
+<p>Hurts: a transient line error becomes "device reset" or "not initialised", a read-modify-write writes garbage bits
+back, a resync hides a lost write so the chip runs at the wrong current.
+Seen: pf1550 (review1 B1, M1; review4 R4-3), ads9324 (review1 J2), tmc5160 (review1 M1, lost-write masking by
+resync), sfm (review1 B1: any NACK after a first sample became DeviceReset), fdo2 (review1 B1). 5 drivers.
+Detection: <code>test</code>: model fault "one flipped reply at call k" swept over every call of every public function; the
+expected result is the call's own error, no state loss, no unsafe write. <code>review</code>: hardware-lessons-review 1, 12.
+Question: "Which reads in this driver decide something, and is there a mutant that removes each validation?"</p>
+<h3 id="rd-03-stuck-or-floating-line-accepted-as-data">RD-03 Stuck or floating line accepted as data<a class="headerlink" href="#rd-03-stuck-or-floating-line-accepted-as-data" title="Permanent link">&para;</a></h3>
+<p>Rule: a reply a dead, shorted or floating line can produce (all zeros, all ones, the command echoed, one word
+repeated) is never a measurement or a ready status.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// bad: an all-zero frame has a valid CRC for init 0x00, so 0 degC (or -200 degC after the offset) is returned</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DecodeTemperature</span><span class="p">(</span><span class="n">words</span><span class="p">);</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">// good: reject by pattern before decoding, then plausibility-check the decoded value</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsStuck</span><span class="p">(</span><span class="n">words</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Error</span><span class="o">::</span><span class="n">NoDevice</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<p>Hurts: a wrong value is returned as data, which downstream control trusts.
+Seen: ads9324 (review1 J3), tmc5160 (review1 M8), sfm (review3 M-A: the temperature path had no stuck check while
+the sample path had one). 3 drivers.
+Detection: <code>test</code>: one model fault per pattern (zeros, ones, echo, repeat) applied to every read function; a table
+test lists each public read function and the fault, so a new read function without a row fails.
+<code>review</code>: hardware-lessons-review 4. Question: "For each read path, which of the four patterns does the CRC pass,
+and which line in the code refuses it?"</p>
+<h3 id="rd-04-invalid-argument-still-sends-something">RD-04 Invalid argument still sends something<a class="headerlink" href="#rd-04-invalid-argument-still-sends-something" title="Permanent link">&para;</a></h3>
+<p>Rule: a call that returns <code>InvalidArgument</code> (or any precondition error) sent nothing and changed nothing; validate
+first, transfer second.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// bad: reads the position first, then rejects the argument</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadPos</span><span class="p">();</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">steps</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">kMax</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Error</span><span class="o">::</span><span class="n">InvalidArgument</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1">// good</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">steps</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">kMax</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Error</span><span class="o">::</span><span class="n">InvalidArgument</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadPos</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Hurts: a rejected call moves state or leaves the driver config invalid, and the next call sends from it.
+Seen: tmc5160 (review1 M2: three sites, found by a fuzz abort), ads9324 (review2 N2: a division by <code>convst_hz</code>
+before the state check). 2 drivers.
+Detection: <code>test</code>: the model counts frames; every <code>InvalidArgument</code> test asserts the count is unchanged, and the
+fuzz target asserts it for every call that returned <code>InvalidArgument</code>. <code>review</code>: hardware-lessons-review 11.
+Question: "For each early return of an argument error, what is the first line above it that touches the port?"</p>
+<h3 id="rd-05-stop-switch-off-or-release-refused">RD-05 Stop, switch-off or release refused<a class="headerlink" href="#rd-05-stop-switch-off-or-release-refused" title="Permanent link">&para;</a></h3>
+<p>Rule: a switch-off, a release to input and <code>Deinitialize()</code> are never refused for any uncertainty (reset report,
+failed read, unknown mode, uninitialised after reset) and always send their writes, in the smallest atomic form.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// bad</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">Result</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Off</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">identified_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Error</span><span class="o">::</span><span class="n">NotInitialized</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Write</span><span class="p">(</span><span class="n">kEnable</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1">// good: acts first, reports after</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">Result</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Off</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Write</span><span class="p">(</span><span class="n">kEnable</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="n">MarkUnverified</span><span class="p">();</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<p>Hurts: the one command that makes the system safe is the one that fails when the system is most in doubt.
+Seen: ads9324 (review2 N1), pf1550 (review2 F2, review3 N2, review4 R4-3), tmc5160 (review3: stop and switch-off
+refused after a reset report; review1 M4: not verified on UART), alicat (review2 N3: a switch-off in an unknown state
+is sent only to the held settings). 4 drivers.
+Detection: <code>test</code>: for every uncertainty flag the driver has, a test sets it through the model and asserts the
+switch-off still writes (mutation: add the refusal back, the test fails). <code>review</code>: hardware-lessons-review 12c.
+Question: "Name each flag that can make a call return early; show the test where it is set and Off still sends."</p>
+<h3 id="rd-06-transfer-buffers-on-the-stack">RD-06 Transfer buffers on the stack<a class="headerlink" href="#rd-06-transfer-buffers-on-the-stack" title="Permanent link">&para;</a></h3>
+<p>Rule: buffers handed to the bus are members of the driver object (memory a DMA engine reaches), never locals or
+function-local statics.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// bad</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">Result</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Read</span><span class="p">(</span><span class="n">Reg</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="w"> </span><span class="n">tx</span><span class="p">{};</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">port_</span><span class="p">.</span><span class="n">Transfer</span><span class="p">(</span><span class="n">tx</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">rx</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">// good</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="w"> </span><span class="n">tx_</span><span class="p">{};</span><span class="w">   </span><span class="c1">// member</span>
+</span></code></pre></div>
+<p>Hurts: DMA or TCM-stack ports fail on the first frame; the host build and a DMA-disabled example hide it.
+Seen: ads9324 (review2 N3), pf1550 (review3 N3), bno08x (review1 M-1, UART receive buffers, and the contract said the
+opposite), tmc5160 (review3 M3; its fix was killed by an address-in-object test, review4). 4 drivers.
+Alicat keeps its buffers in the bus object (review3). The ads9324 fix still had a survivor that pinned no
+ownership (review3 m2): the address test below closes that.
+Detection: <code>test</code>: the mock port records the address of every transmit and receive buffer and asserts it lies inside
+<code>[&amp;driver, &amp;driver + sizeof(driver))</code>; compile it into the shared model. <code>review</code>: KB-HW-019.
+Question: "In every function that calls the port, where does the memory of each buffer argument live?"</p>
+<h3 id="rd-07-chip-model-shares-the-drivers-misreading">RD-07 Chip model shares the driver's misreading<a class="headerlink" href="#rd-07-chip-model-shares-the-drivers-misreading" title="Permanent link">&para;</a></h3>
+<p>Rule: the model is written from the datasheet, including frame layout, not from the driver; golden frames are
+transcribed from the datasheet's figures and checked by a test the driver's author did not derive from the code.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">// bad: driver and model both put the data in bytes 1..2 of the reply, the datasheet says bytes 0..1 of the data word</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1">// good: test_model.cpp pins a golden frame copied from the datasheet figure; model includes no driver header</span>
+</span></code></pre></div>
+<p>Hurts: green tests, wrong data on the wire; only hardware or an independent reader shows it.
+Seen: ads9324 (review1 B1: wrong bits of the reply, model and driver agreed), tmc5160 (review5 m2: the model set a
+status bit the instant the velocity was zero, the chip sets it 2^20 clocks later). 2 drivers.
+Detection: <code>lint</code>: <code>tests/mock_*.hpp</code> includes no driver header (planned, preflight <code>model-standalone</code>); <code>review</code>:
+datasheet-conformance, independence check. Question: "Take one golden frame from the datasheet figure; which test
+fails if the driver and the model both decode it the other way?"</p>
+<h3 id="rd-10-incomplete-state-machine-guard">RD-10 Incomplete state-machine guard<a class="headerlink" href="#rd-10-incomplete-state-machine-guard" title="Permanent link">&para;</a></h3>
+<p>Rule: every command is checked against every state the chip or the driver can be in, including pending timers,
+power gates, asleep and in-doubt; a start-up that leaves anything pending does not energise.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">// bad: waits only for velocity == 0, but the chip is still counting a stand-still delay and will drive back</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">Velocity</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="n">Enable</span><span class="p">();</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1">// good: also checks the pending-delay flag the datasheet names</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">Velocity</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">DelayActive</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="n">Enable</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Hurts: outputs energise in a state the guard did not consider; the motion or power surprise is real.
+Seen: tmc5160 (review5 M1: enable during a pending zero-wait), ws2812 (review2 N1: the power gate started open),
+pf1550 (review1 M3, M4: rail enabled with a voltage no limit checked), sfm (review1 M2: soft reset accepted while
+asleep), fdo2 (review1 B1). 5 drivers.
+Detection: <code>test</code>: a generated state x command table test (every public command in every modelled state, expected
+result and frame count), and a mutant for each guard. <code>review</code>: hardware-lessons-review 11, 12.
+Question: "Draw the states from the datasheet; for each command and state, where is the guard and which test
+removes it?"</p>
+<h3 id="rd-30-out-of-bounds-or-ub-before-a-guard">RD-30 Out-of-bounds or UB before a guard<a class="headerlink" href="#rd-30-out-of-bounds-or-ub-before-a-guard" title="Permanent link">&para;</a></h3>
+<p>Rule: bounds, divisors and state are checked before they are used, on every path, including the framing layer.</p>
+<p>Hurts: abort in hardened builds, UB elsewhere.
+Seen: bno08x (review1 B-1: a framer returned a frame longer than its buffer), ads9324 (review2 N2: divide before the
+state check), tmc5160 (review1: fuzz aborts, see RD-04). 3 drivers.
+Detection: <code>test</code>: libFuzzer with ASan and UBSan in the gate (<code>enforced</code>); fuzz target feeds every public function.
+<code>review</code>: question "which divisor, index or span length comes from a caller or the chip, and where is it checked?"</p>
+<h3 id="rd-31-clear-on-read-flags-lost-by-a-diagnostic-read">RD-31 Clear-on-read flags lost by a diagnostic read<a class="headerlink" href="#rd-31-clear-on-read-flags-lost-by-a-diagnostic-read" title="Permanent link">&para;</a></h3>
+<p>Rule: clear-on-read and write-1-to-clear flags collect in one driver-owned latch; a self-check or raw read never
+discards them.</p>
+<p>Seen: pf1550 (review1 M2: <code>SelfCheck()</code> and <code>ReadRegister()</code> read status registers the chip clears on read), tmc5160
+(review1: <code>Service()</code> cleared the stall event, a BLOCKER, review1 B1). 2 drivers.
+Detection: <code>test</code>: model with clear-on-read bits; test reads through every diagnostic path, then asserts the latch
+still reports the fault. <code>review</code>: hardware-lessons-review 10, 12b.</p>
+<h2 id="datasheet-and-documentation-classes">Datasheet and documentation classes<a class="headerlink" href="#datasheet-and-documentation-classes" title="Permanent link">&para;</a></h2>
+<h3 id="rd-28-datasheet-misread-in-a-decode-clear-or-timing">RD-28 Datasheet misread in a decode, clear or timing<a class="headerlink" href="#rd-28-datasheet-misread-in-a-decode-clear-or-timing" title="Permanent link">&para;</a></h3>
+<p>Rule: every field position, clear semantic, wait and gap cites its section and has a test that pins it independently.</p>
+<p>Seen: ads9324 (review1 B1, J4), tmc5160 (review1 B1), sfm (review1 M3, M4), ws2812 (review1 M2, M3), fdo2 (review1 M3,
+M4). 6 drivers.
+Detection: <code>review</code> (datasheet-conformance): re-derive the five facts the change touches from the datasheet before
+reading the code. Question: "For this register or frame, what do the datasheet's bits say, and does the code agree
+before you look at the model?"</p>
+<h3 id="rd-29-hardware-doc-exceeds-a-datasheet-limit">RD-29 Hardware doc exceeds a datasheet limit<a class="headerlink" href="#rd-29-hardware-doc-exceeds-a-datasheet-limit" title="Permanent link">&para;</a></h3>
+<p>Rule: a reference circuit, wiring table or example never exceeds an absolute maximum or ties a pin the datasheet
+forbids tying.</p>
+<p>Seen: ws2812 (review1 M7), fdo2 (review1 M9), ws2812 (review1 M3: documents disagree on the input threshold). 3 drivers.
+Detection: <code>review</code>: docs and diagram pass. Question: "For each net in the reference circuit, what is the highest
+voltage the chip pin sees, and where does the datasheet allow it?"</p>
+<h3 id="rd-09-docs-promise-behaviour-the-code-lacks">RD-09 Docs promise behaviour the code lacks<a class="headerlink" href="#rd-09-docs-promise-behaviour-the-code-lacks" title="Permanent link">&para;</a></h3>
+<p>Rule: every behavioural claim in docs, Doxygen, the contract and the build report is checked against the code
+line that implements it and the test that pins it.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">/// Enables the bridge again.            // doc</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">Result</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ClearFaults</span><span class="p">();</span><span class="w">              </span><span class="c1">// code returns Busy while the motor moves and stays disabled</span>
+</span></code></pre></div>
+<p>Hurts: callers and later reviewers rely on the claim; a promised error never occurs, a promised recovery never runs.
+Seen: ws2812 (review1 M5, review2 N2, n9), tmc5160 (review1 M4, review5 m1), fdo2 (review1 M7), pf1550 (review1 M6),
+bno08x (review1 M-1), ads9324 (review1 J5-J7). 6 drivers.
+Detection: <code>review</code> via the review-round claims-vs-code check: list every "always", "never", "returns", "enables" in
+docs and the build report and cite the code line and test for each. Mechanical part (<code>lint</code>, planned): every <code>Error</code>
+named in docs exists; every Doxygen <code>@return</code> lists the values the function can return.</p>
+<h3 id="rd-08-false-coverage-matrix-or-fuzz-claim">RD-08 False coverage matrix or fuzz claim<a class="headerlink" href="#rd-08-false-coverage-matrix-or-fuzz-claim" title="Permanent link">&para;</a></h3>
+<p>Rule: a matrix row, test id or knob named in docs exists in code, and a row's test asserts the row.</p>
+<p>Seen: ads9324 (review1 J5, J6: 873 rows unproved, fuzz claims invariants it does not check), pf1550 (review2 F4: 47 rows
+cite symbols that do not exist; F5: knobs that do not exist; review1 M11), ws2812 (review2 n9: "each fix has a test"
+overstated). 3 drivers.
+Detection: <code>lint</code> (planned <code>claims-symbols</code>): every backticked identifier in the datasheet coverage page,
+the coverage matrix and <code>docs/ambiguities.md</code> resolves with grep in <code>inc/ src/ tests/</code>. <code>review</code>: row-level sample.</p>
+<h3 id="rd-32-docs-style">RD-32 Docs style<a class="headerlink" href="#rd-32-docs-style" title="Permanent link">&para;</a></h3>
+<p>Rule: Markdown lines are at most 120 characters, list items are separated, text changed by a fix is updated everywhere.</p>
+<p>Seen: ws2812 (review2 n4, n5, n6), ntc (review1), mcp9700 (review2 m2-1). 3 drivers.
+Detection: <code>lint</code> (<code>enforced</code>: markdownlint in the preflight; line length 120). Stale text after a change is RD-09.</p>
+<h3 id="rd-33-another-projects-name-or-dated-history">RD-33 Another project's name or dated history<a class="headerlink" href="#rd-33-another-projects-name-or-dated-history" title="Permanent link">&para;</a></h3>
+<p>Seen: ntc (review1 M5: old-history wording in eleven places). 1 driver; <code>enforced</code> by <code>tools/check_standalone.py</code>.</p>
+<h2 id="process-and-test-quality-classes">Process and test-quality classes<a class="headerlink" href="#process-and-test-quality-classes" title="Permanent link">&para;</a></h2>
+<h3 id="rd-25-guards-no-test-kills">RD-25 Guards no test kills<a class="headerlink" href="#rd-25-guards-no-test-kills" title="Permanent link">&para;</a></h3>
+<p>Rule: every guard that protects a write, a state or a value has a test that fails when the guard is removed.</p>
+<p>Seen: ads9324 (review1 mutants M22 to N66), pf1550 (review2 F3, review3 N4, review4 R4-2: 7 of 12 survivors matter,
+review5 R5-1), tmc5160 (review1 M6: 22 of 50 survive), bno08x (review1 M-3: 33 survive), alicat (review2, review3).
+6 drivers.
+Detection: <code>test</code>: a mutation runner over the guard lines (one-edit mutants: negate, drop, swap constant), built by the
+reviewer in each round; target: a template <code>tools/mutate.py</code> run by the gate with a survivor budget of zero on
+guards. <code>review</code>: the review-round mutant check of fixes.</p>
+<h3 id="rd-26-fuzz-target-does-not-check-the-safety-rules">RD-26 Fuzz target does not check the safety rules<a class="headerlink" href="#rd-26-fuzz-target-does-not-check-the-safety-rules" title="Permanent link">&para;</a></h3>
+<p>Rule: the fuzz target asserts the invariants of the safety rules (no write after a reset is seen, no switch-on in
+doubt, no frame after InvalidArgument), and a mutant of each invariant fails it.</p>
+<p>Seen: ads9324 (review1 J6), pf1550 (review1 M10, review3 N4: blind to a missed reset), alicat (review2 m9, review3
+m9: no
+no-write-in-doubt invariant). 3 drivers.
+Detection: <code>test</code>: mutate the invariant check in the harness; <code>review</code>: question "which safety rule does the fuzz
+target assert, and what input would break each?"</p>
+<h3 id="rd-34-unspecified-evaluation-order-in-a-test-check">RD-34 Unspecified evaluation order in a test check<a class="headerlink" href="#rd-34-unspecified-evaluation-order-in-a-test-check" title="Permanent link">&para;</a></h3>
+<p>Rule: a call in a test or fuzz target takes, as separate arguments, no operation that changes state together with a
+read of that state (<code>sent()</code>, <code>Transfers()</code>, <code>pending()</code>, a flag, a counter, a clock). The order of the arguments of a
+call, of the operands of <code>+ - == &lt;</code> and of the two sides of an assignment is unspecified; GCC on x86-64 evaluates
+arguments right to left, Clang and GCC on aarch64 left to right. Braced-init lists, <code>&amp;&amp;</code>, <code>||</code>, <code>?:</code> and <code>,</code> are
+sequenced. Two reads of the fuzzer's input (<code>in.Byte()</code>, <code>FuzzConfig(in)</code>) in one expression count as well: they
+advance the input, so the same corpus file decodes into different calls per compiler.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// bad: x86-64 GCC reads sent() before the call, so it is always 0 here</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">Check</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">v</span><span class="p">),</span><span class="w"> </span><span class="n">was_up</span><span class="p">,</span><span class="w"> </span><span class="n">sent</span><span class="p">());</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1">// good: the result first, then the read; or pass the probe and read it inside the helper, after the call</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">Check</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">was_up</span><span class="p">,</span><span class="w"> </span><span class="n">sent</span><span class="p">());</span>
+</span></code></pre></div>
+<p>Hurts: the check passes, or aborts, on one CI runner only. A "nothing was sent" promise becomes vacuous, and a
+positive promise (<code>sent &gt;= 1</code>) aborts on a correct driver; neither shows on an Apple-silicon or aarch64 rehearsal.
+Seen: dynamixel (first CI, <code>sent &gt;= 1</code> aborted on x86-64 GCC only), pcal9555 (three fuzz cases, latent), tle92466ed
+(16 fuzz cases, vacuous; 6 more with two input reads), the template's own fuzz target (5 cases).
+3 drivers, all copies of the same pattern.
+Detection: <code>lint</code> (<code>enforced</code>): <code>tools/eval_order_check.py</code>, the <code>eval-order</code> preflight step, scans <code>tests/</code> and
+<code>examples/</code>. <code>test</code>: the fuzz replay with a one-edit mutant that must abort (<code>mutant_replay_*</code>, kept out of the
+<code>fuzz_*</code> names so the libFuzzer job does not pick it up).</p>
+<h3 id="rd-24-missing-gitlink-for-the-scripts-submodule">RD-24 Missing gitlink for the scripts submodule<a class="headerlink" href="#rd-24-missing-gitlink-for-the-scripts-submodule" title="Permanent link">&para;</a></h3>
+<p>Seen: sfm (review3 M-B), mcp9700 first push (the ESP32 examples job fails: no such directory). 2 drivers.
+Detection: <code>lint</code> (<code>enforced</code>): the gate runs <code>git ls-files -s | grep ^160000</code> after setting the pinned commit.</p>
+<h3 id="rd-19-template-drift">RD-19 Template drift<a class="headerlink" href="#rd-19-template-drift" title="Permanent link">&para;</a></h3>
+<p>Seen: fdo2 (<code>reports/fdo2-ci2.txt</code>: drift warning and a 160-character workflow line), alicat (review1 m6) and
+pf1550 (review4 m-3):
+the template record said <code>unknown</code>. 3 drivers. Detection: <code>lint</code> (<code>enforced</code>): <code>scaffold.py --check-drift</code> in the gate.</p>
+<h3 id="rd-27-local-tidy-and-format-differ-from-ci">RD-27 Local tidy and format differ from CI<a class="headerlink" href="#rd-27-local-tidy-and-format-differ-from-ci" title="Permanent link">&para;</a></h3>
+<p>Rule: the preflight runs clang-format 20 and clang-tidy over the same file list and compile database as CI, inside the
+container.</p>
+<p>Seen: ntc (first CI: tidy failed on a generated file absent from a configure-only database), bno08x (review1 M-2:
+<code>readability-named-parameter</code> in the install consumer), fdo2 (<code>reports/fdo2-ci-failed.log</code>: lint job, 2 files),
+fdo2 later (tidy on the ESP32 stub). 4 drivers. Detection: <code>lint</code> (<code>enforced</code> in the container preflight once it uses
+a configure-only database; check the log names the tidy file count).</p>
+<h2 id="ci-only-checks-misra-scan-esp-idf-compile-fail">CI-only checks (MISRA scan, ESP-IDF, compile-fail)<a class="headerlink" href="#ci-only-checks-misra-scan-esp-idf-compile-fail" title="Permanent link">&para;</a></h2>
+<h3 id="rd-11-header-outside-the-library-subset">RD-11 Header outside the library subset<a class="headerlink" href="#rd-11-header-outside-the-library-subset" title="Permanent link">&para;</a></h3>
+<p>Rule: <code>#include &lt;...&gt;</code> in <code>inc/</code> and <code>src/</code> is only from the driver subset of the handbook (KB-CPP-012).</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numeric&gt;</span><span class="w">   </span><span class="c1">// bad: not in the subset; std::accumulate -&gt; write the OR out</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string_view&gt;</span>
+</span></code></pre></div>
+<p>Seen: fdo2 (<code>reports/fdo2-ci2.txt</code>, <code>&lt;string_view&gt;</code>), tmc5160 (review4 B1, <code>&lt;numeric&gt;</code>). 2 drivers; the second hit makes
+it a lint. Detection: <code>lint</code> (<code>enforced</code> in handbook_check; the preflight must also run the include scan or grep).</p>
+<h3 id="rd-12-rule-703-character-arithmetic">RD-12 Rule 7.0.3 character arithmetic<a class="headerlink" href="#rd-12-rule-703-character-arithmetic" title="Permanent link">&para;</a></h3>
+<p>Rule: no arithmetic or comparison on a <code>char</code> value, including <code>c - '0'</code> and <code>c == 'x'</code>.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="sc">'0'</span><span class="p">;</span><span class="w">                 </span><span class="c1">// bad</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">'A'</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">                 </span><span class="c1">// bad</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DigitValue</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">     </span><span class="c1">// good: lookup in a constexpr digit array via std::find</span>
+</span></code></pre></div>
+<p>Seen: fdo2 (<code>reports/fdo2-ci-misra.txt</code>, <code>reports/fdo2-ci2.txt</code>: the bare comparisons too), alicat (review2:
+about 30 computations predicted; review3 R3-M1, six conversions; m-10, tests), pf1550 (review4 m-4: a template
+file used in tests). 3 drivers.
+Detection: <code>lint</code>: <code>misra_lint</code> rule 7.0.3 (planned): char literals in arithmetic or comparison in <code>inc src tests
+examples</code>. Until then: grep <code>'.'</code> next to <code>-</code>, <code>+</code>, <code>==</code>, <code>!=</code>.</p>
+<h3 id="rd-13-rule-801-missing-parentheses">RD-13 Rule 8.0.1 missing parentheses<a class="headerlink" href="#rd-13-rule-801-missing-parentheses" title="Permanent link">&para;</a></h3>
+<p>Rule: a binary operand that is itself a binary expression of higher precedence is parenthesised, in <code>static_assert</code> too.</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">static_assert</span><span class="p">(</span><span class="n">kA</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">kB</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">           </span><span class="c1">// bad</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">static_assert</span><span class="p">((</span><span class="n">kA</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">kB</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span><span class="w">       </span><span class="c1">// good</span>
+</span></code></pre></div>
+<p>Seen: ads9324 (<code>reports/ads9324-ci-misra.txt</code>, three lines), pf1550 (review4 m-1: <code>static_assert</code>s). 2 drivers.
+Detection: <code>lint</code>: <code>misra_lint</code> rule 8.0.1 (planned): parenthesis-depth scan of <code>inc src tests</code>.</p>
+<h3 id="rd-14-rule-941-else-less-chain">RD-14 Rule 9.4.1 else-less chain<a class="headerlink" href="#rd-14-rule-941-else-less-chain" title="Permanent link">&para;</a></h3>
+<p>Rule: every <code>if ... else if</code> chain ends with <code>else</code>, with a comment when empty; in tests and models too.</p>
+<p>Seen: ads9324 (<code>reports/ads9324-ci-misra.txt</code>), fdo2 (<code>reports/fdo2-ci3.txt</code>), tmc5160 (review5 B1: two chains in the
+model). 3 drivers. Detection: <code>lint</code>: <code>misra_lint</code> rule 9.4.1 (planned).</p>
+<h3 id="rd-15-rule-012-unused-return-value">RD-15 Rule 0.1.2 unused return value<a class="headerlink" href="#rd-15-rule-012-unused-return-value" title="Permanent link">&para;</a></h3>
+<p>Seen: fdo2 (<code>reports/fdo2-ci-misra.txt</code>: <code>failInit</code>). 1 driver. Detection: <code>lint</code>: rule 0.1.2 (planned): a call to a
+non-void function as an expression statement; mark with an explicit discard where intended.</p>
+<h3 id="rd-16-rule-1333-parameter-names-differ">RD-16 Rule 13.3.3 parameter names differ<a class="headerlink" href="#rd-16-rule-1333-parameter-names-differ" title="Permanent link">&para;</a></h3>
+<p>Seen: fdo2 (<code>reports/fdo2-ci-misra.txt</code>: <code>checkOxygen</code>). 1 driver. Detection: <code>lint</code>: rule 13.3.3 (planned):
+declaration in <code>inc/</code> against definition in <code>src/*.ipp</code>.</p>
+<h3 id="rd-17-rule-706-literal-argument-type">RD-17 Rule 7.0.6 literal argument type<a class="headerlink" href="#rd-17-rule-706-literal-argument-type" title="Permanent link">&para;</a></h3>
+<p>Rule: a constant argument has its parameter's type (<code>_u32</code> literal), and no mixed-width arithmetic on literals.</p>
+<p>Seen: ntc (review1 M3), fdo2 (review1 M10), tmc5160 (review1 M7), ws2812 (review1: call sites). 4 drivers.
+Detection: <code>lint</code> (partial, planned): literal passed to a <code>uint32_t</code> or <code>uint8_t</code> parameter of a known function;
+<code>review</code>
+for the rest (the CI scan is final). Question: "Which call passes a bare integer constant to a narrower parameter?"</p>
+<h3 id="rd-18-advisories-692-1514-002">RD-18 Advisories 6.9.2, 15.1.4, 0.0.2<a class="headerlink" href="#rd-18-advisories-692-1514-002" title="Permanent link">&para;</a></h3>
+<p>Rule: these three appear on every driver and need no re-report: 6.9.2 on the <code>unsigned long long</code> literal-operator
+parameter and on the version getters, 15.1.4 on a constructor whose members have default initialisers, 0.0.2 on a
+condition a constant-hook port makes always the same.
+Seen in CI: fdo2, ads9324 (<code>reports/fdo2-ci-misra.txt</code>, <code>reports/ads9324-ci-misra.txt</code>); predicted by the reviewer
+from those runs: pf1550 (review3, review4 m-4), alicat (review3, review4), bno08x (review1). 5 drivers.
+Detection: <code>lint</code> (planned): the gate compares the CodeQL advisory list to this known list; anything else is new.
+Reviewers do not report the known three; whether to record them as deviations is an owner decision.</p>
+<h3 id="rd-20-esp-idf-requires-incomplete">RD-20 ESP-IDF REQUIRES incomplete<a class="headerlink" href="#rd-20-esp-idf-requires-incomplete" title="Permanent link">&para;</a></h3>
+<p>Rule: every <code>#include</code> of an ESP-IDF header in <code>examples/esp32/main</code> has its component in <code>REQUIRES</code>.</p>
+<p>Seen: fdo2 (<code>reports/fdo2-ci-failed.log</code>: <code>esp_timer.h</code>; the ESP32 job failed in both examples). Later reviews found it
+clean (<code>pf1550</code> review5). 1 driver. Detection: <code>lint</code> (planned): include-to-component map checked against the
+<code>idf_component_register</code> call.</p>
+<h3 id="rd-21-esp32-example-cannot-start-with-its-defaults">RD-21 ESP32 example cannot start with its defaults<a class="headerlink" href="#rd-21-esp32-example-cannot-start-with-its-defaults" title="Permanent link">&para;</a></h3>
+<p>Rule: the example's default pins and <code>Config</code> start up; an optional hook returns <code>true</code> when the pin is absent.</p>
+<p>Seen: fdo2 (review1 M5), mcp9700 (review1 B-1: <code>GpioSet</code> returned false with the default <code>-1</code> pin), ntc (review1 M1).
+3 drivers. Detection: <code>test</code>: build the ESP32 port against stub ESP headers on the host and run the example's start-up
+with default <code>Config</code>. <code>review</code>: question "does <code>app_main</code> with the default pins reach the first measurement?"</p>
+<h3 id="rd-22-compile-fail-regex-wording-differs-by-compiler">RD-22 Compile-fail regex wording differs by compiler<a class="headerlink" href="#rd-22-compile-fail-regex-wording-differs-by-compiler" title="Permanent link">&para;</a></h3>
+<p>Rule: an <code>EXPECT:</code> is a concept or type name, or the <code>static_assert</code> text, never compiler wording.</p>
+<p>Seen: no CI failure yet. Reviewers could not confirm GCC 13/14 and clang CI wording for alicat, pf1550, bno08x
+(review4, review5, review1). 0 driver hits; listed because it is unverified each time. Detection: <code>lint</code> (planned):
+every <code>EXPECT:</code> string is <code>static assertion failed</code>, an identifier, or a string from a <code>static_assert</code>.</p>
+<h3 id="rd-23-tests-are-also-scanned-by-misra">RD-23 Tests are also scanned by MISRA<a class="headerlink" href="#rd-23-tests-are-also-scanned-by-misra" title="Permanent link">&para;</a></h3>
+<p>Rule: the MISRA job builds with tests on, so <code>tests/</code>, models, fuzz and consumers meet the same rules as <code>inc/</code>.</p>
+<p>Seen: tmc5160 (review5 B1, the model), alicat (review3 m-10: char compares in tests and the model, "if CodeQL scans
+tests"). 2 drivers; whether
+the job reports test files is not proved by the two CI runs on file. Detection: <code>lint</code>:
+every <code>misra_lint</code> rule scans <code>tests/ examples/</code> as well as <code>inc/ src/</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright kb-footer">
+  <nav class="kb-footer__links" aria-label="Kokeb Labs">
+    <a href="https://kokeb-labs.github.io/">Kokeb Labs docs</a>
+    <a href="https://github.com/kokeb-labs-drivers">GitHub organisation</a>
+    
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200">Source</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200/issues">Report an issue</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/main/LICENSE">License</a>
+    
+  </nav>
+  
+    <div class="md-copyright__highlight">Copyright (c) 2026 The driver-max22200 authors</div>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/kokeb-labs-drivers" target="_blank" rel="noopener" title="Kokeb Labs on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.prune", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../search/main.js"></script>
+      
+    
+  </body>
+</html>
