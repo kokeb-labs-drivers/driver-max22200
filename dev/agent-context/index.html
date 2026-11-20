@@ -892,7 +892,7 @@
 
 <h1 id="agent-context">Agent context<a class="headerlink" href="#agent-context" title="Permanent link">&para;</a></h1>
 <p>What an agent needs before it touches this repository: the flow, the skill for each step, the exact local checks, the
-file layout, the standing rules, the pitfalls that failed CI before, and when to stop. Read <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/AGENTS.md">AGENTS.md</a>
+file layout, the standing rules, the pitfalls that failed CI before, and when to stop. Read <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/AGENTS.md">AGENTS.md</a>
 for the repository itself. This page is managed by the template (<code>scaffold.py --check-drift --fix</code> ships it) and
 <code>tools/check_skills.py</code> checks that every skill named here exists and that the files its commands name exist.</p>
 <h2 id="1-the-flow-and-the-skill-for-each-step">1. The flow and the skill for each step<a class="headerlink" href="#1-the-flow-and-the-skill-for-each-step" title="Permanent link">&para;</a></h2>
@@ -912,77 +912,77 @@ holds.</p>
 <tr>
 <td>0</td>
 <td>Plan: new driver, extension or duplicate, and the API shape</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/plan-driver/SKILL.md"><code>plan-driver</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/plan-driver/SKILL.md"><code>plan-driver</code></a></td>
 <td><code>placement.md</code> with a verdict</td>
 <td>Verdict <code>NEW</code>; otherwise stop or extend</td>
 </tr>
 <tr>
 <td>1</td>
 <td>Scaffold</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/new-driver-from-template/SKILL.md"><code>new-driver-from-template</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/new-driver-from-template/SKILL.md"><code>new-driver-from-template</code></a></td>
 <td>A building driver with the example chip renamed</td>
 <td><code>verify</code> passes on the untouched scaffold</td>
 </tr>
 <tr>
 <td>2</td>
 <td>Build from the datasheet</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/datasheet-conformance/SKILL.md"><code>datasheet-conformance</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/add-driver-feature/SKILL.md"><code>add-driver-feature</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/add-port/SKILL.md"><code>add-port</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/datasheet-conformance/SKILL.md"><code>datasheet-conformance</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/add-driver-feature/SKILL.md"><code>add-driver-feature</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/add-port/SKILL.md"><code>add-port</code></a></td>
 <td>Register map, model, tests, driver, port, examples, docs</td>
 <td>Host tests green; every datasheet topic recorded</td>
 </tr>
 <tr>
 <td>3</td>
 <td>Self-review</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/cpp20-profile/SKILL.md"><code>cpp20-profile</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/misra-review/SKILL.md"><code>misra-review</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/hardware-lessons-review/SKILL.md"><code>hardware-lessons-review</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/cpp20-profile/SKILL.md"><code>cpp20-profile</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/misra-review/SKILL.md"><code>misra-review</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/hardware-lessons-review/SKILL.md"><code>hardware-lessons-review</code></a></td>
 <td>Findings fixed</td>
 <td>Every catalogue class in <code>recurring-defects.md</code> answered</td>
 </tr>
 <tr>
 <td>4</td>
 <td>Verify</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/verify/SKILL.md"><code>verify</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/verify/SKILL.md"><code>verify</code></a></td>
 <td>Local gate result</td>
 <td><code>tools/preflight.sh</code> ends <code>0 failure(s)</code></td>
 </tr>
 <tr>
 <td>5</td>
 <td>Independent review</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/review-round/SKILL.md"><code>review-round</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/review-round/SKILL.md"><code>review-round</code></a></td>
 <td>A report per round</td>
 <td><code>NO BLOCKER</code> and no MAJOR</td>
 </tr>
 <tr>
 <td>6</td>
 <td>First-push gate</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/first-push/SKILL.md"><code>first-push</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/first-push/SKILL.md"><code>first-push</code></a></td>
 <td>Container rehearsal and the evidence list</td>
 <td><code>0 failure(s)</code> and <code>0 gate failure(s)</code></td>
 </tr>
 <tr>
 <td>7</td>
 <td>Publish</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/publish-driver/SKILL.md"><code>publish-driver</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/publish-driver/SKILL.md"><code>publish-driver</code></a></td>
 <td>Public repository, one commit, green <code>main</code>, Pages</td>
 <td><code>CI gate / gate</code> green on <code>main</code>; the owner did the owner-only steps</td>
 </tr>
 <tr>
 <td>8</td>
 <td>Release candidate</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/release/SKILL.md"><code>release</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/release/SKILL.md"><code>release</code></a></td>
 <td>Tag <code>v0.1.0-rc.N</code></td>
 <td>Release workflow green; checksums verified</td>
 </tr>
 <tr>
 <td>9</td>
 <td>Hardware</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/hardware-validation/SKILL.md"><code>hardware-validation</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/hardware-validation/SKILL.md"><code>hardware-validation</code></a></td>
 <td>Level H0, H1 or H2 stated and evidenced</td>
 <td>Badge, <code>driver.yml</code> and release text agree</td>
 </tr>
 <tr>
 <td>10</td>
 <td>After release</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/skills/bump-pin/SKILL.md"><code>bump-pin</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/skills/bump-pin/SKILL.md"><code>bump-pin</code></a></td>
 <td>A pin-bump pull request per consumer</td>
 <td>Consumer CI green</td>
 </tr>
@@ -990,7 +990,7 @@ holds.</p>
 </table>
 <p>A change to an existing driver skips steps 0, 1 and 7: use <code>add-driver-feature</code> or <code>add-port</code>, then steps 3 to 5 and a
 pull request (AGENTS.md, "Branches, commits and pull requests"). The agent
-<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/20de752b2a433587282ff4f03ae4f919dd55b179/.claude/agents/safety-reviewer.md"><code>safety-reviewer</code></a> runs the review skills read-only.</p>
+<a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/.claude/agents/safety-reviewer.md"><code>safety-reviewer</code></a> runs the review skills read-only.</p>
 <h2 id="2-the-local-gate-commands-and-what-passes">2. The local gate: commands and what passes<a class="headerlink" href="#2-the-local-gate-commands-and-what-passes" title="Permanent link">&para;</a></h2>
 <p>Run from the repository root. Set <code>VENV</code> (a venv with the docs theme, lizard, yamllint), <code>CI_TOOLS_DIR</code> (a
 <code>kokeb-labs/ci-tools</code> checkout) and <code>CLANG_TIDY</code> (version 20) when the tools are not on <code>PATH</code>. A step the preflight

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="628" height="623" viewBox="0 0 628 623" role="img" aria-labelledby="one-call-through-the-layers-title one-call-through-the-layers-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" class="fk">
+<title id="one-call-through-the-layers-title">One call through the layers</title>
+<desc id="one-call-through-the-layers-desc">One call through the layers: your code calls SetChannel(2, true), the core exchanges frames with the chip through your port and returns the result to your code.</desc>
+<style>
+.fk{--fk-amber-soft:#F1CF93;--fk-amber-text:#8A3C0B;--fk-amber-tint:#FFF5E3;--fk-canvas:#FFFFFF;--fk-frame:#E2E7EE;--fk-green-strong:#15803D;--fk-green-text:#14532D;--fk-green-tint:#EAF7EF;--fk-hair:#E2E7EE;--fk-ink:#0E1726;--fk-line:#738093;--fk-magenta-strong:#A21CAF;--fk-magenta-text:#86198F;--fk-magenta-tint:#FDF0FF;--fk-muted:#566070;--fk-rail:#7C8798;--fk-teal-strong:#0B7A72;--fk-teal-text:#0B5F59;--fk-teal-tint:#E6F6F4;}
+@media (prefers-color-scheme:dark){.fk{--fk-amber-soft:#6A5220;--fk-amber-text:#FDE68A;--fk-amber-tint:#2C2310;--fk-canvas:#0E131A;--fk-frame:#283241;--fk-green-strong:#4ADE80;--fk-green-text:#BBF7D0;--fk-green-tint:#11281A;--fk-hair:#252F3C;--fk-ink:#E8EDF3;--fk-line:#6C7889;--fk-magenta-strong:#F0ABFC;--fk-magenta-text:#F5D0FE;--fk-magenta-tint:#2E1533;--fk-muted:#9AA6B5;--fk-rail:#6C7889;--fk-teal-strong:#2BB3A3;--fk-teal-text:#A7F3E6;--fk-teal-tint:#0F2A28;}}
+:root[data-theme="dark"] .fk,[data-md-color-scheme="slate"] .fk{--fk-amber-soft:#6A5220;--fk-amber-text:#FDE68A;--fk-amber-tint:#2C2310;--fk-canvas:#0E131A;--fk-frame:#283241;--fk-green-strong:#4ADE80;--fk-green-text:#BBF7D0;--fk-green-tint:#11281A;--fk-hair:#252F3C;--fk-ink:#E8EDF3;--fk-line:#6C7889;--fk-magenta-strong:#F0ABFC;--fk-magenta-text:#F5D0FE;--fk-magenta-tint:#2E1533;--fk-muted:#9AA6B5;--fk-rail:#6C7889;--fk-teal-strong:#2BB3A3;--fk-teal-text:#A7F3E6;--fk-teal-tint:#0F2A28;}
+:root[data-theme="light"] .fk,[data-md-color-scheme="default"] .fk{--fk-amber-soft:#F1CF93;--fk-amber-text:#8A3C0B;--fk-amber-tint:#FFF5E3;--fk-canvas:#FFFFFF;--fk-frame:#E2E7EE;--fk-green-strong:#15803D;--fk-green-text:#14532D;--fk-green-tint:#EAF7EF;--fk-hair:#E2E7EE;--fk-ink:#0E1726;--fk-line:#738093;--fk-magenta-strong:#A21CAF;--fk-magenta-text:#86198F;--fk-magenta-tint:#FDF0FF;--fk-muted:#566070;--fk-rail:#7C8798;--fk-teal-strong:#0B7A72;--fk-teal-text:#0B5F59;--fk-teal-tint:#E6F6F4;}
+.fk-f-amber-soft{fill:var(--fk-amber-soft)}.fk-s-amber-soft{stroke:var(--fk-amber-soft)}
+.fk-f-amber-text{fill:var(--fk-amber-text)}.fk-s-amber-text{stroke:var(--fk-amber-text)}
+.fk-f-amber-tint{fill:var(--fk-amber-tint)}.fk-s-amber-tint{stroke:var(--fk-amber-tint)}
+.fk-f-canvas{fill:var(--fk-canvas)}.fk-s-canvas{stroke:var(--fk-canvas)}
+.fk-f-frame{fill:var(--fk-frame)}.fk-s-frame{stroke:var(--fk-frame)}
+.fk-f-green-strong{fill:var(--fk-green-strong)}.fk-s-green-strong{stroke:var(--fk-green-strong)}
+.fk-f-green-text{fill:var(--fk-green-text)}.fk-s-green-text{stroke:var(--fk-green-text)}
+.fk-f-green-tint{fill:var(--fk-green-tint)}.fk-s-green-tint{stroke:var(--fk-green-tint)}
+.fk-f-hair{fill:var(--fk-hair)}.fk-s-hair{stroke:var(--fk-hair)}
+.fk-f-ink{fill:var(--fk-ink)}.fk-s-ink{stroke:var(--fk-ink)}
+.fk-f-line{fill:var(--fk-line)}.fk-s-line{stroke:var(--fk-line)}
+.fk-f-magenta-strong{fill:var(--fk-magenta-strong)}.fk-s-magenta-strong{stroke:var(--fk-magenta-strong)}
+.fk-f-magenta-text{fill:var(--fk-magenta-text)}.fk-s-magenta-text{stroke:var(--fk-magenta-text)}
+.fk-f-magenta-tint{fill:var(--fk-magenta-tint)}.fk-s-magenta-tint{stroke:var(--fk-magenta-tint)}
+.fk-f-muted{fill:var(--fk-muted)}.fk-s-muted{stroke:var(--fk-muted)}
+.fk-f-rail{fill:var(--fk-rail)}.fk-s-rail{stroke:var(--fk-rail)}
+.fk-f-teal-strong{fill:var(--fk-teal-strong)}.fk-s-teal-strong{stroke:var(--fk-teal-strong)}
+.fk-f-teal-text{fill:var(--fk-teal-text)}.fk-s-teal-text{stroke:var(--fk-teal-text)}
+.fk-f-teal-tint{fill:var(--fk-teal-tint)}.fk-s-teal-tint{stroke:var(--fk-teal-tint)}
+@media (forced-colors:active){.fk text{fill:CanvasText}.fk rect,.fk circle{fill:Canvas;stroke:CanvasText}.fk path{stroke:CanvasText}.fk marker path{fill:CanvasText;stroke:none}}
+</style>
+<defs><marker id="one-call-through-the-layers-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fk-f-rail"/></marker></defs>
+<rect x="0.5" y="0.5" width="627" height="622" rx="16" class="fk-f-canvas fk-s-frame"/>
+<text x="32" y="54.8" font-size="26" font-weight="700" class="fk-f-ink">One call through the layers</text>
+<rect x="32" y="70.8" width="564" height="1" class="fk-f-hair"/>
+<path d="M104.7 144.8 L104.7 626.8" fill="none" stroke-width="1.2" stroke-dasharray="5 5" class="fk-s-line"/>
+<path d="M278.6 144.8 L278.6 626.8" fill="none" stroke-width="1.2" stroke-dasharray="5 5" class="fk-s-line"/>
+<path d="M523.3 144.8 L523.3 626.8" fill="none" stroke-width="1.2" stroke-dasharray="5 5" class="fk-s-line"/>
+<path d="M108.7 180.8 L274.6 180.8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)" class="fk-s-rail"/>
+<path d="M282.6 276.8 L519.3 276.8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)" class="fk-s-rail"/>
+<path d="M282.6 320.8 L519.3 320.8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)" class="fk-s-rail"/>
+<path d="M519.3 364.8 L282.6 364.8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)" class="fk-s-rail"/>
+<path d="M282.6 408.8 L519.3 408.8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)" class="fk-s-rail"/>
+<path d="M282.6 452.8 L519.3 452.8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)" class="fk-s-rail"/>
+<path d="M519.3 496.8 L282.6 496.8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)" class="fk-s-rail"/>
+<path d="M274.6 592.8 L108.7 592.8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)" class="fk-s-rail"/>
+<rect x="39.7" y="88.8" width="130" height="52" rx="10" stroke-width="1.4" class="fk-f-magenta-tint fk-s-magenta-strong"/>
+<rect x="39.7" y="96.8" width="4" height="36" rx="2" class="fk-f-magenta-strong"/>
+<rect x="185.7" y="88.8" width="185.8" height="52" rx="10" stroke-width="1.4" class="fk-f-green-tint fk-s-green-strong"/>
+<rect x="185.7" y="96.8" width="4" height="36" rx="2" class="fk-f-green-strong"/>
+<rect x="458.3" y="88.8" width="130" height="52" rx="10" stroke-width="1.4" class="fk-f-teal-tint fk-s-teal-strong"/>
+<rect x="458.3" y="96.8" width="4" height="36" rx="2" class="fk-f-teal-strong"/>
+<rect x="208.6" y="208.8" width="384.8" height="41" rx="10" stroke-width="1" class="fk-f-amber-tint fk-s-amber-soft"/>
+<rect x="208.6" y="524.8" width="384.8" height="41" rx="10" stroke-width="1" class="fk-f-amber-tint fk-s-amber-soft"/>
+<text x="107.7" y="119.3" font-size="15" font-weight="700" text-anchor="middle" class="fk-f-magenta-text">Your code</text>
+<text x="281.6" y="119.3" font-size="15" font-weight="700" text-anchor="middle" class="fk-f-green-text">MAX22200&lt;Port&gt;</text>
+<text x="526.3" y="119.3" font-size="15" font-weight="700" text-anchor="middle" class="fk-f-teal-text">Your port</text>
+<rect x="126.1" y="156.8" width="131" height="20" rx="10" class="fk-f-canvas"/>
+<text x="191.6" y="171.1" font-size="12" font-weight="500" text-anchor="middle" class="fk-f-muted">SetChannel(2, true)</text>
+<text x="222.6" y="233.9" font-size="13" class="fk-f-amber-text">next = copy of ONCH | 0x04</text>
+<rect x="324.9" y="252.8" width="152.2" height="20" rx="10" class="fk-f-canvas"/>
+<text x="401" y="267.1" font-size="12" font-weight="500" text-anchor="middle" class="fk-f-muted">GpioSet(Cmd, ACTIVE)</text>
+<rect x="286.6" y="296.8" width="228.8" height="20" rx="10" class="fk-f-canvas"/>
+<text x="401" y="311.1" font-size="12" font-weight="500" text-anchor="middle" class="fk-f-muted">Transfer(0x81): write STATUS, 8 bit</text>
+<rect x="350.3" y="340.8" width="101.2" height="20" rx="10" class="fk-f-canvas"/>
+<text x="401" y="355.1" font-size="12" font-weight="500" text-anchor="middle" class="fk-f-muted">true, fault byte</text>
+<rect x="318.3" y="384.8" width="165.3" height="20" rx="10" class="fk-f-canvas"/>
+<text x="401" y="399.1" font-size="12" font-weight="500" text-anchor="middle" class="fk-f-muted">GpioSet(Cmd, INACTIVE)</text>
+<rect x="350.9" y="428.8" width="100.1" height="20" rx="10" class="fk-f-canvas"/>
+<text x="401" y="443.1" font-size="12" font-weight="500" text-anchor="middle" class="fk-f-muted">Transfer(next)</text>
+<rect x="382.8" y="472.8" width="36.4" height="20" rx="10" class="fk-f-canvas"/>
+<text x="401" y="487.1" font-size="12" font-weight="500" text-anchor="middle" class="fk-f-muted">true</text>
+<text x="222.6" y="549.9" font-size="13" class="fk-f-amber-text">copy of ONCH = next</text>
+<rect x="131.2" y="568.8" width="120.9" height="20" rx="10" class="fk-f-canvas"/>
+<text x="191.6" y="583.1" font-size="12" font-weight="500" text-anchor="middle" class="fk-f-muted">Result&lt;void&gt;{Ok}</text>
+</svg>
