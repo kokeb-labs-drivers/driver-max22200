@@ -60,8 +60,10 @@ at a time and `cmake --build ... --parallel 3` at most when other agents are wor
 
 - **One source per header, same stem.** `inc/<stem>.hpp` has `src/<stem>.cpp` (or `.ipp` for a header-only template
   driver). A header that declares only constants, types, details, registers, the Kconfig defaults or the port contract
-  (`_types`, `_detail`, `_registers`, `_kconfig`, `_interface`) needs no source; any other header without one is
-  listed in `tools/layout.yml` with the reason. No combined file (`a_and_b.cpp`): split it by header.
+  (`_types`, `_detail`, `_registers`, `_kconfig`, `_interface`) needs no source. A header with real logic always has
+  its own source. A header that holds only templates, constants or inline types may instead be listed under
+  `header_only` in `tools/layout.yml` with a one-line reason (no colon followed by a space in it); nothing else is
+  exempt. No combined file (`a_and_b.cpp`): split it by header.
 - **SDK-touching code** (ESP-IDF, an RTOS, a vendor HAL) is never in `inc/` or in `src/`'s logic: it lives one file
   per SDK component in `src/boundary/<component>.cpp`, named after the component, so the directory carries the
   layering rule. A driver normally has none: it reaches hardware only through the port hooks, and the SDK appears

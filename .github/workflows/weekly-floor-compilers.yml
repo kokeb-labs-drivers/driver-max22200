@@ -1,0 +1,23 @@
+---
+# Once a week: build and test with the oldest compilers this driver promises (language.compilers in driver.yml:
+# GCC 10 and Clang 13 for C++20), each in a container pinned by digest. The ordinary host tests run the newest
+# compilers and cannot see a feature that only a newer one has.
+# This is the one workflow allowed to run on a schedule (ci-tools docs/triggers.md): it only calls the shared workflow,
+# with read access, no secrets and no steps of its own. Keep it that way: ci-tools' trigger lint fails anything more.
+name: Weekly floor compilers
+
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  floor:
+    name: Floor compilers
+    uses: kokeb-labs/ci-tools/.github/workflows/ru-floor-compilers.yml@v1
+    permissions:
+      contents: read
+    with:
+      cmake_args: "-DMAX22200_BUILD_TESTS=ON"

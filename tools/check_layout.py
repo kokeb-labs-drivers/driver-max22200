@@ -11,7 +11,9 @@ Rules (the exceptions are in tools/layout.yml, each with its reason; the file is
    header, named after it.
 2. Every public header has a source of its stem in src/, or is header-only: a header whose stem ends in _types,
    _detail, _registers, _kconfig, _version, _interface (declarations, constants and the port contract), a
-   template-only header listed under `header_only` with a reason, or a library whose src/ does not exist.
+   header listed under `header_only` with a one-line reason, or a library whose src/ does not exist. The policy is
+   lenient: `header_only` is for a header that holds only templates, constants or inline types; a header with real
+   logic (a non-template function with a body) gets its own source.
 3. Every file of src/boundary/ has the stem of a public header (the SDK component it wraps), or is listed under
    `boundary_extra`: one file per SDK component, named after it.
 4. Includes of an SDK (ESP-IDF, FreeRTOS, vendor HALs; not the generated sdkconfig.h, which only the

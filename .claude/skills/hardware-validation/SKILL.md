@@ -103,6 +103,21 @@ hardware:
   reviewed: null     # H2: "hardware engineer review", then the release it applies to, e.g. v0.1.0-rc.3
 ```
 
+The same file carries the driver's safety class, which says what the chip path can do to the physical world:
+
+```yaml
+safety:
+  class: sensing     # passive, sensing or actuating
+```
+
+- `passive`: nothing a safety decision rests on (memory, display, communication, status LEDs).
+- `sensing`: a measurement a safety decision may rest on, so a wrong value is the hazard.
+- `actuating`: it can move, energise, heat or switch something, so a wrong command is the hazard. Changes to such a
+  driver take the `safety` label and a human review (KB-AGT-013).
+
+Pick the highest that applies to any function of the chip the driver exposes. It is the driver's own class; the
+product that uses the driver classifies itself (KB-ARCH-030). The organisation page shows it next to the level.
+
 README, directly under the other badges (the badge text and colour follow the level):
 
 ```markdown
@@ -112,9 +127,9 @@ README, directly under the other badges (the badge text and colour follow the le
 ```
 
 Keep only the line for the current level. The README's **Status** row says the same thing in words (section 5).
-`python3 tools/check_hardware.py` (part of the preflight) checks that the level is valid, that the badge matches it,
-and that H1 and H2 name an existing rig document with the required headings. Release the badge change in the same
-pull request as the evidence.
+`python3 tools/check_hardware.py` (part of the preflight) checks that the level and the safety class are valid, that the
+badge matches it, and that H1 and H2 name an existing rig document with the required headings. Release the badge change
+in the same pull request as the evidence.
 
 Labels (`.github/labels.yml`; `kokeb_org.py --apply` creates them):
 

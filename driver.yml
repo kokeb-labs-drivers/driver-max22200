@@ -8,6 +8,8 @@ mcus: [any]         # any, or the MCU families it needs, e.g. [esp32]
 peripheral: null    # an MCU peripheral it needs with mcus, e.g. rmt
 kb_core_min: null   # the oldest kb-core release whose handler works with this version; null until kb-core exists
 authors: ["The driver-max22200 authors"]  # the copyright holder, as in LICENSE
+safety:           # what the chip path can do to the physical world, see the hardware-validation skill
+  class: actuating
 language:           # the C++ standard, declared once; tools/check_language.py checks every place that repeats it
   standard: 20      # the minimum ISO C++ standard: a consumer needs at least this (docs/language-standard.md)
   profile: KB-CPP20          # the handbook profile of that standard
