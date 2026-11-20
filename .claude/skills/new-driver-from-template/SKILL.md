@@ -88,7 +88,8 @@ Use the `datasheet-conformance` skill for every step, one subsystem at a time:
    step 2): the README's first sentence as the description, and the shared topics plus the bus, the device
    category, the vendor and the part.
 7. Run `tools/preflight.sh` until it reports `0 failure(s)`. Keep the layout rule: `src/<stem>.cpp` (or `.ipp`) for
-   every header, SDK code only in `src/boundary/` (`tools/check_layout.py`). Set `hardware.level: H0` in
+   every header with logic (templates, constants and inline types may be listed under `header_only` with a
+   reason), SDK code only in `src/boundary/` (`tools/check_layout.py`). Set `hardware.level: H0` in
    `driver.yml` (the template's default) until the `hardware-validation` skill says otherwise.
 8. Then the `review-round` skill until its stop rule holds, the `first-push` skill, and the `publish-driver` skill:
    the driver stays private (or local) until then; the first push is a fresh single commit to the public

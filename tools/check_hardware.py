@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The hardware validation level is stated once and agrees everywhere (Python 3.9+, standard library only).
+"""The hardware validation level and the safety class are stated once and agree everywhere (Python 3.9+, standard library only).
 
     python3 -I tools/check_hardware.py                # the repository this file is in
     python3 -I tools/check_hardware.py --root DIR
@@ -13,6 +13,10 @@ H2 (verified by a hardware engineer). driver.yml carries `hardware: {level, rig,
 2. the README shows exactly one hardware badge, for that level;
 3. H1 and H2 name a rig document that exists, with the headings the skill requires, and an evidence entry;
 4. H2 also names the review it applies to (`reviewed`).
+5. `safety.class` is passive, sensing or actuating (a missing block is a note): what the chip path can do to the
+   physical world. passive: nothing a safety decision rests on (memory, display, communication). sensing: a measurement
+   one may rest on, so a wrong value is the hazard. actuating: it can move, energise, heat or switch something, so a
+   wrong command is the hazard. It is the driver's own class; the product that uses it classifies itself (KB-ARCH-030).
 A library has no driver.yml and is not checked. Prints `path: message` per finding; exit status 1 on one.
 """
 from __future__ import annotations
@@ -25,13 +29,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LEVELS = ("H0", "H1", "H2")
 BADGE = re.compile(r"img\.shields\.io/badge/hardware-(H\d)")
+SAFETY_CLASSES = ("passive", "sensing", "actuating")
 RIG_HEADINGS = ("Purpose", "Equipment", "Wiring", "Bus settings", "Firmware", "Steps and results",
                 "Discrepancies with the model", "Not covered")
 
 
-def block(text: str) -> dict[str, str] | None:
-    """The `hardware:` mapping of driver.yml: indented `key: value` lines under it."""
-    m = re.search(r"^hardware:[ \t]*(?:#.*)?\n((?:[ \t]+\S.*\n?)+)", text, re.M)
+def block(text: str, name: str = "hardware") -> dict[str, str] | None:
+    """The `name:` mapping of driver.yml: indented `key: value` lines under it."""
+    m = re.search(rf"^{name}:[ \t]*(?:#.*)?\n((?:[ \t]+\S.*\n?)+)", text, re.M)
     if not m:
         return None
     fields: dict[str, str] = {}
@@ -49,14 +54,21 @@ def check(root: Path) -> tuple[list[str], list[str]]:
         return [], []
     bad: list[str] = []
     notes: list[str] = []
-    fields = block(manifest.read_text(encoding="utf-8"))
+    text = manifest.read_text(encoding="utf-8")
+    safety = block(text, "safety")
+    if safety is None:
+        notes.append("driver.yml: no safety block (add `safety: {class: passive | sensing | actuating}`, "
+                     "hardware-validation skill)")
+    elif safety.get("class") not in SAFETY_CLASSES:
+        bad.append(f"driver.yml: safety.class is {safety.get('class')!r}, expected one of {', '.join(SAFETY_CLASSES)}")
+    fields = block(text)
     level = "H0"
     if fields is None:
         notes.append("driver.yml: no hardware block; H0 assumed (add `hardware: {level: H0}`, hardware-validation skill)")
     else:
         level = fields.get("level", "")
         if level not in LEVELS:
-            return [f"driver.yml: hardware.level is {level!r}, expected one of {', '.join(LEVELS)}"], notes
+            return bad + [f"driver.yml: hardware.level is {level!r}, expected one of {', '.join(LEVELS)}"], notes
     readme = root / "README.md"
     badges = BADGE.findall(readme.read_text(encoding="utf-8")) if readme.is_file() else []
     if fields is not None:
@@ -118,6 +130,26 @@ def selftest() -> int:
         if bad or not notes:
             ok = False
             print("selftest FAILED: a driver.yml without the block is a note, not an error")
+    for label, extra, want in (("safety good", "safety:\n  class: sensing   # note\n", None),
+                               ("safety invalid", "safety:\n  class: dangerous\n", "safety.class"),
+                               ("safety empty", "safety:\n  class:\n", "safety.class")):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = tree(Path(tmp), "H0", "H0")
+            (root / "driver.yml").write_text((root / "driver.yml").read_text(encoding="utf-8") + extra, encoding="utf-8")
+            bad, notes = check(root)
+        if bool(bad) if want is None else not any(want in b for b in bad):
+            ok = False
+            print(f"selftest FAILED: {label}: expected {want!r}, got {bad}")
+        if want is None and any("safety" in n for n in notes):
+            ok = False
+            print("selftest FAILED: a safety block is not noted as missing")
+    with tempfile.TemporaryDirectory() as tmp:
+        (Path(tmp) / "driver.yml").write_text("name: x\nhardware:\n  level: H0\n", encoding="utf-8")
+        (Path(tmp) / "README.md").write_text("[![Hardware](https://img.shields.io/badge/hardware-H0%20x-grey)](a)\n")
+        bad, notes = check(Path(tmp))
+        if bad or not any("safety" in n for n in notes):
+            ok = False
+            print("selftest FAILED: a missing safety block is a note, not an error")
     with tempfile.TemporaryDirectory() as tmp:
         if check(Path(tmp)) != ([], []):
             ok = False
@@ -139,7 +171,7 @@ def main(argv: list[str]) -> int:
         print(f"check_hardware: {len(bad)} finding(s)")
         return 1
     if "--quiet" not in argv:
-        print("check_hardware: the hardware level, the badge and the evidence agree")
+        print("check_hardware: the hardware level, the badge, the evidence and the safety class agree")
     return 0
 
 
