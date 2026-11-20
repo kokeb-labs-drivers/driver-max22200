@@ -46,5 +46,22 @@
       "inc/max22200.hpp:public calls",
       "inc/max22200_spi_interface.hpp:SpiInterface"
     ]
+  },
+  "one-call-through-the-layers": {
+    "title": "One call through the layers",
+    "alt": "One call through the layers: your code calls SetChannel(2, true), the core exchanges frames with the chip through your port and returns the result to your code.",
+    "description": "Participants, left to right: Your code, MAX22200<Port> and Your port. The steps run from top to bottom. Your code sends SetChannel(2, true) to MAX22200<Port>. A note over MAX22200<Port> says: next = copy of ONCH | 0x04. MAX22200<Port> sends GpioSet(Cmd, ACTIVE) to Your port. MAX22200<Port> sends Transfer(0x81): write STATUS, 8 bit to Your port. Your port returns true, fault byte to MAX22200<Port>. MAX22200<Port> sends GpioSet(Cmd, INACTIVE) to Your port. MAX22200<Port> sends Transfer(next) to Your port. Your port returns true to MAX22200<Port>. A note over MAX22200<Port> says: copy of ONCH = next. MAX22200<Port> returns Result<void>{Ok} to Your code.",
+    "profile": "detail",
+    "width": 628,
+    "source": "docs/model/one-call-through-the-layers.seq.yml",
+    "sources": [
+      "docs/model/one-call-through-the-layers.seq.yml"
+    ],
+    "kind": "seq",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
   }
 }

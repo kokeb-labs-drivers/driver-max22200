@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="628" height="623" viewBox="0 0 628 623" role="img" aria-labelledby="one-call-through-the-layers-title one-call-through-the-layers-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="one-call-through-the-layers-title">One call through the layers</title>
+<desc id="one-call-through-the-layers-desc">One call through the layers: your code calls SetChannel(2, true), the core exchanges frames with the chip through your port and returns the result to your code.</desc>
+<defs><marker id="one-call-through-the-layers-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7C8798"/></marker></defs>
+<rect x="0.5" y="0.5" width="627" height="622" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="54.8" font-size="26" font-weight="700" fill="#0E1726">One call through the layers</text>
+<rect x="32" y="70.8" width="564" height="1" fill="#E2E7EE"/>
+<path d="M104.7 144.8 L104.7 626.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M278.6 144.8 L278.6 626.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M523.3 144.8 L523.3 626.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M108.7 180.8 L274.6 180.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M282.6 276.8 L519.3 276.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M282.6 320.8 L519.3 320.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M519.3 364.8 L282.6 364.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M282.6 408.8 L519.3 408.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M282.6 452.8 L519.3 452.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M519.3 496.8 L282.6 496.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M274.6 592.8 L108.7 592.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<rect x="39.7" y="88.8" width="130" height="52" rx="10" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="39.7" y="96.8" width="4" height="36" rx="2" fill="#A21CAF"/>
+<rect x="185.7" y="88.8" width="185.8" height="52" rx="10" fill="#EAF7EF" stroke="#15803D" stroke-width="1.4"/>
+<rect x="185.7" y="96.8" width="4" height="36" rx="2" fill="#15803D"/>
+<rect x="458.3" y="88.8" width="130" height="52" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="458.3" y="96.8" width="4" height="36" rx="2" fill="#0B7A72"/>
+<rect x="208.6" y="208.8" width="384.8" height="41" rx="10" fill="#FFF5E3" stroke="#F1CF93" stroke-width="1"/>
+<rect x="208.6" y="524.8" width="384.8" height="41" rx="10" fill="#FFF5E3" stroke="#F1CF93" stroke-width="1"/>
+<text x="107.7" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#86198F">Your code</text>
+<text x="281.6" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#14532D">MAX22200&lt;Port&gt;</text>
+<text x="526.3" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#0B5F59">Your port</text>
+<rect x="126.1" y="156.8" width="131" height="20" rx="10" fill="#FFFFFF"/>
+<text x="191.6" y="171.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">SetChannel(2, true)</text>
+<text x="222.6" y="233.9" font-size="13" fill="#8A3C0B">next = copy of ONCH | 0x04</text>
+<rect x="324.9" y="252.8" width="152.2" height="20" rx="10" fill="#FFFFFF"/>
+<text x="401" y="267.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">GpioSet(Cmd, ACTIVE)</text>
+<rect x="286.6" y="296.8" width="228.8" height="20" rx="10" fill="#FFFFFF"/>
+<text x="401" y="311.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(0x81): write STATUS, 8 bit</text>
+<rect x="350.3" y="340.8" width="101.2" height="20" rx="10" fill="#FFFFFF"/>
+<text x="401" y="355.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true, fault byte</text>
+<rect x="318.3" y="384.8" width="165.3" height="20" rx="10" fill="#FFFFFF"/>
+<text x="401" y="399.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">GpioSet(Cmd, INACTIVE)</text>
+<rect x="350.9" y="428.8" width="100.1" height="20" rx="10" fill="#FFFFFF"/>
+<text x="401" y="443.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(next)</text>
+<rect x="382.8" y="472.8" width="36.4" height="20" rx="10" fill="#FFFFFF"/>
+<text x="401" y="487.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true</text>
+<text x="222.6" y="549.9" font-size="13" fill="#8A3C0B">copy of ONCH = next</text>
+<rect x="131.2" y="568.8" width="120.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="191.6" y="583.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Result&lt;void&gt;{Ok}</text>
+</svg>
