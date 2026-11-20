@@ -1,0 +1,28 @@
+---
+# Model of the figure 'one-call-through-the-layers'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+kind: seq
+id: one-call-through-the-layers
+title: "One call through the layers"
+alt: >-
+  One call through the layers: your code calls SetChannel(2, true), the core exchanges frames with the chip
+  through your port and returns the result to your code.
+reads: >-
+  Participants, left to right: Your code, MAX22200<Port> and Your port. The steps run from top to bottom. Your code sends SetChannel(2, true) to MAX22200<Port>. A note over MAX22200<Port> says: next = copy of ONCH | 0x04. MAX22200<Port> sends GpioSet(Cmd, ACTIVE) to Your port. MAX22200<Port> sends Transfer(0x81): write STATUS, 8 bit to Your port. Your port returns true, fault byte to MAX22200<Port>. MAX22200<Port> sends GpioSet(Cmd, INACTIVE) to Your port. MAX22200<Port> sends Transfer(next) to Your port. Your port returns true to MAX22200<Port>. A note over MAX22200<Port> says: copy of ONCH = next. MAX22200<Port> returns Result<void>{Ok} to Your code.
+print: landscape
+sources:
+  - docs/model/one-call-through-the-layers.seq.yml
+participants:
+  - {id: app, label: "Your code", tone: magenta}
+  - {id: core, label: "MAX22200<Port>", tone: green}
+  - {id: port, label: "Your port", tone: teal}
+steps:
+  - {from: app, to: core, label: "SetChannel(2, true)"}
+  - {note: "next = copy of ONCH | 0x04", over: [core, port]}
+  - {from: core, to: port, label: "GpioSet(Cmd, ACTIVE)"}
+  - {from: core, to: port, label: "Transfer(0x81): write STATUS, 8 bit"}
+  - {from: port, to: core, label: "true, fault byte", return: true}
+  - {from: core, to: port, label: "GpioSet(Cmd, INACTIVE)"}
+  - {from: core, to: port, label: "Transfer(next)"}
+  - {from: port, to: core, label: "true", return: true}
+  - {note: "copy of ONCH = next", over: [core, port]}
+  - {from: core, to: app, label: "Result<void>{Ok}", return: true}

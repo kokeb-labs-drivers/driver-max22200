@@ -32,3 +32,8 @@ plugins:
   - kokeb
   - search
   - awesome-nav
+
+# The site has no Mermaid: every diagram is a committed light and dark SVG drawn by figkit from a model in docs/model.
+# `kokeb-docs check` fails on a mermaid fence or a .mmd file anywhere, README files included.
+extra:
+  no_mermaid: true

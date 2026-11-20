@@ -81,3 +81,20 @@ Drawn from:
 
 - `public calls` in [`inc/max22200.hpp`](../../inc/max22200.hpp)
 - `SpiInterface` in [`inc/max22200_spi_interface.hpp`](../../inc/max22200_spi_interface.hpp)
+
+## One call through the layers
+
+<!-- figure: one-call-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="one-call-through-the-layers.dark.svg">
+  <img src="one-call-through-the-layers.svg"
+    alt="One call through the layers: your code calls SetChannel(2, true), the core exchanges frames with the
+    chip through your port and returns the result to your code.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/one-call-through-the-layers.seq.yml`](../model/one-call-through-the-layers.seq.yml)
+
+Drawn from:
+
+- [`docs/model/one-call-through-the-layers.seq.yml`](../model/one-call-through-the-layers.seq.yml)

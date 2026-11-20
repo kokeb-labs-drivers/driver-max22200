@@ -60,22 +60,14 @@ The 8-bit accesses are the fast paths the datasheet names: ONCH (switching, `Set
 
 ## One call through the layers
 
-```mermaid
-sequenceDiagram
-    participant App as Your code
-    participant Core as MAX22200<Port>
-    participant Port as Your port
-    App->>Core: SetChannel(2, true)
-    Note over Core: next = copy of ONCH | 0x04
-    Core->>Port: GpioSet(Cmd, ACTIVE)
-    Core->>Port: Transfer(0x81): write STATUS, 8 bit
-    Port-->>Core: true, fault byte
-    Core->>Port: GpioSet(Cmd, INACTIVE)
-    Core->>Port: Transfer(next)
-    Port-->>Core: true
-    Note over Core: copy of ONCH = next
-    Core-->>App: Result<void>{Ok}
-```
+<!-- figure: one-call-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/one-call-through-the-layers.dark.svg">
+  <img src="diagrams/one-call-through-the-layers.svg"
+    alt="One call through the layers: your code calls SetChannel(2, true), the core exchanges frames with the
+    chip through your port and returns the result to your code.">
+</picture>
+<!-- /figure -->
 
 ## The register copy
 
