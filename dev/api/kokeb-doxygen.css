@@ -1,0 +1,211 @@
+/* Kokeb Labs look for the Doxygen API reference (Doxygen >= 1.9.5 with HTML_COLORSTYLE = AUTO_LIGHT).
+ *
+ * ru-mkdocs-publish.yml passes this file as HTML_EXTRA_STYLESHEET when the repository's Doxyfile sets none, so the
+ * API under api/ matches the site: same fonts, same brand colours, light or dark with the system. Doxygen's own
+ * colour variables are overridden; the layout stays Doxygen's.
+ */
+/* Fonts from the API directory itself: ru-mkdocs-publish.yml copies the woff2 files beside this stylesheet
+   (HTML_EXTRA_FILES). Nothing is loaded from a third party. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("inter-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("inter-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("jetbrains-mono-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+html {
+  --font-family-normal: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-monospace: "JetBrains Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --font-family-title: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-family-nav: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-family-search: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  --page-background-color: #ffffff;
+  --page-foreground-color: #0e1726;
+  --page-link-color: #9a4a17;
+  --page-visited-link-color: #4b3a9e;
+  --title-background-color: #0e1726;
+  --title-separator-color: #9a4a17;
+  --nav-background-color: #f5f7fa;
+  --nav-foreground-color: #2b3442;
+  --nav-text-normal-color: #0e1726;
+  --nav-text-hover-color: #0b7a72;
+  --nav-text-active-color: #9a4a17;
+  --nav-menu-background-color: #ffffff;
+  --header-background-color: #f5f7fa;
+  --header-separator-color: #e2e7ee;
+  --group-header-color: #9a4a17;
+  --memdef-title-background-color: #fbefe6;
+  --memdef-proto-background-color: #f5f7fa;
+  --memdef-border-color: #c9d1db;
+  --memdef-doc-background-color: #ffffff;
+  --memdef-table-header-background-color: #fbefe6;
+  --fragment-background-color: #f5f7fa;
+  --fragment-foreground-color: #24292f;
+  --fragment-border-color: #e2e7ee;
+  --fragment-keyword: #0e1726;
+  --fragment-keywordtype: #8a3ab9;
+  --fragment-keywordflow: #0e1726;
+  --fragment-token: #0b6b4f;
+  --fragment-comment: #5f6b7a;
+  --fragment-link: #1f5fa8;
+  --fragment-preprocessor: #a1490b;
+  --code-link-color: #9a4a17;
+  --side-nav-background: #f5f7fa;
+  --side-nav-foreground: #0e1726;
+  --toc-background-color: #f5f7fa;
+  --toc-border-color: #e2e7ee;
+  --search-background-color: #ffffff;
+  --search-foreground-color: #566070;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light-mode) {
+    --page-background-color: #0a111d;
+    --page-foreground-color: #e6ebf2;
+    --page-link-color: #f4b942;
+    --page-visited-link-color: #c4b5fd;
+    --title-background-color: #181e38;
+    --title-separator-color: #263044;
+    --nav-background-color: #151c2b;
+    --nav-foreground-color: #d2dae4;
+    --nav-text-normal-color: #e6ebf2;
+    --nav-text-hover-color: #2bb3a3;
+    --nav-text-active-color: #f4b942;
+    --nav-menu-background-color: #0a111d;
+    --header-background-color: #151c2b;
+    --header-separator-color: #263044;
+    --group-header-color: #f4b942;
+    --memdef-title-background-color: #1b2a41;
+    --memdef-proto-background-color: #151c2b;
+    --memdef-border-color: #34405a;
+    --memdef-doc-background-color: #0a111d;
+    --memdef-table-header-background-color: #1b2a41;
+    --fragment-background-color: #151c2b;
+    --fragment-foreground-color: #dbe2ec;
+    --fragment-border-color: #263044;
+    --fragment-keyword: #f4b942;
+    --fragment-keywordtype: #d8b4fe;
+    --fragment-keywordflow: #f4b942;
+    --fragment-token: #86efac;
+    --fragment-comment: #8f9bab;
+    --fragment-link: #93c5fd;
+    --fragment-preprocessor: #fdba74;
+    --code-link-color: #f4b942;
+    --side-nav-background: #151c2b;
+    --side-nav-foreground: #e6ebf2;
+    --toc-background-color: #151c2b;
+    --toc-border-color: #263044;
+    --search-background-color: #151c2b;
+    --search-foreground-color: #a2adbb;
+  }
+}
+
+body,
+table,
+div,
+p,
+dl {
+  font-family: var(--font-family-normal);
+}
+
+#titlearea {
+  border-bottom: 0;
+  background: var(--title-background-color);
+  padding: 0.4rem 0.6rem;
+}
+
+#projectname,
+#projectbrief,
+#projectnumber {
+  color: #ffffff !important;
+  font-family: var(--font-family-title);
+}
+
+#projectname {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+#projectbrief {
+  opacity: 0.85;
+}
+
+.title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h2.groupheader {
+  color: var(--group-header-color);
+  border-bottom: 1px solid var(--header-separator-color);
+  font-weight: 650;
+}
+
+div.fragment,
+pre.fragment {
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+}
+
+.memitem {
+  border-radius: 0.6rem;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.memproto,
+.memdoc {
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.memname {
+  font-family: var(--font-family-monospace);
+  font-weight: 600;
+}
+
+a:focus-visible {
+  outline: 2px solid #0b7a72;
+  outline-offset: 2px;
+}
+
+@media (max-width: 767px) {
+  #side-nav {
+    display: none;
+  }
+  #doc-content {
+    margin-left: 0 !important;
+  }
+  div.contents {
+    margin: 0 0.6rem;
+  }
+}
