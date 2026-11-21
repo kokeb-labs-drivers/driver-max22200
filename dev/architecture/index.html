@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://kokeb-labs-drivers.github.io/driver-max22200/latest/architecture/">
       
       
-        <link rel="prev" href="../hardware/">
+        <link rel="prev" href="../bus/">
       
       
         <link rel="next" href="../contract/">
@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-max22200/latest/architecture/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -1110,7 +1046,7 @@ copy of the chip's registers the driver keeps.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200.hpp"><code>inc/max22200.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200.hpp"><code>inc/max22200.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
 <h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
 <table>
@@ -1124,17 +1060,17 @@ copy of the chip's registers the driver keeps.</p>
 <tbody>
 <tr>
 <td>Core</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200.hpp"><code>inc/max22200.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/src/max22200.ipp"><code>src/max22200.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200.hpp"><code>inc/max22200.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/src/max22200.ipp"><code>src/max22200.ipp</code></a></td>
 <td>Lifecycle, the programming procedure, the register copy, the checks, errors</td>
 </tr>
 <tr>
 <td>Types and registers</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_types.hpp"><code>inc/max22200_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_types.hpp"><code>inc/max22200_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
 <td><code>Error</code>, <code>Result&lt;T&gt;</code>, <code>Config</code>, the encodings, the unit conversions, <code>Validate()</code>; the register map</td>
 </tr>
 <tr>
 <td>Port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></td>
 <td>The CRTP base, <code>CtrlPin</code> and <code>GpioSignal</code>, the <code>SpiPort</code> concept, the two-phase access</td>
 </tr>
 <tr>
@@ -1144,7 +1080,7 @@ copy of the chip's registers the driver keeps.</p>
 </tr>
 <tr>
 <td>Kconfig layer</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_kconfig.hpp"><code>inc/max22200_kconfig.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_kconfig.hpp"><code>inc/max22200_kconfig.hpp</code></a></td>
 <td>Optional: a <code>Config</code> from ESP-IDF menuconfig</td>
 </tr>
 </tbody>
@@ -1252,23 +1188,23 @@ because:</p>
 <tbody>
 <tr>
 <td>The public API</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200.hpp"><code>inc/max22200.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200.hpp"><code>inc/max22200.hpp</code></a></td>
 </tr>
 <tr>
 <td>How a call is implemented</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/src/max22200.ipp"><code>src/max22200.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/src/max22200.ipp"><code>src/max22200.ipp</code></a></td>
 </tr>
 <tr>
 <td>Register banks, bits and timing</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
 </tr>
 <tr>
 <td>The settings, encodings and conversions</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_types.hpp"><code>inc/max22200_types.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_types.hpp"><code>inc/max22200_types.hpp</code></a></td>
 </tr>
 <tr>
 <td>The port contract and the two-phase access</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1310,7 +1246,7 @@ because:</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../hardware/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Hardware">
+          <a href="../bus/" class="md-footer__link md-footer__link--prev" aria-label="Previous: On the bus">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1320,7 +1256,7 @@ because:</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Hardware
+                On the bus
               </div>
             </div>
           </a>

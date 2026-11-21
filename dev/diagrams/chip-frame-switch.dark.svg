@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="442" viewBox="0 0 1200 442" role="img" aria-labelledby="chip-frame-switch-title chip-frame-switch-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-frame-switch-title">MAX22200: 8-bit write</title>
+<desc id="chip-frame-switch-desc">8-bit write of the MAX22200, 8 bits, most significant bit first. Write: ONCH[7:0] (STATUS[31:24]) (bits 7 to 0); Reply: STATUS[7:0] (bits 7 to 0).</desc>
+<rect x="0.5" y="0.5" width="1199" height="441" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#F8D27A">ON THE BUS</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#E8EDF3">MAX22200: 8-bit write</text>
+<text x="32" y="115.4" font-size="18" fill="#9AA6B5">After the command 0x81 (write STATUS, 8 bits), every transfer with CMD low sets the ONCH byte and returns the fault byte,</text>
+<text x="32" y="141.5" font-size="18" fill="#9AA6B5">so switching channels costs one byte. 8 bits, sent most significant bit first. Datasheet: Reading and Writing Operations of</text>
+<text x="32" y="167.6" font-size="18" fill="#9AA6B5">Registers; Figure 12, p. 33.</text>
+<rect x="32" y="183.6" width="1136" height="1" fill="#252F3C"/>
+<rect x="210" y="235.6" width="930" height="46" rx="6" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<rect x="210" y="323.6" width="930" height="46" rx="6" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
+<text x="210" y="217.6" font-size="16" fill="#9AA6B5">MSB, sent first</text>
+<text x="1140" y="217.6" font-size="16" text-anchor="end" fill="#9AA6B5">LSB, sent last</text>
+<text x="32" y="256.6" font-size="20" font-weight="700" fill="#E8EDF3">Write</text>
+<text x="32" y="276.6" font-size="16" fill="#9AA6B5">SDI, CMD low</text>
+<text x="675" y="264.7" font-size="17" font-weight="600" text-anchor="middle" fill="#BBF7D0">ONCH[7:0] (STATUS[31:24])</text>
+<text x="212" y="301.6" font-size="16" fill="#9AA6B5">7</text>
+<text x="1138" y="301.6" font-size="16" text-anchor="end" fill="#9AA6B5">0</text>
+<text x="32" y="344.6" font-size="20" font-weight="700" fill="#E8EDF3">Reply</text>
+<text x="32" y="364.6" font-size="16" fill="#9AA6B5">SDO</text>
+<text x="675" y="352.7" font-size="17" font-weight="600" text-anchor="middle" fill="#DDD6FE">STATUS[7:0]</text>
+<text x="212" y="389.6" font-size="16" fill="#9AA6B5">7</text>
+<text x="1138" y="389.6" font-size="16" text-anchor="end" fill="#9AA6B5">0</text>
+</svg>

@@ -23,6 +23,21 @@ refs:
   protect: {doc: ds, section: "Protection Circuits", page: 21}
   spi: {doc: ds, section: "SPI Detailed Description", page: 23}
   app: {doc: ds, section: "Typical Application Circuits; Application Diagram", page: 44}
+  features: {doc: ds, section: "Benefits and Features", page: 1}
+  ec_supply: {doc: ds, section: "Supply Voltage", page: 7}
+  ec_spi: {doc: ds, section: "SPI timing (tCLK)", page: 10}
+  cover: {doc: ds, section: "General Description; Applications; Benefits and Features", page: 1}
+  drive_seq: {doc: ds, section: "Functional Description - Two Levels Drive Sequence for Solenoid Valves", page: 14}
+  chop: {doc: ds, section: "Chopping Frequency (FREQM, FRQ_CFG_)", page: 16}
+  vdr: {doc: ds, section: "Voltage Drive Regulation (VDR)", page: 17}
+  cdr: {doc: ds, section: "Current Drive Regulation (CDR)", page: 18}
+  configs: {doc: ds, section: "Supported Driver Configurations", page: 20}
+  dpm: {doc: ds, section: "Detection of Plunger Movement (DPM)", page: 22}
+  procedure: {doc: ds, section: "Programming Procedure", page: 23}
+  command: {doc: ds, section: "Command Register Description (COMMAND); Table 9, Figure 7", page: 26}
+  write32: {doc: ds, section: "Reading and Writing Operations of Registers; Figure 10", page: 31}
+  write8: {doc: ds, section: "Reading and Writing Operations of Registers; Figure 12", page: 33}
+  status_reg: {doc: ds, section: "Register Details: STATUS (0x00)", page: 36}
 
 package:
   type: TQFN-32
@@ -35,6 +50,154 @@ package:
     right: [9, 10, 11, 12, 13, 14, 15, 16]
     top: [17, 18, 19, 20, 21, 22, 23, 24]
   ref: pinout
+
+supply:
+  - {name: VM, min_v: 4.5, max_v: 36.0, ref: supply}
+
+# The chip-first README: what the chip is and does, where it is used, how the driver covers it, what the SPI
+# transfers carry. `kokeb-docs figures` draws chip-hero, chip-capabilities and the chip-frame figures from it,
+# `kokeb-docs gen` the README's chip-summary, chip-uses and chip-coverage regions.
+overview:
+  summary: >-
+    an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A half-bridge runs a
+    HIT then HOLD sequence under current or voltage regulation, set over SPI
+  category: Octal solenoid and motor driver
+  ref: cover
+  applications:
+    - Relay drivers
+    - Solenoid, valve and electromagnet drivers
+    - Low-side and high-side switches
+    - Latched (bistable) solenoid valves
+    - Brushed DC motors
+  specs:
+    - {value: "4.5 to 36 V", label: supply (VM), ref: ec_supply}
+    - {value: "8 x 1 A", label: "half-bridges, 1 A RMS each", ref: features}
+    - {value: "200 mΩ", label: "typical on-resistance per output", ref: features}
+    - {value: "10 MHz", label: "SPI clock, one chip (5 MHz in a daisy chain)", ref: ec_spi}
+    - {value: "5 x 5 mm", label: "TQFN-32 body", ref: pinout}
+  system:
+    host: MCU
+    bus: SPI, CMD, ENABLE
+    drives:
+      - {label: "Solenoids, valves, relays", detail: "up to eight, low side or high side; pairs as full bridges",
+         ref: configs}
+    senses:
+      - {label: Coil current, detail: "lossless sensing in each half-bridge", ref: cdr}
+      - {label: TRIGA and TRIGB, detail: "switch even and odd channels", ref: drive_seq}
+
+# Headers the capability `api` and `registers` names are checked against.
+driver:
+  api: [inc/max22200.hpp, inc/max22200_types.hpp]
+  registers: [inc/max22200_registers.hpp]
+
+capabilities:
+  - {id: switch, title: Channel switching, icon: switch, status: supported, ref: procedure, docs: api-guide.md,
+     what: "Switches each channel on or off with one 8-bit write of the ONCH byte, no read needed",
+     api: [SetChannel, SetChannelsOn, ReadChannelsOn], registers: [ONCH, STATUS]}
+  - {id: hit-hold, title: HIT and HOLD sequence, icon: coil, status: supported, ref: drive_seq, docs: drive-modes.md,
+     what: "Pulls a plunger in at the HIT level for a set time, then holds it at a lower level to save power",
+     api: [ConfigureChannel, SetHoldCode, HitTimeCode], registers: [CFG_CH0, HIT, HOLD, HIT_T]}
+  - {id: regulation, title: CDR and VDR regulation, icon: current, status: supported, ref: cdr, docs: drive-modes.md,
+     what: "Regulates the coil current against a full scale set by RREF, or the PWM duty cycle in 1 % steps",
+     api: [CurrentCode, FullScaleUa, "DriveMode::Cdr", "DriveMode::Vdr", DutyLimitsOf],
+     registers: [VDRnCDR, HSnLS, HFS], note: "high-side drive is VDR only"}
+  - {id: chopping, title: Chopping frequency and slew rate, icon: chopper, status: supported, ref: chop,
+     docs: drive-modes.md,
+     what: "Sets the oscillator and each channel's chopping frequency, with slower edges for less EMI",
+     api: [MasterClock, ChopDivider, ConfigureChannel], registers: [FREQM, FREQ_CFG, SRC]}
+  - {id: pairs, title: Parallel and full-bridge pairs, icon: chain, status: supported, ref: configs,
+     docs: drive-modes.md,
+     what: "Ties two half-bridges for twice the current, or makes an H-bridge for a latched valve or a DC motor",
+     api: [SetPairMode, SetBridge, "PairMode::FullBridge"], registers: [CM10, CM32, CM54, CM76]}
+  - {id: protection, title: Protection and fault flags, icon: shield, status: supported, ref: protect,
+     docs: api-guide.md,
+     what: "Overcurrent, open load, HIT not reached, overtemperature, undervoltage: per-channel flags and FAULT",
+     api: [ReadStatus, ReadFaults, ClearFaults, SetFaultMask, ReadFaultPin],
+     registers: [STATUS, FAULT, OL_EN, HHF_EN, M_OVT]}
+  - {id: dpm, title: Detection of plunger movement, icon: gauge, status: supported, ref: dpm, docs: drive-modes.md,
+     what: "Looks for the current dip a moving plunger makes during HIT, and flags a valve that did not move",
+     api: [SetDpm, DpmCurrentCode], registers: [CFG_DPM, DPM_EN, DPM_ISTART, DPM_IPTH, DPM_TDEB]}
+  - {id: trigger, title: Trigger inputs, icon: clock, status: partial, ref: drive_seq, docs: hardware.md,
+     what: "TRIGA and TRIGB switch even and odd channels directly; the driver selects them, your code drives the pins",
+     api: [ConfigureChannel, ChannelConfig], registers: [TRGnSPI]}
+  - {id: daisy, title: Daisy chain, icon: bus, status: not-covered, ref: spi, docs: limitations.md,
+     what: "Several chips on one SPI chain at up to 5 MHz; the driver talks to one chip per object"}
+
+frames:
+  - id: command
+    title: Command byte
+    description: With CMD high, one byte chooses the register and the length of the transfers that follow; the reply
+      is the fault byte.
+    bits: 8
+    ref: command
+    rows:
+      - label: Command
+        sub: "SDI, CMD high"
+        fields:
+          - {name: RB/W, bits: 7, tone: amber}
+          - {name: RFU, bits: [6, 5], tone: slate}
+          - {name: A_BNK, bits: [4, 1], tone: blue}
+          - {name: 8bit/n32bits, bits: 0, tone: green, short: "8/32"}
+      - label: Reply
+        sub: SDO
+        fields:
+          - {name: "STATUS[7:0]", bits: [7, 0], tone: violet}
+    decode:
+      row: Reply
+      field: "STATUS[7:0]"
+      ref: status_reg
+      bits:
+        - {bit: 7, name: OVT}
+        - {bit: 6, name: OCP}
+        - {bit: 5, name: OLF}
+        - {bit: 4, name: HHF}
+        - {bit: 3, name: DPM}
+        - {bit: 2, name: COMER}
+        - {bit: 1, name: UVM}
+        - {bit: 0, name: ACTIVE}
+    waveform:
+      spi_mode: 0
+      select: CSB
+      clock: SCK
+      lanes:
+        - {name: SDI, row: Command}
+        - {name: SDO, row: Reply}
+  - id: switch
+    title: 8-bit write
+    description: After the command 0x81 (write STATUS, 8 bits), every transfer with CMD low sets the ONCH byte and
+      returns the fault byte, so switching channels costs one byte.
+    bits: 8
+    ref: write8
+    rows:
+      - label: Write
+        sub: "SDI, CMD low"
+        fields:
+          - {name: "ONCH[7:0] (STATUS[31:24])", bits: [7, 0], tone: green, short: "ONCH[7:0]"}
+      - label: Reply
+        sub: SDO
+        fields:
+          - {name: "STATUS[7:0]", bits: [7, 0], tone: violet}
+  - id: write32
+    title: 32-bit write
+    description: With CMD low after a 32-bit write command; the bit numbers count the transfer, and the register goes
+      out least significant byte first.
+    bits: 32
+    ref: write32
+    rows:
+      - label: Write
+        sub: "SDI, CMD low"
+        fields:
+          - {name: "DATAIN[7:0]", bits: [31, 24], tone: green}
+          - {name: "DATAIN[15:8]", bits: [23, 16], tone: green}
+          - {name: "DATAIN[23:16]", bits: [15, 8], tone: green}
+          - {name: "DATAIN[31:24]", bits: [7, 0], tone: green}
+      - label: Reply
+        sub: SDO
+        fields:
+          - {name: "STATUS[7:0]", bits: [31, 24], tone: violet}
+          - {name: command echo, bits: [23, 16], tone: blue}
+          - {name: "0x00", bits: [15, 8], tone: slate}
+          - {name: "0x00", bits: [7, 0], tone: slate}
 
 hooks:
   - {id: transfer, call: "Transfer()", kind: spi, source: inc/max22200_spi_interface.hpp, symbol: Transfer}

@@ -7,7 +7,7 @@
  *
  *   0 palette         4 code              8  navigation
  *   1 tokens          5 tables            9  hero, cards, chip card
- *   2 header, footer  6 admonitions       10 figures, Mermaid
+ *   2 header, footer  6 admonitions       10 figures
  *   3 typography      7 buttons, badges   11 API reference link, misc
  *                                         12 focus, motion, print
  */
@@ -967,7 +967,7 @@
   display: none;
 }
 
-/* ============================================================== 10 figures, Mermaid */
+/* ============================================================== 10 figures */
 .md-typeset figure.kb-figure {
   margin: 1.6em 0 0.4em;
   max-width: 100%;
@@ -1014,74 +1014,6 @@
 
 .md-typeset details.kb-figure-desc > summary::before {
   background-color: var(--kb-muted);
-}
-
-/* Mermaid: Material themes the diagram from these variables in both schemes. */
-:root,
-[data-md-color-scheme="default"] {
-  --md-mermaid-font-family: var(--md-text-font-family), sans-serif;
-  --md-mermaid-edge-color: #566070;
-  --md-mermaid-node-bg-color: #fbefe6;
-  --md-mermaid-node-fg-color: #9a4a17;
-  --md-mermaid-label-bg-color: #ffffff;
-  --md-mermaid-label-fg-color: #0e1726;
-  --md-mermaid-sequence-actor-bg-color: #fbefe6;
-  --md-mermaid-sequence-actor-fg-color: #0e1726;
-  --md-mermaid-sequence-actor-border-color: #0e1726;
-  --md-mermaid-sequence-actor-line-color: #8893a2;
-  --md-mermaid-sequence-actorman-bg-color: #fbefe6;
-  --md-mermaid-sequence-actorman-line-color: #0e1726;
-  --md-mermaid-sequence-box-bg-color: #f5f7fa;
-  --md-mermaid-sequence-box-fg-color: #0e1726;
-  --md-mermaid-sequence-label-bg-color: #fbefe6;
-  --md-mermaid-sequence-label-fg-color: #0e1726;
-  --md-mermaid-sequence-loop-bg-color: #f5f7fa;
-  --md-mermaid-sequence-loop-fg-color: #0e1726;
-  --md-mermaid-sequence-loop-border-color: #c9d1db;
-  --md-mermaid-sequence-message-fg-color: #0e1726;
-  --md-mermaid-sequence-message-line-color: #566070;
-  --md-mermaid-sequence-note-bg-color: #fff5e3;
-  --md-mermaid-sequence-note-fg-color: #0e1726;
-  --md-mermaid-sequence-note-border-color: #f1cf93;
-  --md-mermaid-sequence-number-bg-color: #0e1726;
-  --md-mermaid-sequence-number-fg-color: #ffffff;
-}
-
-[data-md-color-scheme="slate"] {
-  --md-mermaid-edge-color: #a2adbb;
-  --md-mermaid-node-bg-color: #1b2a41;
-  --md-mermaid-node-fg-color: #c7cbff;
-  --md-mermaid-label-bg-color: #0a111d;
-  --md-mermaid-label-fg-color: #e6ebf2;
-  --md-mermaid-sequence-actor-bg-color: #1b2a41;
-  --md-mermaid-sequence-actor-fg-color: #e6ebf2;
-  --md-mermaid-sequence-actor-border-color: #8c93ff;
-  --md-mermaid-sequence-actor-line-color: #6c7889;
-  --md-mermaid-sequence-actorman-bg-color: #1b2a41;
-  --md-mermaid-sequence-actorman-line-color: #8c93ff;
-  --md-mermaid-sequence-box-bg-color: #151c2b;
-  --md-mermaid-sequence-box-fg-color: #e6ebf2;
-  --md-mermaid-sequence-label-bg-color: #1b2a41;
-  --md-mermaid-sequence-label-fg-color: #e6ebf2;
-  --md-mermaid-sequence-loop-bg-color: #151c2b;
-  --md-mermaid-sequence-loop-fg-color: #e6ebf2;
-  --md-mermaid-sequence-loop-border-color: #34405a;
-  --md-mermaid-sequence-message-fg-color: #e6ebf2;
-  --md-mermaid-sequence-message-line-color: #a2adbb;
-  --md-mermaid-sequence-note-bg-color: #2c2310;
-  --md-mermaid-sequence-note-fg-color: #fde68a;
-  --md-mermaid-sequence-note-border-color: #6a5220;
-  --md-mermaid-sequence-number-bg-color: #8c93ff;
-  --md-mermaid-sequence-number-fg-color: #0a111d;
-}
-
-.md-typeset .mermaid {
-  margin: 1.4em 0;
-  padding: 0.8rem;
-  border: 1px solid var(--kb-line);
-  border-radius: var(--kb-radius-lg);
-  background: var(--md-default-bg-color);
-  text-align: center;
 }
 
 /* ============================================================== 11 API link, misc */

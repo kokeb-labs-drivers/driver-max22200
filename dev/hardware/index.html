@@ -16,7 +16,7 @@
         <link rel="prev" href="../platforms/">
       
       
-        <link rel="next" href="../architecture/">
+        <link rel="next" href="../bus/">
       
       
         
@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-max22200/latest/hardware/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -516,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -841,6 +777,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On the bus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1283,7 +1247,7 @@ ground) underneath.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The MAX22200 seen from the top, in its TQFN-32 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-pins -->
 <p>TQFN-32, 32 pins and an exposed pad (Pin Configuration, p. 12).</p>
@@ -1619,7 +1583,7 @@ reference set up its supplies, clock and full-scale current.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The MAX22200's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
 </details>
 <h2 id="application-circuit">Application circuit<a class="headerlink" href="#application-circuit" title="Permanent link">&para;</a></h2>
 <p>The Application Diagram, with the parts the Pin Description gives for each pin. One chip drives every load the
@@ -1635,7 +1599,7 @@ TRIGB is grounded; TRIGA is optional.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-parts -->
 <table>
@@ -1840,6 +1804,7 @@ level.</p>
 </tr>
 </tbody>
 </table>
+<p>The waveform with every interval of the SPI table, and the datasheet's daisy chain, are on <a href="../bus/">On the bus</a>.</p>
 <p>The driver sends a command byte with CMD high, then the data with CMD low: 4 bytes for a 32-bit access (LSB byte first
 when writing, MSB byte first when reading), 1 byte for an 8-bit access of bits 31:24. CMD idles high: it goes low only
 for a data phase and back high right after, so a stray clock is never taken as data. See
@@ -1985,7 +1950,7 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_registers.hpp"><code>inc/max22200_registers.hpp</code></a></td>
 <td>The register map as the driver uses it, with datasheet section names</td>
 </tr>
 <tr>
@@ -2048,13 +2013,13 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
         
         
           
-          <a href="../architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture">
+          <a href="../bus/" class="md-footer__link md-footer__link--next" aria-label="Next: On the bus">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Architecture
+                On the bus
               </div>
             </div>
             <div class="md-footer__button md-icon">

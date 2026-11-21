@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-max22200/latest/diagrams/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -957,6 +893,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-the-max22200-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the MAX22200 does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#max22200-application-diagram" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -968,10 +915,65 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#max22200-command-byte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MAX22200: Command byte
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#max22200-8-bit-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MAX22200: 8-bit write
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#max22200-32-bit-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MAX22200: 32-bit write
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#max22200" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MAX22200
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#max22200-pinout-tqfn-32" class="md-nav__link">
     <span class="md-ellipsis">
       
         MAX22200 pinout, TQFN-32
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-application-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring: Application diagram
       
     </span>
   </a>
@@ -994,6 +996,28 @@
     <span class="md-ellipsis">
       
         One call through the layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-daisy-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SPI daisy chain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-bus-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SPI bus timing
       
     </span>
   </a>
@@ -1040,13 +1064,30 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The MAX22200's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="what-the-max22200-does">What the MAX22200 does<a class="headerlink" href="#what-the-max22200-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-capabilities.svg#only-light" alt="Capability map of the MAX22200: Channel switching (supported): Switches each channel on or off with one 8-bit write of the ONCH byte, no read needed; HIT and HOLD sequence (supported): Pulls a plunger in at the HIT level for a set time, then holds it at a lower level to save power; CDR and VDR regulation (supported): Regulates the coil current against a full scale set by RREF, or the PWM duty cycle in 1 % steps; Chopping frequency and slew rate (supported): Sets the oscillator and each channel&#x27;s chopping frequency, with slower edges for less EMI; Parallel and full-bridge pairs (supported): Ties two half-bridges for twice the current, or makes an H-bridge for a latched valve or a DC motor; Protection and fault flags (supported): Overcurrent, open load, HIT not reached, overtemperature, undervoltage: per-channel flags and FAULT; Detection of plunger movement (supported): Looks for the current dip a moving plunger makes during HIT, and flags a valve that did not move; Trigger inputs (partial): TRIGA and TRIGB switch even and odd channels directly; the driver selects them, your code drives the pins; Daisy chain (not covered): Several chips on one SPI chain at up to 5 MHz; the driver talks to one chip per object." width="1200" height="1058" loading="lazy"><img src="chip-capabilities.dark.svg#only-dark" alt="Capability map of the MAX22200: Channel switching (supported): Switches each channel on or off with one 8-bit write of the ONCH byte, no read needed; HIT and HOLD sequence (supported): Pulls a plunger in at the HIT level for a set time, then holds it at a lower level to save power; CDR and VDR regulation (supported): Regulates the coil current against a full scale set by RREF, or the PWM duty cycle in 1 % steps; Chopping frequency and slew rate (supported): Sets the oscillator and each channel&#x27;s chopping frequency, with slower edges for less EMI; Parallel and full-bridge pairs (supported): Ties two half-bridges for twice the current, or makes an H-bridge for a latched valve or a DC motor; Protection and fault flags (supported): Overcurrent, open load, HIT not reached, overtemperature, undervoltage: per-channel flags and FAULT; Detection of plunger movement (supported): Looks for the current dip a moving plunger makes during HIT, and flags a valve that did not move; Trigger inputs (partial): TRIGA and TRIGB switch even and odd channels directly; the driver selects them, your code drives the pins; Daisy chain (not covered): Several chips on one SPI chain at up to 5 MHz; the driver talks to one chip per object." width="1200" height="1058" loading="lazy">
+<figcaption>What the MAX22200 does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the MAX22200: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="max22200-application-diagram">MAX22200: Application diagram<a class="headerlink" href="#max22200-application-diagram" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1057,13 +1098,81 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="max22200-command-byte">MAX22200: Command byte<a class="headerlink" href="#max22200-command-byte" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-frame-command.svg#only-light" alt="Command byte of the MAX22200, 8 bits, most significant bit first. Command: RB/W (bit 7), RFU (bits 6 to 5), A_BNK (bits 4 to 1), 8bit/n32bits (bit 0); Reply: STATUS[7:0] (bits 7 to 0). The STATUS[7:0] field of the Reply row: bit 7 OVT, bit 6 OCP, bit 5 OLF, bit 4 HHF, bit 3 DPM, bit 2 COMER, bit 1 UVM, bit 0 ACTIVE. Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="804" loading="lazy"><img src="chip-frame-command.dark.svg#only-dark" alt="Command byte of the MAX22200, 8 bits, most significant bit first. Command: RB/W (bit 7), RFU (bits 6 to 5), A_BNK (bits 4 to 1), 8bit/n32bits (bit 0); Reply: STATUS[7:0] (bits 7 to 0). The STATUS[7:0] field of the Reply row: bit 7 OVT, bit 6 OCP, bit 5 OLF, bit 4 HHF, bit 3 DPM, bit 2 COMER, bit 1 UVM, bit 0 ACTIVE. Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="804" loading="lazy">
+<figcaption>MAX22200: Command byte</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One Command byte of the MAX22200, 8 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits. The table at the bottom names each bit of the STATUS[7:0] field.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="max22200-8-bit-write">MAX22200: 8-bit write<a class="headerlink" href="#max22200-8-bit-write" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-frame-switch.svg#only-light" alt="8-bit write of the MAX22200, 8 bits, most significant bit first. Write: ONCH[7:0] (STATUS[31:24]) (bits 7 to 0); Reply: STATUS[7:0] (bits 7 to 0)." width="1200" height="442" loading="lazy"><img src="chip-frame-switch.dark.svg#only-dark" alt="8-bit write of the MAX22200, 8 bits, most significant bit first. Write: ONCH[7:0] (STATUS[31:24]) (bits 7 to 0); Reply: STATUS[7:0] (bits 7 to 0)." width="1200" height="442" loading="lazy">
+<figcaption>MAX22200: 8-bit write</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One 8-bit write of the MAX22200, 8 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="max22200-32-bit-write">MAX22200: 32-bit write<a class="headerlink" href="#max22200-32-bit-write" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-frame-write32.svg#only-light" alt="32-bit write of the MAX22200, 32 bits, most significant bit first. Write: DATAIN[7:0] (bits 31 to 24), DATAIN[15:8] (bits 23 to 16), DATAIN[23:16] (bits 15 to 8), DATAIN[31:24] (bits 7 to 0); Reply: STATUS[7:0] (bits 31 to 24), command echo (bits 23 to 16), 0x00 (bits 15 to 8), 0x00 (bits 7 to 0)." width="1200" height="416" loading="lazy"><img src="chip-frame-write32.dark.svg#only-dark" alt="32-bit write of the MAX22200, 32 bits, most significant bit first. Write: DATAIN[7:0] (bits 31 to 24), DATAIN[15:8] (bits 23 to 16), DATAIN[23:16] (bits 15 to 8), DATAIN[31:24] (bits 7 to 0); Reply: STATUS[7:0] (bits 31 to 24), command echo (bits 23 to 16), 0x00 (bits 15 to 8), 0x00 (bits 7 to 0)." width="1200" height="416" loading="lazy">
+<figcaption>MAX22200: 32-bit write</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One 32-bit write of the MAX22200, 32 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="max22200">MAX22200<a class="headerlink" href="#max22200" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-hero.svg#only-light" alt="Overview of the MAX22200, an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A half-bridge runs a HIT then HOLD sequence under current or voltage regulation, set over SPI. A MCU talks to it over SPI, CMD, ENABLE; it drives Solenoids, valves, relays; it reads back Coil current, TRIGA and TRIGB. Headline figures: 4.5 to 36 V supply (VM); 8 x 1 A half-bridges, 1 A RMS each; 200 mΩ typical on-resistance per output; 10 MHz SPI clock, one chip (5 MHz in a daisy chain); 5 x 5 mm TQFN-32 body." width="1200" height="889" loading="lazy"><img src="chip-hero.dark.svg#only-dark" alt="Overview of the MAX22200, an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A half-bridge runs a HIT then HOLD sequence under current or voltage regulation, set over SPI. A MCU talks to it over SPI, CMD, ENABLE; it drives Solenoids, valves, relays; it reads back Coil current, TRIGA and TRIGB. Headline figures: 4.5 to 36 V supply (VM); 8 x 1 A half-bridges, 1 A RMS each; 200 mΩ typical on-resistance per output; 10 MHz SPI clock, one chip (5 MHz in a daisy chain); 5 x 5 mm TQFN-32 body." width="1200" height="889" loading="lazy">
+<figcaption>MAX22200</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MAX22200 in the middle, drawn as its TQFN-32 package. On the left the MCU that runs the driver, joined to it by SPI, CMD, ENABLE. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="max22200-pinout-tqfn-32">MAX22200 pinout, TQFN-32<a class="headerlink" href="#max22200-pinout-tqfn-32" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1074,13 +1183,30 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The MAX22200 seen from the top, in its TQFN-32 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="wiring-application-diagram">Wiring: Application diagram<a class="headerlink" href="#wiring-application-diagram" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-wiring-typical.svg#only-light" alt="Wiring of the MAX22200 for the Application diagram: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU SPI CS to CSB (Transfer()); MCU GPIO to CMD (GpioSet(CtrlPin::Cmd)); MCU GPIO to ENABLE (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULT (GpioRead(CtrlPin::Fault)); MCU GPIO to TRIGA; OUT6 to DC motor M+; OUT7 to DC motor M-; OUT2 to Latched valve B; OUT3 to Latched valve A. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1279" loading="lazy"><img src="chip-wiring-typical.dark.svg#only-dark" alt="Wiring of the MAX22200 for the Application diagram: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU SPI CS to CSB (Transfer()); MCU GPIO to CMD (GpioSet(CtrlPin::Cmd)); MCU GPIO to ENABLE (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULT (GpioRead(CtrlPin::Fault)); MCU GPIO to TRIGA; OUT6 to DC motor M+; OUT7 to DC motor M-; OUT2 to Latched valve B; OUT3 to Latched valve A. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1279" loading="lazy">
+<figcaption>Wiring: Application diagram</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the MAX22200 in the middle, the blocks it drives on the right. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="the-layers-one-of-them-yours">The layers, one of them yours<a class="headerlink" href="#the-layers-one-of-them-yours" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1091,13 +1217,13 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200.hpp"><code>inc/max22200.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200.hpp"><code>inc/max22200.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
-<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a></p>
+<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a></p>
 <p>Drawn from:</p>
 <ul>
-<li><code>public calls</code> in <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200.hpp"><code>inc/max22200.hpp</code></a></li>
-<li><code>SpiInterface</code> in <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bbc925582dd08f75c0ae0fa80b1d812f5c80e9ec/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
+<li><code>public calls</code> in <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200.hpp"><code>inc/max22200.hpp</code></a></li>
+<li><code>SpiInterface</code> in <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="one-call-through-the-layers">One call through the layers<a class="headerlink" href="#one-call-through-the-layers" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1114,6 +1240,38 @@ committed figure no longer matches the code. Each figure below lists the files i
 <p>Drawn from:</p>
 <ul>
 <li><a href="../model/one-call-through-the-layers.seq.yml"><code>docs/model/one-call-through-the-layers.seq.yml</code></a></li>
+</ul>
+<h2 id="spi-daisy-chain">SPI daisy chain<a class="headerlink" href="#spi-daisy-chain" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="spi-chain.svg#only-light" alt="Daisy chain of two MAX22200 on one SPI bus: the MCU feeds SDI of device B, SDO of device B feeds SDI of device A and SDO of device A returns to the MCU, with SCK, CSB and CMD shared." width="640" height="718" loading="lazy"><img src="spi-chain.dark.svg#only-dark" alt="Daisy chain of two MAX22200 on one SPI bus: the MCU feeds SDI of device B, SDO of device B feeds SDI of device A and SDO of device A returns to the MCU, with SCK, CSB and CMD shared." width="640" height="718" loading="lazy">
+<figcaption>SPI daisy chain</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU drives MOSI into SDI of MAX22200 B; its SDO feeds SDI of MAX22200 A, whose SDO returns to MISO. SCK, CSB and CMD are rails both devices share, so one CSB low phase carries one byte or word for each device.</p>
+<p>Drawn from: <a href="../model/spi-chain.topology.yml"><code>docs/model/spi-chain.topology.yml</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../model/spi-chain.topology.yml"><code>docs/model/spi-chain.topology.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../model/spi-chain.topology.yml"><code>docs/model/spi-chain.topology.yml</code></a></li>
+</ul>
+<h2 id="spi-bus-timing">SPI bus timing<a class="headerlink" href="#spi-bus-timing" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="spi-timing.svg#only-light" alt="SPI timing of the MAX22200 in mode 0 for a Command Register write: CMD high frames the transfer, CSB low frames the byte, SDI is read on each rising SCK edge and the open-drain SDO shifts the fault byte out." width="640" height="1661" loading="lazy"><img src="spi-timing.dark.svg#only-dark" alt="SPI timing of the MAX22200 in mode 0 for a Command Register write: CMD high frames the transfer, CSB low frames the byte, SDI is read on each rising SCK edge and the open-drain SDO shifts the fault byte out." width="640" height="1661" loading="lazy">
+<figcaption>SPI bus timing</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The five lanes are CMD, CSB, SCK, SDI and SDO, left to right in time. CMD goes high before CSB falls and stays high past the rising edge of CSB; SCK idles low and clocks the eight command bits in on SDI at its rising edges while SDO shifts STATUS[7:0] out, bits 4 to 3 being left out. The table gives each interval with its datasheet value.</p>
+<p>Drawn from: <a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a></li>
 </ul>
 
 

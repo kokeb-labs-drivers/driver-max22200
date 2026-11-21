@@ -1,0 +1,25 @@
+---
+kind: topology
+id: spi-chain
+title: SPI daisy chain
+kicker: Several chips
+alt: >-
+  Daisy chain of two MAX22200 on one SPI bus: the MCU feeds SDI of device B, SDO of device B feeds SDI of device A and
+  SDO of device A returns to the MCU, with SCK, CSB and CMD shared.
+reads: >-
+  The MCU drives MOSI into SDI of MAX22200 B; its SDO feeds SDI of MAX22200 A, whose SDO returns to MISO. SCK, CSB and
+  CMD are rails both devices share, so one CSB low phase carries one byte or word for each device.
+style: chain
+refs:
+  chain: {doc: ds, section: "SPI Detailed Description; Figure 5", page: 23}
+  cmd26: {doc: ds, section: "Command Register Description (COMMAND); Figure 7", page: 26}
+host: {label: MCU, detail: SPI controller}
+nodes:
+  - {label: MAX22200 B, detail: first in the chain}
+  - {label: MAX22200 A, detail: last in the chain}
+chain: {in: SDI, out: SDO, host_out: MOSI, host_in: MISO}
+shared: [SCK, CSB, CMD]
+facts:
+  - {text: "The SPI supports the daisy chain and can operate up to 5 MHz", ref: chain}
+  - {text: "SDI carries the command for device A first, then the one for device B; SDO returns STATUS of A, then B",
+     ref: cmd26}

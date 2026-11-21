@@ -100,72 +100,6 @@
   <meta property="og:description" content="C++20 driver for the Analog Devices MAX22200 and MAX22200A octal 36 V, 1 A serial-controlled solenoid and motor drivers.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-max22200/latest/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -537,10 +471,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-you-get" class="md-nav__link">
+  <a href="#what-it-does" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you get
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
       
     </span>
   </a>
@@ -585,6 +574,8 @@
   
     
     
+      
+        
       
         
       
@@ -866,10 +857,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-you-get" class="md-nav__link">
+  <a href="#what-it-does" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you get
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
       
     </span>
   </a>
@@ -926,7 +972,7 @@
 
 
 <div class="kb-hero">
-<p><span class="kb-kicker">Driver</span></p>
+<p><span class="kb-kicker">Octal solenoid and motor driver</span></p>
 <h1 id="max22200-driver">MAX22200 Driver<a class="headerlink" href="#max22200-driver" title="Permanent link">&para;</a></h1>
 <p>A C++20 driver for the Analog Devices MAX22200 and MAX22200A octal solenoid and motor drivers. It starts the
 chip with the datasheet's procedure, switches channels with one 8-bit write (one transfer per switch), programs
@@ -935,31 +981,228 @@ HIT and HOLD in milliamps or percent, and reads the faults, on any MCU.</p>
 <a class="md-button" href="api-guide/">API guide</a>
 <a class="md-button" href="https://github.com/kokeb-labs-drivers/driver-max22200">Source on GitHub</a></p>
 </div>
+<!-- generated: chip-summary -->
+<p>The <strong>MAX22200</strong> is an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A
+half-bridge runs a HIT then HOLD sequence under current or voltage regulation, set over SPI (General Description;
+Applications; Benefits and Features, p. 1).</p>
+<!-- /generated -->
+
+<figure class="kb-figure">
+<img src="diagrams/chip-hero.svg#only-light" alt="Overview of the MAX22200, an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A half-bridge runs a HIT then HOLD sequence under current or voltage regulation, set over SPI. A MCU talks to it over SPI, CMD, ENABLE; it drives Solenoids, valves, relays; it reads back Coil current, TRIGA and TRIGB. Headline figures: 4.5 to 36 V supply (VM); 8 x 1 A half-bridges, 1 A RMS each; 200 mΩ typical on-resistance per output; 10 MHz SPI clock, one chip (5 MHz in a daisy chain); 5 x 5 mm TQFN-32 body." width="1200" height="889"><img src="diagrams/chip-hero.dark.svg#only-dark" alt="Overview of the MAX22200, an eight-channel driver for solenoids, valves, relays and brushed DC motors: each 36 V, 1 A half-bridge runs a HIT then HOLD sequence under current or voltage regulation, set over SPI. A MCU talks to it over SPI, CMD, ENABLE; it drives Solenoids, valves, relays; it reads back Coil current, TRIGA and TRIGB. Headline figures: 4.5 to 36 V supply (VM); 8 x 1 A half-bridges, 1 A RMS each; 200 mΩ typical on-resistance per output; 10 MHz SPI clock, one chip (5 MHz in a daisy chain); 5 x 5 mm TQFN-32 body." width="1200" height="889">
+<figcaption>MAX22200</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MAX22200 in the middle, drawn as its TQFN-32 package. On the left the MCU that runs the driver, joined to it by SPI, CMD, ENABLE. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-capabilities.svg#only-light" alt="Capability map of the MAX22200: Channel switching (supported): Switches each channel on or off with one 8-bit write of the ONCH byte, no read needed; HIT and HOLD sequence (supported): Pulls a plunger in at the HIT level for a set time, then holds it at a lower level to save power; CDR and VDR regulation (supported): Regulates the coil current against a full scale set by RREF, or the PWM duty cycle in 1 % steps; Chopping frequency and slew rate (supported): Sets the oscillator and each channel&#x27;s chopping frequency, with slower edges for less EMI; Parallel and full-bridge pairs (supported): Ties two half-bridges for twice the current, or makes an H-bridge for a latched valve or a DC motor; Protection and fault flags (supported): Overcurrent, open load, HIT not reached, overtemperature, undervoltage: per-channel flags and FAULT; Detection of plunger movement (supported): Looks for the current dip a moving plunger makes during HIT, and flags a valve that did not move; Trigger inputs (partial): TRIGA and TRIGB switch even and odd channels directly; the driver selects them, your code drives the pins; Daisy chain (not covered): Several chips on one SPI chain at up to 5 MHz; the driver talks to one chip per object." width="1200" height="1058" loading="lazy"><img src="diagrams/chip-capabilities.dark.svg#only-dark" alt="Capability map of the MAX22200: Channel switching (supported): Switches each channel on or off with one 8-bit write of the ONCH byte, no read needed; HIT and HOLD sequence (supported): Pulls a plunger in at the HIT level for a set time, then holds it at a lower level to save power; CDR and VDR regulation (supported): Regulates the coil current against a full scale set by RREF, or the PWM duty cycle in 1 % steps; Chopping frequency and slew rate (supported): Sets the oscillator and each channel&#x27;s chopping frequency, with slower edges for less EMI; Parallel and full-bridge pairs (supported): Ties two half-bridges for twice the current, or makes an H-bridge for a latched valve or a DC motor; Protection and fault flags (supported): Overcurrent, open load, HIT not reached, overtemperature, undervoltage: per-channel flags and FAULT; Detection of plunger movement (supported): Looks for the current dip a moving plunger makes during HIT, and flags a valve that did not move; Trigger inputs (partial): TRIGA and TRIGB switch even and odd channels directly; the driver selects them, your code drives the pins; Daisy chain (not covered): Several chips on one SPI chain at up to 5 MHz; the driver talks to one chip per object." width="1200" height="1058" loading="lazy">
+<figcaption>What the MAX22200 does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the MAX22200: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="where-it-is-used">Where it is used<a class="headerlink" href="#where-it-is-used" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-uses -->
+<ul>
+<li>Relay drivers</li>
+<li>Solenoid, valve and electromagnet drivers</li>
+<li>Low-side and high-side switches</li>
+<li>Latched (bistable) solenoid valves</li>
+<li>Brushed DC motors</li>
+</ul>
+<p>Uses named by the datasheet (General Description; Applications; Benefits and Features, p. 1).</p>
+<!-- /generated -->
+
+<h2 id="inside-the-chip">Inside the chip<a class="headerlink" href="#inside-the-chip" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-blocks.svg#only-light" alt="Block diagram of the MAX22200: its function blocks, how they connect and which package pins reach each block." width="1200" height="1263" loading="lazy"><img src="diagrams/chip-blocks.dark.svg#only-dark" alt="Block diagram of the MAX22200: its function blocks, how they connect and which package pins reach each block." width="1200" height="1263" loading="lazy">
+<figcaption>Inside the MAX22200</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MAX22200's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="pins-and-wiring">Pins and wiring<a class="headerlink" href="#pins-and-wiring" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-pinout.svg#only-light" alt="Pinout of the MAX22200 in TQFN-32, top view: 32 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it." width="1046" height="1154" loading="lazy"><img src="diagrams/chip-pinout.dark.svg#only-dark" alt="Pinout of the MAX22200 in TQFN-32, top view: 32 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it." width="1046" height="1154" loading="lazy">
+<figcaption>MAX22200 pinout, TQFN-32</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MAX22200 seen from the top, in its TQFN-32 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-wiring-typical.svg#only-light" alt="Wiring of the MAX22200 for the Application diagram: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU SPI CS to CSB (Transfer()); MCU GPIO to CMD (GpioSet(CtrlPin::Cmd)); MCU GPIO to ENABLE (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULT (GpioRead(CtrlPin::Fault)); MCU GPIO to TRIGA; OUT6 to DC motor M+; OUT7 to DC motor M-; OUT2 to Latched valve B; OUT3 to Latched valve A. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1279" loading="lazy"><img src="diagrams/chip-wiring-typical.dark.svg#only-dark" alt="Wiring of the MAX22200 for the Application diagram: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU SPI CS to CSB (Transfer()); MCU GPIO to CMD (GpioSet(CtrlPin::Cmd)); MCU GPIO to ENABLE (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULT (GpioRead(CtrlPin::Fault)); MCU GPIO to TRIGA; OUT6 to DC motor M+; OUT7 to DC motor M-; OUT2 to Latched valve B; OUT3 to Latched valve A. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1279" loading="lazy">
+<figcaption>Wiring: Application diagram</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the MAX22200 in the middle, the blocks it drives on the right. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-frame-command.svg#only-light" alt="Command byte of the MAX22200, 8 bits, most significant bit first. Command: RB/W (bit 7), RFU (bits 6 to 5), A_BNK (bits 4 to 1), 8bit/n32bits (bit 0); Reply: STATUS[7:0] (bits 7 to 0). The STATUS[7:0] field of the Reply row: bit 7 OVT, bit 6 OCP, bit 5 OLF, bit 4 HHF, bit 3 DPM, bit 2 COMER, bit 1 UVM, bit 0 ACTIVE. Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="804" loading="lazy"><img src="diagrams/chip-frame-command.dark.svg#only-dark" alt="Command byte of the MAX22200, 8 bits, most significant bit first. Command: RB/W (bit 7), RFU (bits 6 to 5), A_BNK (bits 4 to 1), 8bit/n32bits (bit 0); Reply: STATUS[7:0] (bits 7 to 0). The STATUS[7:0] field of the Reply row: bit 7 OVT, bit 6 OCP, bit 5 OLF, bit 4 HHF, bit 3 DPM, bit 2 COMER, bit 1 UVM, bit 0 ACTIVE. Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="804" loading="lazy">
+<figcaption>MAX22200: Command byte</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One Command byte of the MAX22200, 8 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits. The table at the bottom names each bit of the STATUS[7:0] field.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-frame-switch.svg#only-light" alt="8-bit write of the MAX22200, 8 bits, most significant bit first. Write: ONCH[7:0] (STATUS[31:24]) (bits 7 to 0); Reply: STATUS[7:0] (bits 7 to 0)." width="1200" height="442" loading="lazy"><img src="diagrams/chip-frame-switch.dark.svg#only-dark" alt="8-bit write of the MAX22200, 8 bits, most significant bit first. Write: ONCH[7:0] (STATUS[31:24]) (bits 7 to 0); Reply: STATUS[7:0] (bits 7 to 0)." width="1200" height="442" loading="lazy">
+<figcaption>MAX22200: 8-bit write</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One 8-bit write of the MAX22200, 8 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-frame-write32.svg#only-light" alt="32-bit write of the MAX22200, 32 bits, most significant bit first. Write: DATAIN[7:0] (bits 31 to 24), DATAIN[15:8] (bits 23 to 16), DATAIN[23:16] (bits 15 to 8), DATAIN[31:24] (bits 7 to 0); Reply: STATUS[7:0] (bits 31 to 24), command echo (bits 23 to 16), 0x00 (bits 15 to 8), 0x00 (bits 7 to 0)." width="1200" height="416" loading="lazy"><img src="diagrams/chip-frame-write32.dark.svg#only-dark" alt="32-bit write of the MAX22200, 32 bits, most significant bit first. Write: DATAIN[7:0] (bits 31 to 24), DATAIN[15:8] (bits 23 to 16), DATAIN[23:16] (bits 15 to 8), DATAIN[31:24] (bits 7 to 0); Reply: STATUS[7:0] (bits 31 to 24), command echo (bits 23 to 16), 0x00 (bits 15 to 8), 0x00 (bits 7 to 0)." width="1200" height="416" loading="lazy">
+<figcaption>MAX22200: 32-bit write</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One 32-bit write of the MAX22200, 32 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-max22200/blob/bee3861346d2243d02d1ecb67e5e21cc503fd25b/inc/max22200_spi_interface.hpp"><code>inc/max22200_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Every pin, the application circuit, the bus settings, the timing and the power: <a href="hardware/">Hardware</a>.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Wire the chip as above, write the port (<a href="porting/">Porting</a>), then configure a channel and open the valve:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"max22200.hpp"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">open_valve_0</span><span class="p">(</span><span class="n">MyPort</span><span class="o">&amp;</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">max22200</span><span class="o">::</span><span class="n">Config</span><span class="w"> </span><span class="n">cfg</span><span class="p">{};</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">cfg</span><span class="p">.</span><span class="n">rref_ohm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15000</span><span class="p">;</span><span class="w"> </span><span class="c1">// IFS = 15k x 1 V / 15 kohm = 1 A</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="n">max22200</span><span class="o">::</span><span class="n">ChannelConfig</span><span class="o">&amp;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="n">v</span><span class="p">.</span><span class="n">hit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">CurrentCode</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">rref_ohm</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">).</span><span class="n">value</span><span class="p">;</span><span class="w">      </span><span class="c1">// 600 mA peak to pull in</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="n">v</span><span class="p">.</span><span class="n">hold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">CurrentCode</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">rref_ohm</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">).</span><span class="n">value</span><span class="p">;</span><span class="w">     </span><span class="c1">// 200 mA to hold</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="n">v</span><span class="p">.</span><span class="n">hit_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">HitTimeCode</span><span class="p">(</span><span class="mi">30000</span><span class="p">,</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">clock</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">chop</span><span class="p">).</span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="c1">// 30 ms of HIT</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="n">max22200</span><span class="o">::</span><span class="n">MAX22200</span><span class="o">&lt;</span><span class="n">MyPort</span><span class="o">&gt;</span><span class="w"> </span><span class="n">chip</span><span class="p">(</span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">cfg</span><span class="p">);</span><span class="w"> </span><span class="c1">// no I/O yet</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">EnsureInitialized</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ENABLE, Figure 6, read-back of every register</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">);</span><span class="w">          </span><span class="c1">// NoDevice, DeviceIdMismatch: check the wiring</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chip</span><span class="p">.</span><span class="n">SetChannel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// one 8-bit write: 2 transfers, then 1 per switch</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">);</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// HIT for 30 ms, then HOLD until SetChannel(0, false)</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The steps explained: <a href="quickstart/">Quickstart</a>.</p>
+<h2 id="driver-coverage">Driver coverage<a class="headerlink" href="#driver-coverage" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-coverage -->
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>What the chip does</th>
+<th>Driver API</th>
+<th>Registers</th>
+<th>Status</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="api-guide/">Channel switching</a></td>
+<td>Switches each channel on or off with one 8-bit write of the ONCH byte, no read needed</td>
+<td><code>SetChannel</code>, <code>SetChannelsOn</code>, <code>ReadChannelsOn</code></td>
+<td><code>ONCH</code>, <code>STATUS</code></td>
+<td>Supported</td>
+<td>Programming Procedure, p. 23</td>
+</tr>
+<tr>
+<td><a href="drive-modes/">HIT and HOLD sequence</a></td>
+<td>Pulls a plunger in at the HIT level for a set time, then holds it at a lower level to save power</td>
+<td><code>ConfigureChannel</code>, <code>SetHoldCode</code>, <code>HitTimeCode</code></td>
+<td><code>CFG_CH0</code>, <code>HIT</code>, <code>HOLD</code>, <code>HIT_T</code></td>
+<td>Supported</td>
+<td>Functional Description - Two Levels Drive Sequence for Solenoid Valves, p. 14</td>
+</tr>
+<tr>
+<td><a href="drive-modes/">CDR and VDR regulation</a></td>
+<td>Regulates the coil current against a full scale set by RREF, or the PWM duty cycle in 1 % steps (high-side drive is VDR only)</td>
+<td><code>CurrentCode</code>, <code>FullScaleUa</code>, <code>DriveMode::Cdr</code>, <code>DriveMode::Vdr</code>, <code>DutyLimitsOf</code></td>
+<td><code>VDRnCDR</code>, <code>HSnLS</code>, <code>HFS</code></td>
+<td>Supported</td>
+<td>Current Drive Regulation (CDR), p. 18</td>
+</tr>
+<tr>
+<td><a href="drive-modes/">Chopping frequency and slew rate</a></td>
+<td>Sets the oscillator and each channel's chopping frequency, with slower edges for less EMI</td>
+<td><code>MasterClock</code>, <code>ChopDivider</code>, <code>ConfigureChannel</code></td>
+<td><code>FREQM</code>, <code>FREQ_CFG</code>, <code>SRC</code></td>
+<td>Supported</td>
+<td>Chopping Frequency (FREQM, FRQ_CFG_), p. 16</td>
+</tr>
+<tr>
+<td><a href="drive-modes/">Parallel and full-bridge pairs</a></td>
+<td>Ties two half-bridges for twice the current, or makes an H-bridge for a latched valve or a DC motor</td>
+<td><code>SetPairMode</code>, <code>SetBridge</code>, <code>PairMode::FullBridge</code></td>
+<td><code>CM10</code>, <code>CM32</code>, <code>CM54</code>, <code>CM76</code></td>
+<td>Supported</td>
+<td>Supported Driver Configurations, p. 20</td>
+</tr>
+<tr>
+<td><a href="api-guide/">Protection and fault flags</a></td>
+<td>Overcurrent, open load, HIT not reached, overtemperature, undervoltage: per-channel flags and FAULT</td>
+<td><code>ReadStatus</code>, <code>ReadFaults</code>, <code>ClearFaults</code>, <code>SetFaultMask</code>, <code>ReadFaultPin</code></td>
+<td><code>STATUS</code>, <code>FAULT</code>, <code>OL_EN</code>, <code>HHF_EN</code>, <code>M_OVT</code></td>
+<td>Supported</td>
+<td>Protection Circuits, p. 21</td>
+</tr>
+<tr>
+<td><a href="drive-modes/">Detection of plunger movement</a></td>
+<td>Looks for the current dip a moving plunger makes during HIT, and flags a valve that did not move</td>
+<td><code>SetDpm</code>, <code>DpmCurrentCode</code></td>
+<td><code>CFG_DPM</code>, <code>DPM_EN</code>, <code>DPM_ISTART</code>, <code>DPM_IPTH</code>, <code>DPM_TDEB</code></td>
+<td>Supported</td>
+<td>Detection of Plunger Movement (DPM), p. 22</td>
+</tr>
+<tr>
+<td><a href="hardware/">Trigger inputs</a></td>
+<td>TRIGA and TRIGB switch even and odd channels directly; the driver selects them, your code drives the pins</td>
+<td><code>ConfigureChannel</code>, <code>ChannelConfig</code></td>
+<td><code>TRGnSPI</code></td>
+<td>Partial</td>
+<td>Functional Description - Two Levels Drive Sequence for Solenoid Valves, p. 14</td>
+</tr>
+<tr>
+<td><a href="limitations/">Daisy chain</a></td>
+<td>Several chips on one SPI chain at up to 5 MHz; the driver talks to one chip per object</td>
+<td>-</td>
+<td>-</td>
+<td>Not covered</td>
+<td>SPI Detailed Description, p. 23</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Supported</strong>: the driver covers it and a host test checks it; <strong>Partial</strong>: covered in part; the coverage map says which
+part; <strong>Not covered</strong>: the chip has it and the driver leaves it alone.</p>
+<p>From <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <code>kokeb-docs hardware --check</code> confirms that every API name is in
+<code>inc/max22200.hpp</code>, <code>inc/max22200_types.hpp</code> and every register in <code>inc/max22200_registers.hpp</code>.</p>
+<!-- /generated -->
+
 <p>The driver has no platform code. You give it a small class that moves bytes and drives CMD and ENABLE; it does the
 rest: the programming procedure, the two-phase register access, the unit conversions, the read-back of every
 register at start-up, and the fault registers of both parts.</p>
-<div class="kb-chip">
-<div class="kb-chip__head">
-<span class="kb-chip__kicker">Octal solenoid and motor driver</span>
-<span class="kb-chip__name">MAX22200</span>
-<span class="kb-chip__vendor">Analog Devices</span>
-</div>
-<dl>
-<dt>Function</dt>
-<dd>Eight push-pull half-bridges, 200 mΩ, up to 1 A RMS each; HIT then HOLD per channel</dd>
-<dt>Regulation</dt>
-<dd>Current (CDR, 7-bit, IFS from RREF, low side) or voltage (VDR, PWM duty in 1 % steps)</dd>
-<dt>Configurations</dt>
-<dd>Low side, high side, parallel pairs, full bridges for latching valves and DC motors</dd>
-<dt>Diagnostics</dt>
-<dd>OCP, open load, HIT current not reached, plunger movement, overtemperature, UVLO, SPI clock count</dd>
-<dt>Interface</dt>
-<dd>SPI mode 0, up to 10 MHz; a command byte with CMD high, then 8 or 32 bits; ENABLE, FAULT, TRIGA/TRIGB</dd>
-<dt>Supply</dt>
-<dd>VM 4.5 V to 36 V; logic inputs 6 V absolute maximum, 1.2 V high</dd>
-</dl>
-</div>
-<h2 id="what-you-get">What you get<a class="headerlink" href="#what-you-get" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>One object per chip.</strong> <code>MAX22200&lt;YourPort&gt;</code> takes a reference to your port and does no I/O until
   <code>EnsureInitialized()</code>. See <a href="api-guide/">API guide</a>.</li>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="416" viewBox="0 0 1200 416" role="img" aria-labelledby="chip-frame-write32-title chip-frame-write32-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-frame-write32-title">MAX22200: 32-bit write</title>
+<desc id="chip-frame-write32-desc">32-bit write of the MAX22200, 32 bits, most significant bit first. Write: DATAIN[7:0] (bits 31 to 24), DATAIN[15:8] (bits 23 to 16), DATAIN[23:16] (bits 15 to 8), DATAIN[31:24] (bits 7 to 0); Reply: STATUS[7:0] (bits 31 to 24), command echo (bits 23 to 16), 0x00 (bits 15 to 8), 0x00 (bits 7 to 0).</desc>
+<rect x="0.5" y="0.5" width="1199" height="415" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#F8D27A">ON THE BUS</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#E8EDF3">MAX22200: 32-bit write</text>
+<text x="32" y="115.4" font-size="18" fill="#9AA6B5">With CMD low after a 32-bit write command; the bit numbers count the transfer, and the register goes out least significant</text>
+<text x="32" y="141.5" font-size="18" fill="#9AA6B5">byte first. 32 bits, sent most significant bit first. Datasheet: Reading and Writing Operations of Registers; Figure 10, p. 31.</text>
+<rect x="32" y="157.5" width="1136" height="1" fill="#252F3C"/>
+<rect x="210" y="209.5" width="232.5" height="46" rx="6" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<rect x="442.5" y="209.5" width="232.5" height="46" rx="6" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<rect x="675" y="209.5" width="232.5" height="46" rx="6" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<rect x="907.5" y="209.5" width="232.5" height="46" rx="6" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<rect x="210" y="297.5" width="232.5" height="46" rx="6" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
+<rect x="442.5" y="297.5" width="232.5" height="46" rx="6" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="675" y="297.5" width="232.5" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="907.5" y="297.5" width="232.5" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<text x="210" y="191.5" font-size="16" fill="#9AA6B5">MSB, sent first</text>
+<text x="1140" y="191.5" font-size="16" text-anchor="end" fill="#9AA6B5">LSB, sent last</text>
+<text x="32" y="230.5" font-size="20" font-weight="700" fill="#E8EDF3">Write</text>
+<text x="32" y="250.5" font-size="16" fill="#9AA6B5">SDI, CMD low</text>
+<text x="326.2" y="238.6" font-size="17" font-weight="600" text-anchor="middle" fill="#BBF7D0">DATAIN[7:0]</text>
+<text x="212" y="275.5" font-size="16" fill="#9AA6B5">31</text>
+<text x="440.5" y="275.5" font-size="16" text-anchor="end" fill="#9AA6B5">24</text>
+<text x="558.8" y="238.6" font-size="17" font-weight="600" text-anchor="middle" fill="#BBF7D0">DATAIN[15:8]</text>
+<text x="444.5" y="275.5" font-size="16" fill="#9AA6B5">23</text>
+<text x="673" y="275.5" font-size="16" text-anchor="end" fill="#9AA6B5">16</text>
+<text x="791.2" y="238.6" font-size="17" font-weight="600" text-anchor="middle" fill="#BBF7D0">DATAIN[23:16]</text>
+<text x="677" y="275.5" font-size="16" fill="#9AA6B5">15</text>
+<text x="905.5" y="275.5" font-size="16" text-anchor="end" fill="#9AA6B5">8</text>
+<text x="1023.8" y="238.6" font-size="17" font-weight="600" text-anchor="middle" fill="#BBF7D0">DATAIN[31:24]</text>
+<text x="909.5" y="275.5" font-size="16" fill="#9AA6B5">7</text>
+<text x="1138" y="275.5" font-size="16" text-anchor="end" fill="#9AA6B5">0</text>
+<text x="32" y="318.5" font-size="20" font-weight="700" fill="#E8EDF3">Reply</text>
+<text x="32" y="338.5" font-size="16" fill="#9AA6B5">SDO</text>
+<text x="326.2" y="326.6" font-size="17" font-weight="600" text-anchor="middle" fill="#DDD6FE">STATUS[7:0]</text>
+<text x="212" y="363.5" font-size="16" fill="#9AA6B5">31</text>
+<text x="440.5" y="363.5" font-size="16" text-anchor="end" fill="#9AA6B5">24</text>
+<text x="558.8" y="326.6" font-size="17" font-weight="600" text-anchor="middle" fill="#BFDBFE">command echo</text>
+<text x="444.5" y="363.5" font-size="16" fill="#9AA6B5">23</text>
+<text x="673" y="363.5" font-size="16" text-anchor="end" fill="#9AA6B5">16</text>
+<text x="791.2" y="326.6" font-size="17" font-weight="600" text-anchor="middle" fill="#E2E8F0">0x00</text>
+<text x="677" y="363.5" font-size="16" fill="#9AA6B5">15</text>
+<text x="905.5" y="363.5" font-size="16" text-anchor="end" fill="#9AA6B5">8</text>
+<text x="1023.8" y="326.6" font-size="17" font-weight="600" text-anchor="middle" fill="#E2E8F0">0x00</text>
+<text x="909.5" y="363.5" font-size="16" fill="#9AA6B5">7</text>
+<text x="1138" y="363.5" font-size="16" text-anchor="end" fill="#9AA6B5">0</text>
+</svg>

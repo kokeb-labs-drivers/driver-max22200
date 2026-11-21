@@ -45,7 +45,7 @@ topics:
     section: Electrical Characteristics (tEN, tWU, tDIS, SPI); Figure 1
     page: 10
     driver: "`reg::kEnableUs`, `reg::kWakeUpUs`, `reg::kDisableUs`, `kMaxClockHz`, `kMinCsHighNs`, `kCsSetupNs`, `kCsHoldNs`, `kCmdSetupNs`"
-    docs: [hardware, porting, contract]
+    docs: [hardware, porting, contract, bus]
   - topic: Pins, CMD, ENABLE, FAULT and the TRIG inputs
     doc: ds
     section: Pin Configuration; Pin Description
@@ -119,7 +119,7 @@ topics:
     section: SPI Detailed Description; Figure 5
     page: 23
     driver: "`detail::RegisterBus`, `kSpiMode`, `kMsbFirst`, `SetChannelsOn()`, `SetHoldCode()`"
-    docs: [architecture, limitations, porting]
+    docs: [architecture, limitations, porting, bus]
   - topic: The programming procedure
     doc: ds
     section: Programming Procedure; Figure 6
@@ -131,7 +131,13 @@ topics:
     section: Command Register Description (COMMAND); Table 9; Figure 7
     page: 25
     driver: "`reg::Command()`, `GetLastStatusByte()`"
-    docs: [architecture, porting]
+    docs: [architecture, porting, bus]
+  - topic: Command writes in a single device and in a daisy chain
+    doc: ds
+    section: Command Register Description (COMMAND); Figure 7
+    page: 26
+    driver: "`reg::Command()`"
+    docs: [bus, limitations]
   - topic: STATUS
     doc: ds
     section: Status Register Description (STATUS); Table 10; Register Details, STATUS (0x00)
