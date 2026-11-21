@@ -92,6 +92,10 @@ value; chip-specific `Error` values from 16. The repository is `driver-<part>`; 
   the coverage table are generated from it and the headers: never draw or type them by hand.
 - The README and `docs/index.md` lead with the chip (summary, hero figure, capabilities, uses, inside the chip, pins and
   wiring), then the quick start and the driver coverage; the layering figure is on the architecture page only.
+- `docs/bus.md` shows the bus: a `timing` figure per bus the driver uses (`docs/model/<name>.timing.yml`: the
+  waveform and a param with `ref` for every time and rate) and a `topology` figure when the datasheet describes a
+  daisy chain or several devices on one bus (`docs/model/<name>.topology.yml`). A number without a datasheet
+  reference fails `kokeb-docs figures`; fill in data, never draw.
 - Code shown on the site lives in `tests/docs/` between `--8<--` markers and is compiled. Every public symbol has a
   Doxygen comment. `CHANGELOG.md` has `## [Unreleased]` with the allowed headings only.
 - A claim of behaviour in docs, comments or the build report names the code and the test that back it (RD-09).

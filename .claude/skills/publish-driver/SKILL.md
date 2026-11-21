@@ -134,7 +134,7 @@ skill (sections 1 and 2), `driver.yml` `hardware.level` and the README badge agr
 the release body has the wording of the `hardware-validation` skill for the level.
 
 ```bash
-git switch main && git pull --ff-only
+git fetch public main && git switch --detach public/main   # the public main, whatever the local branches track
 git tag -a v0.1.0-rc.1 -m "v0.1.0-rc.1" && git push public v0.1.0-rc.1
 ```
 

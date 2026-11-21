@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="804" viewBox="0 0 1200 804" role="img" aria-labelledby="chip-frame-command-title chip-frame-command-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-frame-command-title">MAX22200: Command byte</title>
+<desc id="chip-frame-command-desc">Command byte of the MAX22200, 8 bits, most significant bit first. Command: RB/W (bit 7), RFU (bits 6 to 5), A_BNK (bits 4 to 1), 8bit/n32bits (bit 0); Reply: STATUS[7:0] (bits 7 to 0). The STATUS[7:0] field of the Reply row: bit 7 OVT, bit 6 OCP, bit 5 OLF, bit 4 HHF, bit 3 DPM, bit 2 COMER, bit 1 UVM, bit 0 ACTIVE. Below, the SPI mode 0 waveform of one transfer in the same bit grid.</desc>
+<rect x="0.5" y="0.5" width="1199" height="803" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#7A360E">ON THE BUS</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#0E1726">MAX22200: Command byte</text>
+<text x="32" y="115.4" font-size="18" fill="#566070">With CMD high, one byte chooses the register and the length of the transfers that follow; the reply is the fault byte. 8 bits,</text>
+<text x="32" y="141.5" font-size="18" fill="#566070">sent most significant bit first. Datasheet: Command Register Description (COMMAND); Table 9, Figure 7, p. 26.</text>
+<rect x="32" y="157.5" width="1136" height="1" fill="#E2E7EE"/>
+<path d="M182 397.5 L190 397.5 L190 419.5 L1160 419.5 L1160 397.5 L1168 397.5" fill="none" stroke="#2B3442" stroke-width="2"/>
+<path d="M182 465.5 L210 465.5 L268.1 465.5 L268.1 443.5 L326.2 443.5 L326.2 465.5 L384.4 465.5 L384.4 443.5 L442.5 443.5 L442.5 465.5 L500.6 465.5 L500.6 443.5 L558.8 443.5 L558.8 465.5 L616.9 465.5 L616.9 443.5 L675 443.5 L675 465.5 L733.1 465.5 L733.1 443.5 L791.2 443.5 L791.2 465.5 L849.4 465.5 L849.4 443.5 L907.5 443.5 L907.5 465.5 L965.6 465.5 L965.6 443.5 L1023.8 443.5 L1023.8 465.5 L1081.9 465.5 L1081.9 443.5 L1140 443.5 L1140 465.5 L1168 465.5" fill="none" stroke="#2563EB" stroke-width="2"/>
+<path d="M182 500.5 L210 500.5" fill="none" stroke="#8893A2" stroke-width="1.6"/>
+<path d="M1140 500.5 L1168 500.5" fill="none" stroke="#8893A2" stroke-width="1.6"/>
+<path d="M182 546.5 L210 546.5" fill="none" stroke="#8893A2" stroke-width="1.6"/>
+<path d="M1140 546.5 L1168 546.5" fill="none" stroke="#8893A2" stroke-width="1.6"/>
+<rect x="210" y="209.5" width="116.2" height="46" rx="6" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<rect x="326.2" y="209.5" width="232.5" height="46" rx="6" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="558.8" y="209.5" width="465" height="46" rx="6" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="1023.8" y="209.5" width="116.2" height="46" rx="6" fill="#EAF7EF" stroke="#15803D" stroke-width="1.4"/>
+<rect x="210" y="297.5" width="930" height="46" rx="6" fill="#F3EEFF" stroke="#7C3AED" stroke-width="1.4"/>
+<path d="M210 500.5 L215 488.5 L321.2 488.5 L326.2 500.5 L321.2 512.5 L215 512.5 Z" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M326.2 500.5 L331.2 488.5 L553.8 488.5 L558.8 500.5 L553.8 512.5 L331.2 512.5 Z" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M558.8 500.5 L563.8 488.5 L1018.8 488.5 L1023.8 500.5 L1018.8 512.5 L563.8 512.5 Z" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1023.8 500.5 L1028.8 488.5 L1135 488.5 L1140 500.5 L1135 512.5 L1028.8 512.5 Z" fill="#EAF7EF" stroke="#15803D" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M210 546.5 L215 534.5 L1135 534.5 L1140 546.5 L1135 558.5 L215 558.5 Z" fill="#F3EEFF" stroke="#7C3AED" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="32" y="681.9" width="275" height="38" rx="8" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="32" y="727.9" width="275" height="38" rx="8" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="319" y="681.9" width="275" height="38" rx="8" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="319" y="727.9" width="275" height="38" rx="8" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="606" y="681.9" width="275" height="38" rx="8" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="606" y="727.9" width="275" height="38" rx="8" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="893" y="681.9" width="275" height="38" rx="8" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="893" y="727.9" width="275" height="38" rx="8" fill="#F5F7FA" stroke="#C9D1DB" stroke-width="1"/>
+<text x="210" y="191.5" font-size="16" fill="#566070">MSB, sent first</text>
+<text x="1140" y="191.5" font-size="16" text-anchor="end" fill="#566070">LSB, sent last</text>
+<text x="32" y="230.5" font-size="20" font-weight="700" fill="#0E1726">Command</text>
+<text x="32" y="250.5" font-size="16" fill="#566070">SDI, CMD high</text>
+<text x="268.1" y="238.6" font-size="17" font-weight="600" text-anchor="middle" fill="#8A3C0B">RB/W</text>
+<text x="268.1" y="275.5" font-size="16" text-anchor="middle" fill="#566070">7</text>
+<text x="442.5" y="238.6" font-size="17" font-weight="600" text-anchor="middle" fill="#334155">RFU</text>
+<text x="328.2" y="275.5" font-size="16" fill="#566070">6</text>
+<text x="556.8" y="275.5" font-size="16" text-anchor="end" fill="#566070">5</text>
+<text x="791.2" y="238.6" font-size="17" font-weight="600" text-anchor="middle" fill="#1E429F">A_BNK</text>
+<text x="560.8" y="275.5" font-size="16" fill="#566070">4</text>
+<text x="1021.8" y="275.5" font-size="16" text-anchor="end" fill="#566070">1</text>
+<text x="1081.9" y="238.6" font-size="17" font-weight="600" text-anchor="middle" fill="#14532D">8bit/n32bits</text>
+<text x="1081.9" y="275.5" font-size="16" text-anchor="middle" fill="#566070">0</text>
+<text x="32" y="318.5" font-size="20" font-weight="700" fill="#0E1726">Reply</text>
+<text x="32" y="338.5" font-size="16" fill="#566070">SDO</text>
+<text x="675" y="326.6" font-size="17" font-weight="600" text-anchor="middle" fill="#5B21B6">STATUS[7:0]</text>
+<text x="212" y="363.5" font-size="16" fill="#566070">7</text>
+<text x="1138" y="363.5" font-size="16" text-anchor="end" fill="#566070">0</text>
+<text x="32" y="414.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">CSB</text>
+<text x="32" y="460.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SCK</text>
+<text x="32" y="506.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SDI</text>
+<text x="268.1" y="506.3" font-size="16" font-weight="600" text-anchor="middle" fill="#8A3C0B">RB/W</text>
+<text x="442.5" y="506.3" font-size="16" font-weight="600" text-anchor="middle" fill="#334155">RFU</text>
+<text x="791.2" y="506.3" font-size="16" font-weight="600" text-anchor="middle" fill="#1E429F">A_BNK</text>
+<text x="1081.9" y="506.3" font-size="16" font-weight="600" text-anchor="middle" fill="#14532D">8/32</text>
+<text x="32" y="552.3" font-size="16" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">SDO</text>
+<text x="675" y="552.3" font-size="16" font-weight="600" text-anchor="middle" fill="#5B21B6">STATUS[7:0]</text>
+<text x="32" y="594.3" font-size="16" fill="#566070">SPI mode 0: SCK idles low; the chip samples its input on the rising edge and changes its output after the falling edge. CSB stays low for the</text>
+<text x="32" y="617.5" font-size="16" fill="#566070">whole frame.</text>
+<text x="32" y="660.9" font-size="20" font-weight="700" fill="#0E1726">STATUS[7:0], one flag per bit (datasheet Register Details: STATUS (0x00), p. 36)</text>
+<rect x="40" y="687.9" width="51.4" height="26" rx="13" fill="#334155"/>
+<text x="48" y="706" font-size="16" font-weight="700" fill="#FFFFFF">bit 7</text>
+<text x="103.4" y="706.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">OVT</text>
+<rect x="40" y="733.9" width="52.5" height="26" rx="13" fill="#334155"/>
+<text x="48" y="752" font-size="16" font-weight="700" fill="#FFFFFF">bit 6</text>
+<text x="104.5" y="752.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">OCP</text>
+<rect x="327" y="687.9" width="52.1" height="26" rx="13" fill="#334155"/>
+<text x="335" y="706" font-size="16" font-weight="700" fill="#FFFFFF">bit 5</text>
+<text x="391.1" y="706.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">OLF</text>
+<rect x="327" y="733.9" width="53" height="26" rx="13" fill="#334155"/>
+<text x="335" y="752" font-size="16" font-weight="700" fill="#FFFFFF">bit 4</text>
+<text x="392" y="752.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">HHF</text>
+<rect x="614" y="687.9" width="52.5" height="26" rx="13" fill="#334155"/>
+<text x="622" y="706" font-size="16" font-weight="700" fill="#FFFFFF">bit 3</text>
+<text x="678.5" y="706.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">DPM</text>
+<rect x="614" y="733.9" width="52.2" height="26" rx="13" fill="#334155"/>
+<text x="622" y="752" font-size="16" font-weight="700" fill="#FFFFFF">bit 2</text>
+<text x="678.2" y="752.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">COMER</text>
+<rect x="901" y="687.9" width="48.8" height="26" rx="13" fill="#334155"/>
+<text x="909" y="706" font-size="16" font-weight="700" fill="#FFFFFF">bit 1</text>
+<text x="961.8" y="706.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">UVM</text>
+<rect x="901" y="733.9" width="53" height="26" rx="13" fill="#334155"/>
+<text x="909" y="752" font-size="16" font-weight="700" fill="#FFFFFF">bit 0</text>
+<text x="966" y="752.7" font-size="16" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">ACTIVE</text>
+</svg>

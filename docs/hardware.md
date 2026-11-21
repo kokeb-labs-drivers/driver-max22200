@@ -177,6 +177,8 @@ level.
 | SDO | Valid 40 ns after the falling SCK edge into 310 Ω and 20 pF; the pull-up's RC limits the rate | Electrical Characteristics, note 2 |
 | Daisy chain | Not supported by this driver (5 MHz in a chain) | Figure 5 |
 
+The waveform with every interval of the SPI table, and the datasheet's daisy chain, are on [On the bus](bus.md).
+
 The driver sends a command byte with CMD high, then the data with CMD low: 4 bytes for a 32-bit access (LSB byte first
 when writing, MSB byte first when reading), 1 byte for an 8-bit access of bits 31:24. CMD idles high: it goes low only
 for a data phase and back high right after, so a stray clock is never taken as data. See

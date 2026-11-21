@@ -9,6 +9,7 @@ What this driver has and has not been shown to do, so you can decide whether it 
 
     - High side, parallel pairs and full bridges: Supported Driver Configurations; Tables 6, 7 and 8, p. 20
     - The SPI, the 8-bit accesses and the daisy chain: SPI Detailed Description; Figure 5, p. 23
+    - Command writes in a single device and in a daisy chain: Command Register Description (COMMAND); Figure 7, p. 26
     - FAULT and its two clear-on-read behaviours: Fault Register Description (FAULT); Table 12; Clearing the FAULT Register; Figure 8, p. 28
 
     All of them, with the driver API for each: [Datasheet map](datasheet.md).

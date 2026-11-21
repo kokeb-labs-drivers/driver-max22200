@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="718" viewBox="0 0 640 718" role="img" aria-labelledby="spi-chain-title spi-chain-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="spi-chain-title">SPI daisy chain</title>
+<desc id="spi-chain-desc">Daisy chain of two MAX22200 on one SPI bus: the MCU feeds SDI of device B, SDO of device B feeds SDI of device A and SDO of device A returns to the MCU, with SCK, CSB and CMD shared.</desc>
+<defs><marker id="spi-chain-arrow-brand-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#9A4A17"/></marker></defs>
+<rect x="0.5" y="0.5" width="639" height="717" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="44.4" font-size="13" font-weight="700" letter-spacing="1.2" fill="#7A360E">SEVERAL CHIPS</text>
+<text x="32" y="76.2" font-size="24" font-weight="700" fill="#0E1726">SPI daisy chain</text>
+<text x="32" y="102.7" font-size="15" fill="#566070">Datasheet: SPI Detailed Description; Figure 5, p. 23; Command Register</text>
+<text x="32" y="124.5" font-size="15" fill="#566070">Description (COMMAND); Figure 7, p. 26.</text>
+<rect x="32" y="140.4" width="576" height="1" fill="#E2E7EE"/>
+<path d="M106 263.6 L106 304.6" fill="none" stroke="#9A4A17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-chain-arrow-brand-strong)"/>
+<path d="M106 384.6 L106 425.6" fill="none" stroke="#9A4A17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-chain-arrow-brand-strong)"/>
+<path d="M106 505.6 L106 513.1 Q106 520.6 98.5 520.6 L48 520.6 Q40 520.6 40 512.6 L40 231.6 Q40 223.6 48 223.6 L59 223.6" fill="none" stroke="#9A4A17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-chain-arrow-brand-strong)"/>
+<path d="M489.2 194.6 L489.2 494.6" fill="none" stroke="#2B3442" stroke-width="2.2"/>
+<path d="M439.4 202.6 L489.2 202.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M439.4 323.6 L489.2 323.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M439.4 444.6 L489.2 444.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M536.7 194.6 L536.7 494.6" fill="none" stroke="#2B3442" stroke-width="2.2"/>
+<path d="M439.4 212.6 L536.7 212.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M439.4 333.6 L536.7 333.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M439.4 454.6 L536.7 454.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M584.2 194.6 L584.2 494.6" fill="none" stroke="#2B3442" stroke-width="2.2"/>
+<path d="M439.4 222.6 L584.2 222.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M439.4 343.6 L584.2 343.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<path d="M439.4 464.6 L584.2 464.6" fill="none" stroke="#2B3442" stroke-width="1.8"/>
+<rect x="62" y="186.6" width="377.4" height="74" rx="10" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="62" y="194.6" width="4" height="58" rx="2" fill="#2563EB"/>
+<rect x="62" y="307.6" width="377.4" height="74" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="62" y="315.6" width="4" height="58" rx="2" fill="#0B7A72"/>
+<rect x="62" y="428.6" width="377.4" height="74" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="62" y="436.6" width="4" height="58" rx="2" fill="#0B7A72"/>
+<rect x="32" y="557.6" width="576" height="130.3" rx="10" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="82" y="215.1" font-size="17" font-weight="700" fill="#1E429F">MCU</text>
+<text x="82" y="242.8" font-size="15" fill="#2B3442">SPI controller</text>
+<text x="82" y="336.1" font-size="17" font-weight="700" fill="#0B5F59">MAX22200 B</text>
+<text x="82" y="363.8" font-size="15" fill="#2B3442">first in the chain</text>
+<text x="82" y="457.1" font-size="17" font-weight="700" fill="#0B5F59">MAX22200 A</text>
+<text x="82" y="484.8" font-size="15" fill="#2B3442">last in the chain</text>
+<text x="118" y="289.5" font-size="15" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#2B3442">MOSI → SDI</text>
+<text x="118" y="410.5" font-size="15" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#2B3442">SDO → SDI</text>
+<text x="118" y="526" font-size="15" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#2B3442">SDO → MISO</text>
+<text x="489.2" y="186.6" font-size="14" font-weight="700" text-anchor="middle" fill="#0E1726">SCK</text>
+<circle cx="489.2" cy="202.6" r="3.6" fill="#2B3442"/>
+<circle cx="489.2" cy="323.6" r="3.6" fill="#2B3442"/>
+<circle cx="489.2" cy="444.6" r="3.6" fill="#2B3442"/>
+<text x="536.7" y="186.6" font-size="14" font-weight="700" text-anchor="middle" fill="#0E1726">CSB</text>
+<circle cx="536.7" cy="212.6" r="3.6" fill="#2B3442"/>
+<circle cx="536.7" cy="333.6" r="3.6" fill="#2B3442"/>
+<circle cx="536.7" cy="454.6" r="3.6" fill="#2B3442"/>
+<text x="584.2" y="186.6" font-size="14" font-weight="700" text-anchor="middle" fill="#0E1726">CMD</text>
+<circle cx="584.2" cy="222.6" r="3.6" fill="#2B3442"/>
+<circle cx="584.2" cy="343.6" r="3.6" fill="#2B3442"/>
+<circle cx="584.2" cy="464.6" r="3.6" fill="#2B3442"/>
+<text x="46" y="586.1" font-size="17" font-weight="700" fill="#334155">Limits</text>
+<text x="46" y="606.5" font-size="15" fill="#334155">The SPI supports the daisy chain and can operate up to 5 MHz (SPI</text>
+<text x="46" y="628.2" font-size="15" fill="#334155">Detailed Description; Figure 5, p. 23). SDI carries the command for</text>
+<text x="46" y="650" font-size="15" fill="#334155">device A first, then the one for device B; SDO returns STATUS of A, then</text>
+<text x="46" y="671.8" font-size="15" fill="#334155">B (Command Register Description (COMMAND); Figure 7, p. 26).</text>
+</svg>

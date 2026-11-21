@@ -1,0 +1,51 @@
+---
+kind: timing
+id: spi-timing
+title: SPI bus timing
+kicker: On the bus
+alt: >-
+  SPI timing of the MAX22200 in mode 0 for a Command Register write: CMD high frames the transfer, CSB low frames the
+  byte, SDI is read on each rising SCK edge and the open-drain SDO shifts the fault byte out.
+reads: >-
+  The five lanes are CMD, CSB, SCK, SDI and SDO, left to right in time. CMD goes high before CSB falls and stays high
+  past the rising edge of CSB; SCK idles low and clocks the eight command bits in on SDI at its rising edges while SDO
+  shifts STATUS[7:0] out, bits 4 to 3 being left out. The table gives each interval with its datasheet value.
+bus: spi
+mode: {cpol: 0, cpha: 0}
+refs:
+  spi_ec: {doc: ds, section: "Electrical Characteristics (SPI Specifications)", page: 10}
+  cmd: {doc: ds, section: "Command Register Description (COMMAND)", page: 25}
+signals:
+  - {id: cmd, label: CMD, wave: "01..........0."}
+  - {id: csb, label: CSB, wave: "1.0........1.0"}
+  - {id: sck, label: SCK, wave: "0..nnn|nnn0...", clock: true}
+  - {id: sdi, label: SDI, wave: "x..===|===x...", data: ["7", "6", "5", "2", "1", "0"]}
+  - {id: sdo, label: SDO, wave: "z..===|===z...", data: ["7", "6", "5", "2", "1", "0"], tone: teal}
+groups:
+  - {from: 3, to: 10, label: "command byte, MSB first", ref: cmd}
+params:
+  - {id: tcms, symbol: tCMS, label: CMD setup time before CSB falls, min: 20, unit: ns, ref: spi_ec}
+  - {id: tcss, symbol: tCSS, label: CSB fall to the first SCK rise, min: 30, unit: ns, ref: spi_ec}
+  - {id: tcsh, symbol: tCSH, label: CSB hold time, min: 30, unit: ns, ref: spi_ec}
+  - {id: tcspw, symbol: tCSPW, label: CSB pulse width high, min: 30, unit: ns, ref: spi_ec}
+  - {id: tclk, symbol: tCLK, label: SCK clock period, min: 100, unit: ns, ref: spi_ec}
+  - {id: tch, symbol: tCH, label: SCK pulse width high, min: 30, unit: ns, ref: spi_ec}
+  - {id: tcl, symbol: tCL, label: SCK pulse width low, min: 30, unit: ns, ref: spi_ec}
+  - {id: tds, symbol: tDS, label: SDI setup time, min: 10, unit: ns, ref: spi_ec}
+  - {id: tdh, symbol: tDH, label: SDI hold time, min: 10, unit: ns, ref: spi_ec}
+  - {id: tdo, symbol: tDO, label: "SDO propagation delay (310 Ω and 20 pF to 3.3 V)", max: 40, unit: ns, ref: spi_ec}
+marks:
+  - {param: tcms, signal: cmd, from: 1, to: 2}
+  - {param: tcss, signal: csb, from: 2, to: 3.5}
+  - {param: tcsh, signal: csb, from: 9.5, to: 11}
+  - {param: tcspw, signal: csb, from: 11, to: 13}
+  - {param: tcl, signal: sck, from: 4, to: 4.5}
+  - {param: tch, signal: sck, from: 4.5, to: 5}
+  - {param: tds, signal: sdi, from: 3, to: 3.5}
+  - {param: tdh, signal: sdi, from: 3.5, to: 4}
+notes:
+  - {text: "CMD high for the whole transfer writes the Command Register; CMD low accesses the register it selected.",
+     ref: cmd}
+  - {text: "The SPI Detailed Description says the interface can operate up to 5 MHz; the table's 100 ns period allows
+      10 MHz.", ref: spi}
+  - {text: "SDO is open drain: its rising edge depends on the pull-up and the stray capacitance.", ref: spi_ec}

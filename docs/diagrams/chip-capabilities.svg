@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1058" viewBox="0 0 1200 1058" role="img" aria-labelledby="chip-capabilities-title chip-capabilities-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-capabilities-title">What the MAX22200 does</title>
+<desc id="chip-capabilities-desc">Capability map of the MAX22200: Channel switching (supported): Switches each channel on or off with one 8-bit write of the ONCH byte, no read needed; HIT and HOLD sequence (supported): Pulls a plunger in at the HIT level for a set time, then holds it at a lower level to save power; CDR and VDR regulation (supported): Regulates the coil current against a full scale set by RREF, or the PWM duty cycle in 1 % steps; Chopping frequency and slew rate (supported): Sets the oscillator and each channel's chopping frequency, with slower edges for less EMI; Parallel and full-bridge pairs (supported): Ties two half-bridges for twice the current, or makes an H-bridge for a latched valve or a DC motor; Protection and fault flags (supported): Overcurrent, open load, HIT not reached, overtemperature, undervoltage: per-channel flags and FAULT; Detection of plunger movement (supported): Looks for the current dip a moving plunger makes during HIT, and flags a valve that did not move; Trigger inputs (partial): TRIGA and TRIGB switch even and odd channels directly; the driver selects them, your code drives the pins; Daisy chain (not covered): Several chips on one SPI chain at up to 5 MHz; the driver talks to one chip per object.</desc>
+<rect x="0.5" y="0.5" width="1199" height="1057" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#7A360E">CAPABILITIES</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#0E1726">What the MAX22200 does</text>
+<text x="32" y="115.4" font-size="18" fill="#566070">One card per function of the chip, with how this driver covers it and the registers behind it.</text>
+<rect x="32" y="131.4" width="1136" height="1" fill="#E2E7EE"/>
+<rect x="32" y="149.4" width="365.3" height="249.9" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="417.3" y="149.4" width="365.3" height="249.9" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="802.7" y="149.4" width="365.3" height="249.9" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="32" y="419.3" width="365.3" height="274.6" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="417.3" y="419.3" width="365.3" height="274.6" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="802.7" y="419.3" width="365.3" height="274.6" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="32" y="713.9" width="365.3" height="249.9" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="417.3" y="713.9" width="365.3" height="249.9" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="802.7" y="713.9" width="365.3" height="249.9" rx="12" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1"/>
+<circle cx="78" cy="195.4" r="28" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1.2"/>
+<path d="M63.5 199.7 L70.8 199.7" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70.8" cy="199.7" r="2.3" fill="#9A4A17"/>
+<path d="M70.8 199.7 L83.8 189.6" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="85.2" cy="199.7" r="2.3" fill="#9A4A17"/>
+<path d="M85.2 199.7 L92.5 199.7" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="120" y="201.4" font-size="20" font-weight="700" fill="#0E1726">Channel switching</text>
+<text x="50" y="249.8" font-size="17" fill="#2B3442">Switches each channel on or off with</text>
+<text x="50" y="274.5" font-size="17" fill="#2B3442">one 8-bit write of the ONCH byte, no</text>
+<text x="50" y="299.1" font-size="17" fill="#2B3442">read needed</text>
+<rect x="50" y="317.7" width="103.4" height="26" rx="13" fill="#14532D"/>
+<text x="58" y="335.8" font-size="16" font-weight="700" fill="#FFFFFF">Supported</text>
+<rect x="161.4" y="317.7" width="67.2" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="169.4" y="335.8" font-size="16" font-weight="700" fill="#334155">ONCH</text>
+<rect x="236.6" y="317.7" width="85.9" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="244.6" y="335.8" font-size="16" font-weight="700" fill="#334155">STATUS</text>
+<circle cx="463.3" cy="195.4" r="28" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1.2"/>
+<path d="M448.9 198.3 L451.8 198.3" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M451.8 198.3 A3.6 3.6 0 0 1 459 198.3" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M459 198.3 A3.6 3.6 0 0 1 466.2 198.3" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M466.2 198.3 A3.6 3.6 0 0 1 473.5 198.3" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M473.5 198.3 L477.8 198.3" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="505.3" y="201.4" font-size="20" font-weight="700" fill="#0E1726">HIT and HOLD sequence</text>
+<text x="435.3" y="249.8" font-size="17" fill="#2B3442">Pulls a plunger in at the HIT level for a</text>
+<text x="435.3" y="274.5" font-size="17" fill="#2B3442">set time, then holds it at a lower level</text>
+<text x="435.3" y="299.1" font-size="17" fill="#2B3442">to save power</text>
+<rect x="435.3" y="317.7" width="103.4" height="26" rx="13" fill="#14532D"/>
+<text x="443.3" y="335.8" font-size="16" font-weight="700" fill="#FFFFFF">Supported</text>
+<rect x="546.7" y="317.7" width="96" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="554.7" y="335.8" font-size="16" font-weight="700" fill="#334155">CFG_CH0</text>
+<rect x="650.6" y="317.7" width="44.8" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="658.6" y="335.8" font-size="16" font-weight="700" fill="#334155">HIT</text>
+<rect x="435.3" y="351.7" width="63.6" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="443.3" y="369.8" font-size="16" font-weight="700" fill="#334155">HOLD</text>
+<rect x="506.9" y="351.7" width="64.1" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="514.9" y="369.8" font-size="16" font-weight="700" fill="#334155">HIT_T</text>
+<circle cx="848.7" cy="195.4" r="28" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1.2"/>
+<path d="M835.6 195.4 L861.7 195.4" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M835.6 195.4 L836.7 193.2 L837.8 191.1 L838.9 189.3 L840 187.9 L841.1 187 L842.2 186.7 L843.2 187 L844.3 187.9 L845.4 189.3 L846.5 191.1 L847.6 193.2 L848.7 195.4 L849.8 197.6 L850.8 199.7 L851.9 201.5 L853 202.9 L854.1 203.8 L855.2 204.1 L856.3 203.8 L857.3 202.9 L858.4 201.5 L859.5 199.7 L860.6 197.6 L861.7 195.4" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="890.7" y="201.4" font-size="20" font-weight="700" fill="#0E1726">CDR and VDR regulation</text>
+<text x="820.7" y="249.8" font-size="17" fill="#2B3442">Regulates the coil current against a</text>
+<text x="820.7" y="274.5" font-size="17" fill="#2B3442">full scale set by RREF, or the PWM</text>
+<text x="820.7" y="299.1" font-size="17" fill="#2B3442">duty cycle in 1 % steps</text>
+<rect x="820.7" y="317.7" width="103.4" height="26" rx="13" fill="#14532D"/>
+<text x="828.7" y="335.8" font-size="16" font-weight="700" fill="#FFFFFF">Supported</text>
+<rect x="932" y="317.7" width="98.5" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="940" y="335.8" font-size="16" font-weight="700" fill="#334155">VDRnCDR</text>
+<rect x="1038.6" y="317.7" width="71" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="1046.6" y="335.8" font-size="16" font-weight="700" fill="#334155">HSnLS</text>
+<rect x="820.7" y="351.7" width="49.7" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="828.7" y="369.8" font-size="16" font-weight="700" fill="#334155">HFS</text>
+<circle cx="78" cy="465.3" r="28" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1.2"/>
+<path d="M65 472.6 L65 458.1 L72.2 458.1 L72.2 472.6 L79.4 472.6 L79.4 458.1 L86.7 458.1 L86.7 472.6 L91 472.6" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="120" y="458.3" font-size="20" font-weight="700" fill="#0E1726">Chopping frequency and</text>
+<text x="120" y="484.3" font-size="20" font-weight="700" fill="#0E1726">slew rate</text>
+<text x="50" y="519.8" font-size="17" fill="#2B3442">Sets the oscillator and each channel's</text>
+<text x="50" y="544.4" font-size="17" fill="#2B3442">chopping frequency, with slower</text>
+<text x="50" y="569.1" font-size="17" fill="#2B3442">edges for less EMI</text>
+<rect x="50" y="587.6" width="103.4" height="26" rx="13" fill="#14532D"/>
+<text x="58" y="605.8" font-size="16" font-weight="700" fill="#FFFFFF">Supported</text>
+<rect x="161.4" y="587.6" width="76.4" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="169.4" y="605.8" font-size="16" font-weight="700" fill="#334155">FREQM</text>
+<rect x="245.7" y="587.6" width="103.9" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="253.7" y="605.8" font-size="16" font-weight="700" fill="#334155">FREQ_CFG</text>
+<rect x="50" y="621.6" width="50.8" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="58" y="639.8" font-size="16" font-weight="700" fill="#334155">SRC</text>
+<circle cx="463.3" cy="465.3" r="28" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1.2"/>
+<path d="M448.9 461 L456.1 461 L456.1 469.7 L448.9 469.7 Z" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M459.7 461 L466.9 461 L466.9 469.7 L459.7 469.7 Z" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M470.6 461 L477.8 461 L477.8 469.7 L470.6 469.7 Z" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M456.1 465.3 L459.7 465.3" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M466.9 465.3 L470.6 465.3" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="505.3" y="458.3" font-size="20" font-weight="700" fill="#0E1726">Parallel and full-bridge</text>
+<text x="505.3" y="484.3" font-size="20" font-weight="700" fill="#0E1726">pairs</text>
+<text x="435.3" y="519.8" font-size="17" fill="#2B3442">Ties two half-bridges for twice the</text>
+<text x="435.3" y="544.4" font-size="17" fill="#2B3442">current, or makes an H-bridge for a</text>
+<text x="435.3" y="569.1" font-size="17" fill="#2B3442">latched valve or a DC motor</text>
+<rect x="435.3" y="587.6" width="103.4" height="26" rx="13" fill="#14532D"/>
+<text x="443.3" y="605.8" font-size="16" font-weight="700" fill="#FFFFFF">Supported</text>
+<rect x="546.7" y="587.6" width="63.1" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="554.7" y="605.8" font-size="16" font-weight="700" fill="#334155">CM10</text>
+<rect x="617.8" y="587.6" width="66" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="625.8" y="605.8" font-size="16" font-weight="700" fill="#334155">CM32</text>
+<rect x="691.8" y="587.6" width="66.4" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="699.8" y="605.8" font-size="16" font-weight="700" fill="#334155">CM54</text>
+<rect x="435.3" y="621.6" width="65.2" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="443.3" y="639.8" font-size="16" font-weight="700" fill="#334155">CM76</text>
+<circle cx="848.7" cy="465.3" r="28" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1.2"/>
+<path d="M848.7 452.3 L859.5 456.7 L859.5 465.3 L848.7 478.4 L837.8 465.3 L837.8 456.7 Z" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M843.6 465.3 L847.2 469 L853.7 461.7" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="890.7" y="458.3" font-size="20" font-weight="700" fill="#0E1726">Protection and fault</text>
+<text x="890.7" y="484.3" font-size="20" font-weight="700" fill="#0E1726">flags</text>
+<text x="820.7" y="519.8" font-size="17" fill="#2B3442">Overcurrent, open load, HIT not</text>
+<text x="820.7" y="544.4" font-size="17" fill="#2B3442">reached, overtemperature,</text>
+<text x="820.7" y="569.1" font-size="17" fill="#2B3442">undervoltage: per-channel flags and</text>
+<text x="820.7" y="593.7" font-size="17" fill="#2B3442">FAULT</text>
+<rect x="820.7" y="612.3" width="103.4" height="26" rx="13" fill="#14532D"/>
+<text x="828.7" y="630.4" font-size="16" font-weight="700" fill="#FFFFFF">Supported</text>
+<rect x="932" y="612.3" width="85.9" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="940" y="630.4" font-size="16" font-weight="700" fill="#334155">STATUS</text>
+<rect x="1026" y="612.3" width="71.9" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="1034" y="630.4" font-size="16" font-weight="700" fill="#334155">FAULT</text>
+<rect x="820.7" y="646.3" width="70" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="828.7" y="664.4" font-size="16" font-weight="700" fill="#334155">OL_EN</text>
+<rect x="898.6" y="646.3" width="85.1" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="906.6" y="664.4" font-size="16" font-weight="700" fill="#334155">+2 more</text>
+<circle cx="78" cy="759.9" r="28" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1.2"/>
+<path d="M66.4 765.7 A11.6 11.6 0 0 1 89.6 765.7" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M78 765.7 L84.5 757.1" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="78" cy="765.7" r="2.6" fill="#9A4A17"/>
+<path d="M65 770.8 L91 770.8" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="120" y="752.9" font-size="20" font-weight="700" fill="#0E1726">Detection of plunger</text>
+<text x="120" y="778.9" font-size="20" font-weight="700" fill="#0E1726">movement</text>
+<text x="50" y="814.4" font-size="17" fill="#2B3442">Looks for the current dip a moving</text>
+<text x="50" y="839" font-size="17" fill="#2B3442">plunger makes during HIT, and flags a</text>
+<text x="50" y="863.7" font-size="17" fill="#2B3442">valve that did not move</text>
+<rect x="50" y="882.2" width="103.4" height="26" rx="13" fill="#14532D"/>
+<text x="58" y="900.4" font-size="16" font-weight="700" fill="#FFFFFF">Supported</text>
+<rect x="161.4" y="882.2" width="98.3" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="169.4" y="900.4" font-size="16" font-weight="700" fill="#334155">CFG_DPM</text>
+<rect x="267.7" y="882.2" width="86.3" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="275.7" y="900.4" font-size="16" font-weight="700" fill="#334155">DPM_EN</text>
+<rect x="50" y="916.2" width="125.4" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="58" y="934.4" font-size="16" font-weight="700" fill="#334155">DPM_ISTART</text>
+<rect x="183.4" y="916.2" width="85.1" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="191.4" y="934.4" font-size="16" font-weight="700" fill="#334155">+2 more</text>
+<circle cx="463.3" cy="759.9" r="28" fill="#FBEFE6" stroke="#E9C3A6" stroke-width="1.2"/>
+<circle cx="463.3" cy="759.9" r="13" fill="none" stroke="#9A4A17" stroke-width="2.5"/>
+<path d="M463.3 752.7 L463.3 759.9 L468.4 762.8" fill="none" stroke="#9A4A17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="505.3" y="765.9" font-size="20" font-weight="700" fill="#0E1726">Trigger inputs</text>
+<text x="435.3" y="814.4" font-size="17" fill="#2B3442">TRIGA and TRIGB switch even and</text>
+<text x="435.3" y="839" font-size="17" fill="#2B3442">odd channels directly; the driver</text>
+<text x="435.3" y="863.7" font-size="17" fill="#2B3442">selects them, your code drives the</text>
+<text x="435.3" y="888.3" font-size="17" fill="#2B3442">pins</text>
+<rect x="435.3" y="906.9" width="69" height="26" rx="13" fill="#1E429F"/>
+<text x="443.3" y="925" font-size="16" font-weight="700" fill="#FFFFFF">Partial</text>
+<rect x="512.3" y="906.9" width="88.6" height="26" rx="13" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1"/>
+<text x="520.3" y="925" font-size="16" font-weight="700" fill="#334155">TRGnSPI</text>
+<circle cx="848.7" cy="759.9" r="28" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1.2"/>
+<path d="M835.6 755.6 L842.9 755.6 L842.9 764.3 L835.6 764.3 Z" fill="none" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M854.5 755.6 L861.7 755.6 L861.7 764.3 L854.5 764.3 Z" fill="none" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M842.9 758.5 L854.5 758.5" fill="none" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M842.9 761.4 L854.5 761.4" fill="none" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="890.7" y="765.9" font-size="20" font-weight="700" fill="#0E1726">Daisy chain</text>
+<text x="820.7" y="814.4" font-size="17" fill="#2B3442">Several chips on one SPI chain at up</text>
+<text x="820.7" y="839" font-size="17" fill="#2B3442">to 5 MHz; the driver talks to one chip</text>
+<text x="820.7" y="863.7" font-size="17" fill="#2B3442">per object</text>
+<rect x="820.7" y="882.2" width="117.9" height="26" rx="13" fill="#334155"/>
+<text x="828.7" y="900.4" font-size="16" font-weight="700" fill="#FFFFFF">Not covered</text>
+<rect x="32" y="976.3" width="14" height="14" rx="4" fill="#EAF7EF" stroke="#15803D" stroke-width="1.4"/>
+<text x="54" y="990.9" font-size="16" fill="#566070">Supported: the driver covers it and a host test checks it</text>
+<rect x="522.3" y="976.3" width="14" height="14" rx="4" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="544.3" y="990.9" font-size="16" fill="#566070">Partial: covered in part; the coverage map says which part</text>
+<rect x="32" y="1008.3" width="14" height="14" rx="4" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<text x="54" y="1022.9" font-size="16" fill="#566070">Not covered: the chip has it and the driver leaves it alone</text>
+</svg>
