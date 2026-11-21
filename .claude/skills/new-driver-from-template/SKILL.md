@@ -73,6 +73,10 @@ Use the `datasheet-conformance` skill for every step, one subsystem at a time:
    checked against the headers under `driver`) and `frames` (one bus transfer, bit by bit). The README's hero,
    capability map, block diagram, pinout, wiring, frame and outline figures, its chip summary, uses, chip card and
    coverage table are all drawn from this file, so the view of the chip is never typed.
+   The bus page `docs/bus.md` comes from models too: `docs/model/bus-timing.timing.yml` (one per bus the driver
+   uses: the waveform from the datasheet's timing diagram and every time and rate as a param citing section and
+   page) and, only when the datasheet describes a daisy chain or several devices on one bus,
+   `docs/model/bus-topology.topology.yml` (`kokeb-docs figkit new --kind topology`). Delete what the chip lacks.
 3. Every page in `docs/`: the chip card, pins, timing, power, errors; the README's driver line under the chip
    summary, the notes under Driver coverage (the driver paragraph, the glance table, the feature list) and the
    documentation table. Remove every statement about the XMPL100. Keep the README's section order (the chip

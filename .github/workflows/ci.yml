@@ -19,12 +19,63 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # Which files a pull request changes. A pull request that touches only documentation (docs/, figure models,
+  # Markdown, the MkDocs and Doxygen configuration) cannot change a build, a test, a lint or a MISRA result, so it
+  # runs only the docs and the repository checks; the gate allows exactly the code jobs to be skipped, and only
+  # because of this job. Workflows, tools, sources and everything else run every job. Pushes to main, release
+  # branches and tags always run everything (the release and the docs publish need it).
+  changes:
+    name: Changed files
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+      skippable: ${{ steps.diff.outputs.skippable }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: diff
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          code=true
+          if [ "$EVENT" = "pull_request" ]; then
+            code=false
+            files=$(git diff --name-only "$BASE...$HEAD")
+            while IFS= read -r f; do
+              [ -n "$f" ] || continue
+              case "$f" in
+                docs/*|*.md|_config/mkdocs.yml|_config/Doxyfile|mkdocs.yml) ;;
+                *) code=true ;;
+              esac
+            done <<< "$files"
+            [ -n "$files" ] || code=true
+          fi
+          skippable=""
+          if [ "$code" = false ]; then
+            skippable="host-tests quality cross misra lint"
+            skippable="$skippable esp32"
+          fi
+          { echo "code=$code"; echo "skippable=$skippable"; } >> "$GITHUB_OUTPUT"
+          echo "Code jobs run: $code"
+
   host-tests:
     name: Host tests
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     uses: ./.github/workflows/ci-host-tests.yml
 
   esp32:
     name: ESP32 examples
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     uses: ./.github/workflows/esp32-examples-build-ci.yml
     permissions:
       contents: read
@@ -38,24 +89,32 @@ jobs:
 
   quality:
     name: Host quality
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     uses: ./.github/workflows/ci-host-quality.yml
     permissions:
       contents: read
 
   cross:
     name: Cross-compile
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     uses: ./.github/workflows/ci-cross-build.yml
     permissions:
       contents: read
 
   misra:
     name: MISRA
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     uses: ./.github/workflows/ci-misra.yml
     permissions:
       contents: read
 
   lint:
     name: C++ lint
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     uses: ./.github/workflows/ci-cpp-lint.yml
     permissions:
       contents: read
@@ -74,6 +133,7 @@ jobs:
   ci-gate:
     name: CI gate
     needs:
+      - changes
       - host-tests
       - quality
       - cross
@@ -88,3 +148,6 @@ jobs:
       contents: read
     with:
       needs_json: ${{ toJSON(needs) }}
+      # Empty unless `changes` (which must pass) found a documentation-only pull request: then the code jobs it
+      # names may be skipped, and every job that ran must still pass.
+      allow_skipped: ${{ needs.changes.outputs.skippable }}
