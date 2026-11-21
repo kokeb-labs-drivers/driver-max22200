@@ -135,5 +135,39 @@
     "adaptive": true,
     "twin": false,
     "font": ""
+  },
+  "spi-chain": {
+    "title": "SPI daisy chain",
+    "alt": "Daisy chain of two MAX22200 on one SPI bus: the MCU feeds SDI of device B, SDO of device B feeds SDI of device A and SDO of device A returns to the MCU, with SCK, CSB and CMD shared.",
+    "description": "The MCU drives MOSI into SDI of MAX22200 B; its SDO feeds SDI of MAX22200 A, whose SDO returns to MISO. SCK, CSB and CMD are rails both devices share, so one CSB low phase carries one byte or word for each device.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/spi-chain.topology.yml",
+    "sources": [
+      "docs/model/spi-chain.topology.yml"
+    ],
+    "kind": "topology",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
+  },
+  "spi-timing": {
+    "title": "SPI bus timing",
+    "alt": "SPI timing of the MAX22200 in mode 0 for a Command Register write: CMD high frames the transfer, CSB low frames the byte, SDI is read on each rising SCK edge and the open-drain SDO shifts the fault byte out.",
+    "description": "The five lanes are CMD, CSB, SCK, SDI and SDO, left to right in time. CMD goes high before CSB falls and stays high past the rising edge of CSB; SCK idles low and clocks the eight command bits in on SDI at its rising edges while SDO shifts STATUS[7:0] out, bits 4 to 3 being left out. The table gives each interval with its datasheet value.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/spi-timing.timing.yml",
+    "sources": [
+      "docs/model/spi-timing.timing.yml"
+    ],
+    "kind": "timing",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": true,
+    "font": ""
   }
 }

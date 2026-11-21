@@ -228,3 +228,38 @@ Hardware description: [`docs/model/one-call-through-the-layers.seq.yml`](../mode
 Drawn from:
 
 - [`docs/model/one-call-through-the-layers.seq.yml`](../model/one-call-through-the-layers.seq.yml)
+
+## SPI daisy chain
+
+<!-- figure: spi-chain -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="spi-chain.dark.svg">
+  <img src="spi-chain.svg"
+    alt="Daisy chain of two MAX22200 on one SPI bus: the MCU feeds SDI of device B, SDO of device B feeds SDI
+    of device A and SDO of device A returns to the MCU, with SCK, CSB and CMD shared.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/spi-chain.topology.yml`](../model/spi-chain.topology.yml)
+
+Drawn from:
+
+- [`docs/model/spi-chain.topology.yml`](../model/spi-chain.topology.yml)
+
+## SPI bus timing
+
+<!-- figure: spi-timing -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="spi-timing.dark.svg">
+  <img src="spi-timing.svg"
+    alt="SPI timing of the MAX22200 in mode 0 for a Command Register write: CMD high frames the transfer, CSB
+    low frames the byte, SDI is read on each rising SCK edge and the open-drain SDO shifts the fault
+    byte out.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/spi-timing.timing.yml`](../model/spi-timing.timing.yml)
+
+Drawn from:
+
+- [`docs/model/spi-timing.timing.yml`](../model/spi-timing.timing.yml)
